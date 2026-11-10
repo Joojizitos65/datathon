@@ -1,0 +1,13 @@
+# Dados brutos: o CAGED tem ~413 MB e o GitHub recusa arquivos acima de 100 MB.
+# Distribua pelos canais da organização do evento.
+Novo_Caged_MOV_Limpo.csv
+
+# Base limpa (grande). As tabelas pequenas em dados_processados/agregados/ SÃO versionadas
+# para o dashboard funcionar direto do repositório.
+dados_processados/caged_limpo.parquet
+dados_processados/cbo_volume.csv
+
+__pycache__/
+*.pyc
+.venv/
+.streamlit/secrets.toml

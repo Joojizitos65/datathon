@@ -1,0 +1,31 @@
+{
+  "gerado_em": "2026-11-10T10:45:35",
+  "janela_competencias": [
+    202509,
+    202608
+  ],
+  "linhas_analisadas": 3391288,
+  "linhas_lidas": 3397416,
+  "populacao_estado": 8312759.0,
+  "saldo_estado": 41394,
+  "saldo_industria": 2645,
+  "secoes_industria": [
+    "B",
+    "C",
+    "D",
+    "E",
+    "F"
+  ],
+  "parametros": {
+    "min_mov_celula": 200,
+    "lim_salario_rel": 0.95,
+    "lim_gap_anos_estudo": 0.5,
+    "unidades_salario_confiaveis": [
+      1,
+      2,
+      4,
+      5
+    ],
+    "salario_maximo": 50000
+  }
+}

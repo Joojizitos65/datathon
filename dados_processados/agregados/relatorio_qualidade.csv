@@ -1,0 +1,10 @@
+etapa,removidas,restantes,obs
+Linhas lidas,0,3397416,
+Chaves essenciais nulas,0,3397416,
+UF diferente de SC,0,3397416,
+Saldo diferente de -1 ou +1,0,3397416,
+Saldo incoerente com o tipo de movimentação,0,3397416,
+Município fora do cadastro de SC,0,3397416,
+Competência fora da janela de 12 meses (202509-202608),6128,3391288,movimentações de meses antigos declaradas com atraso
+Aviso: idade ausente,0,3391288,"2,202 registros ficam fora das médias de idade"
+Aviso: filtro de exclusões (MOV x EX),0,3391288,NÃO aplicado: o CSV não tem indicadordeexclusão nem arquivo EX foi fornecido

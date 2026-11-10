@@ -1,0 +1,296 @@
+codigo_ibge,municipio_nome,microrregiao_id,microrregiao_nome,mesorregiao_id,mesorregiao_nome,regiao_imediata_nome,regiao_intermediaria_nome,municipio_codigo
+4200051,Abdon Batista,42009,Curitibanos,4203,Serrana,Joaçaba - Herval d'Oeste,Chapecó,420005
+4200101,Abelardo Luz,42003,Xanxerê,4201,Oeste Catarinense,Xanxerê,Chapecó,420010
+4200200,Agrolândia,42014,Ituporanga,4204,Vale do Itajaí,Rio do Sul,Blumenau,420020
+4200309,Agronômica,42011,Rio do Sul,4204,Vale do Itajaí,Rio do Sul,Blumenau,420030
+4200408,Água Doce,42004,Joaçaba,4201,Oeste Catarinense,Joaçaba - Herval d'Oeste,Chapecó,420040
+4200507,Águas de Chapecó,42002,Chapecó,4201,Oeste Catarinense,Chapecó,Chapecó,420050
+4200556,Águas Frias,42002,Chapecó,4201,Oeste Catarinense,Chapecó,Chapecó,420055
+4200606,Águas Mornas,42017,Tabuleiro,4205,Grande Florianópolis,Florianópolis,Florianópolis,420060
+4200705,Alfredo Wagner,42017,Tabuleiro,4205,Grande Florianópolis,Florianópolis,Florianópolis,420070
+4200754,Alto Bela Vista,42005,Concórdia,4201,Oeste Catarinense,Concórdia,Chapecó,420075
+4200804,Anchieta,42001,São Miguel do Oeste,4201,Oeste Catarinense,São Miguel do Oeste,Chapecó,420080
+4200903,Angelina,42015,Tijucas,4205,Grande Florianópolis,Florianópolis,Florianópolis,420090
+4201000,Anita Garibaldi,42010,Campos de Lages,4203,Serrana,Lages,Lages,420100
+4201109,Anitápolis,42017,Tabuleiro,4205,Grande Florianópolis,Florianópolis,Florianópolis,420110
+4201208,Antônio Carlos,42016,Florianópolis,4205,Grande Florianópolis,Florianópolis,Florianópolis,420120
+4201257,Apiúna,42012,Blumenau,4204,Vale do Itajaí,Blumenau,Blumenau,420125
+4201273,Arabutã,42005,Concórdia,4201,Oeste Catarinense,Concórdia,Chapecó,420127
+4201307,Araquari,42008,Joinville,4202,Norte Catarinense,Joinville,Joinville,420130
+4201406,Araranguá,42020,Araranguá,4206,Sul Catarinense,Araranguá,Criciúma,420140
+4201505,Armazém,42018,Tubarão,4206,Sul Catarinense,Tubarão,Criciúma,420150
+4201604,Arroio Trinta,42004,Joaçaba,4201,Oeste Catarinense,Videira,Caçador,420160
+4201653,Arvoredo,42005,Concórdia,4201,Oeste Catarinense,Chapecó,Chapecó,420165
+4201703,Ascurra,42012,Blumenau,4204,Vale do Itajaí,Blumenau,Blumenau,420170
+4201802,Atalanta,42014,Ituporanga,4204,Vale do Itajaí,Rio do Sul,Blumenau,420180
+4201901,Aurora,42011,Rio do Sul,4204,Vale do Itajaí,Rio do Sul,Blumenau,420190
+4201950,Balneário Arroio do Silva,42020,Araranguá,4206,Sul Catarinense,Araranguá,Criciúma,420195
+4202008,Balneário Camboriú,42013,Itajaí,4204,Vale do Itajaí,Itajaí,Blumenau,420200
+4202057,Balneário Barra do Sul,42008,Joinville,4202,Norte Catarinense,Joinville,Joinville,420205
+4202073,Balneário Gaivota,42020,Araranguá,4206,Sul Catarinense,Araranguá,Criciúma,420207
+4202081,Bandeirante,42001,São Miguel do Oeste,4201,Oeste Catarinense,São Miguel do Oeste,Chapecó,420208
+4202099,Barra Bonita,42001,São Miguel do Oeste,4201,Oeste Catarinense,São Miguel do Oeste,Chapecó,420209
+4202107,Barra Velha,42013,Itajaí,4204,Vale do Itajaí,Itajaí,Blumenau,420210
+4202131,Bela Vista do Toldo,42006,Canoinhas,4202,Norte Catarinense,Mafra,Joinville,420213
+4202156,Belmonte,42001,São Miguel do Oeste,4201,Oeste Catarinense,São Miguel do Oeste,Chapecó,420215
+4202206,Benedito Novo,42012,Blumenau,4204,Vale do Itajaí,Blumenau,Blumenau,420220
+4202305,Biguaçu,42016,Florianópolis,4205,Grande Florianópolis,Florianópolis,Florianópolis,420230
+4202404,Blumenau,42012,Blumenau,4204,Vale do Itajaí,Blumenau,Blumenau,420240
+4202438,Bocaina do Sul,42010,Campos de Lages,4203,Serrana,Lages,Lages,420243
+4202453,Bombinhas,42013,Itajaí,4204,Vale do Itajaí,Itajaí,Blumenau,420245
+4202503,Bom Jardim da Serra,42010,Campos de Lages,4203,Serrana,Lages,Lages,420250
+4202537,Bom Jesus,42003,Xanxerê,4201,Oeste Catarinense,Xanxerê,Chapecó,420253
+4202578,Bom Jesus do Oeste,42002,Chapecó,4201,Oeste Catarinense,Maravilha,Chapecó,420257
+4202602,Bom Retiro,42010,Campos de Lages,4203,Serrana,Lages,Lages,420260
+4202701,Botuverá,42012,Blumenau,4204,Vale do Itajaí,Brusque,Blumenau,420270
+4202800,Braço do Norte,42018,Tubarão,4206,Sul Catarinense,Tubarão,Criciúma,420280
+4202859,Braço do Trombudo,42011,Rio do Sul,4204,Vale do Itajaí,Rio do Sul,Blumenau,420285
+4202875,Brunópolis,42009,Curitibanos,4203,Serrana,Curitibanos,Lages,420287
+4202909,Brusque,42012,Blumenau,4204,Vale do Itajaí,Brusque,Blumenau,420290
+4203006,Caçador,42004,Joaçaba,4201,Oeste Catarinense,Caçador,Caçador,420300
+4203105,Caibi,42002,Chapecó,4201,Oeste Catarinense,Chapecó,Chapecó,420310
+4203154,Calmon,42004,Joaçaba,4201,Oeste Catarinense,Caçador,Caçador,420315
+4203204,Camboriú,42013,Itajaí,4204,Vale do Itajaí,Itajaí,Blumenau,420320
+4203253,Capão Alto,42010,Campos de Lages,4203,Serrana,Lages,Lages,420325
+4203303,Campo Alegre,42007,São Bento do Sul,4202,Norte Catarinense,São Bento do Sul - Rio Negrinho,Joinville,420330
+4203402,Campo Belo do Sul,42010,Campos de Lages,4203,Serrana,Lages,Lages,420340
+4203501,Campo Erê,42002,Chapecó,4201,Oeste Catarinense,São Lourenço do Oeste,Chapecó,420350
+4203600,Campos Novos,42009,Curitibanos,4203,Serrana,Joaçaba - Herval d'Oeste,Chapecó,420360
+4203709,Canelinha,42015,Tijucas,4205,Grande Florianópolis,Brusque,Blumenau,420370
+4203808,Canoinhas,42006,Canoinhas,4202,Norte Catarinense,Mafra,Joinville,420380
+4203907,Capinzal,42004,Joaçaba,4201,Oeste Catarinense,Joaçaba - Herval d'Oeste,Chapecó,420390
+4203956,Capivari de Baixo,42018,Tubarão,4206,Sul Catarinense,Tubarão,Criciúma,420395
+4204004,Catanduvas,42004,Joaçaba,4201,Oeste Catarinense,Joaçaba - Herval d'Oeste,Chapecó,420400
+4204103,Caxambu do Sul,42002,Chapecó,4201,Oeste Catarinense,Chapecó,Chapecó,420410
+4204152,Celso Ramos,42010,Campos de Lages,4203,Serrana,Joaçaba - Herval d'Oeste,Chapecó,420415
+4204178,Cerro Negro,42010,Campos de Lages,4203,Serrana,Lages,Lages,420417
+4204194,Chapadão do Lageado,42014,Ituporanga,4204,Vale do Itajaí,Ituporanga,Blumenau,420419
+4204202,Chapecó,42002,Chapecó,4201,Oeste Catarinense,Chapecó,Chapecó,420420
+4204251,Cocal do Sul,42019,Criciúma,4206,Sul Catarinense,Criciúma,Criciúma,420425
+4204301,Concórdia,42005,Concórdia,4201,Oeste Catarinense,Concórdia,Chapecó,420430
+4204350,Cordilheira Alta,42002,Chapecó,4201,Oeste Catarinense,Chapecó,Chapecó,420435
+4204400,Coronel Freitas,42002,Chapecó,4201,Oeste Catarinense,Chapecó,Chapecó,420440
+4204459,Coronel Martins,42003,Xanxerê,4201,Oeste Catarinense,Xanxerê,Chapecó,420445
+4204509,Corupá,42008,Joinville,4202,Norte Catarinense,Joinville,Joinville,420450
+4204558,Correia Pinto,42010,Campos de Lages,4203,Serrana,Lages,Lages,420455
+4204608,Criciúma,42019,Criciúma,4206,Sul Catarinense,Criciúma,Criciúma,420460
+4204707,Cunha Porã,42002,Chapecó,4201,Oeste Catarinense,Maravilha,Chapecó,420470
+4204756,Cunhataí,42002,Chapecó,4201,Oeste Catarinense,Chapecó,Chapecó,420475
+4204806,Curitibanos,42009,Curitibanos,4203,Serrana,Curitibanos,Lages,420480
+4204905,Descanso,42001,São Miguel do Oeste,4201,Oeste Catarinense,São Miguel do Oeste,Chapecó,420490
+4205001,Dionísio Cerqueira,42001,São Miguel do Oeste,4201,Oeste Catarinense,São Miguel do Oeste,Chapecó,420500
+4205100,Dona Emma,42011,Rio do Sul,4204,Vale do Itajaí,Ibirama - Presidente Getúlio,Blumenau,420510
+4205159,Doutor Pedrinho,42012,Blumenau,4204,Vale do Itajaí,Blumenau,Blumenau,420515
+4205175,Entre Rios,42003,Xanxerê,4201,Oeste Catarinense,Xanxerê,Chapecó,420517
+4205191,Ermo,42020,Araranguá,4206,Sul Catarinense,Araranguá,Criciúma,420519
+4205209,Erval Velho,42004,Joaçaba,4201,Oeste Catarinense,Joaçaba - Herval d'Oeste,Chapecó,420520
+4205308,Faxinal dos Guedes,42003,Xanxerê,4201,Oeste Catarinense,Xanxerê,Chapecó,420530
+4205357,Flor do Sertão,42002,Chapecó,4201,Oeste Catarinense,São Miguel do Oeste,Chapecó,420535
+4205407,Florianópolis,42016,Florianópolis,4205,Grande Florianópolis,Florianópolis,Florianópolis,420540
+4205431,Formosa do Sul,42002,Chapecó,4201,Oeste Catarinense,Chapecó,Chapecó,420543
+4205456,Forquilhinha,42019,Criciúma,4206,Sul Catarinense,Criciúma,Criciúma,420545
+4205506,Fraiburgo,42004,Joaçaba,4201,Oeste Catarinense,Videira,Caçador,420550
+4205555,Frei Rogério,42009,Curitibanos,4203,Serrana,Curitibanos,Lages,420555
+4205605,Galvão,42003,Xanxerê,4201,Oeste Catarinense,São Lourenço do Oeste,Chapecó,420560
+4205704,Garopaba,42018,Tubarão,4206,Sul Catarinense,Florianópolis,Florianópolis,420570
+4205803,Garuva,42008,Joinville,4202,Norte Catarinense,Joinville,Joinville,420580
+4205902,Gaspar,42012,Blumenau,4204,Vale do Itajaí,Blumenau,Blumenau,420590
+4206009,Governador Celso Ramos,42016,Florianópolis,4205,Grande Florianópolis,Florianópolis,Florianópolis,420600
+4206108,Grão-Pará,42018,Tubarão,4206,Sul Catarinense,Tubarão,Criciúma,420610
+4206207,Gravatal,42018,Tubarão,4206,Sul Catarinense,Tubarão,Criciúma,420620
+4206306,Guabiruba,42012,Blumenau,4204,Vale do Itajaí,Brusque,Blumenau,420630
+4206405,Guaraciaba,42001,São Miguel do Oeste,4201,Oeste Catarinense,São Miguel do Oeste,Chapecó,420640
+4206504,Guaramirim,42008,Joinville,4202,Norte Catarinense,Joinville,Joinville,420650
+4206603,Guarujá do Sul,42001,São Miguel do Oeste,4201,Oeste Catarinense,São Miguel do Oeste,Chapecó,420660
+4206652,Guatambú,42002,Chapecó,4201,Oeste Catarinense,Chapecó,Chapecó,420665
+4206702,Herval d'Oeste,42004,Joaçaba,4201,Oeste Catarinense,Joaçaba - Herval d'Oeste,Chapecó,420670
+4206751,Ibiam,42004,Joaçaba,4201,Oeste Catarinense,Videira,Caçador,420675
+4206801,Ibicaré,42004,Joaçaba,4201,Oeste Catarinense,Joaçaba - Herval d'Oeste,Chapecó,420680
+4206900,Ibirama,42011,Rio do Sul,4204,Vale do Itajaí,Ibirama - Presidente Getúlio,Blumenau,420690
+4207007,Içara,42019,Criciúma,4206,Sul Catarinense,Criciúma,Criciúma,420700
+4207106,Ilhota,42013,Itajaí,4204,Vale do Itajaí,Blumenau,Blumenau,420710
+4207205,Imaruí,42018,Tubarão,4206,Sul Catarinense,Tubarão,Criciúma,420720
+4207304,Imbituba,42018,Tubarão,4206,Sul Catarinense,Florianópolis,Florianópolis,420730
+4207403,Imbuia,42014,Ituporanga,4204,Vale do Itajaí,Ituporanga,Blumenau,420740
+4207502,Indaial,42012,Blumenau,4204,Vale do Itajaí,Blumenau,Blumenau,420750
+4207577,Iomerê,42004,Joaçaba,4201,Oeste Catarinense,Videira,Caçador,420757
+4207601,Ipira,42005,Concórdia,4201,Oeste Catarinense,Concórdia,Chapecó,420760
+4207650,Iporã do Oeste,42001,São Miguel do Oeste,4201,Oeste Catarinense,São Miguel do Oeste,Chapecó,420765
+4207684,Ipuaçu,42003,Xanxerê,4201,Oeste Catarinense,Xanxerê,Chapecó,420768
+4207700,Ipumirim,42005,Concórdia,4201,Oeste Catarinense,Concórdia,Chapecó,420770
+4207759,Iraceminha,42002,Chapecó,4201,Oeste Catarinense,Maravilha,Chapecó,420775
+4207809,Irani,42005,Concórdia,4201,Oeste Catarinense,Concórdia,Chapecó,420780
+4207858,Irati,42002,Chapecó,4201,Oeste Catarinense,Chapecó,Chapecó,420785
+4207908,Irineópolis,42006,Canoinhas,4202,Norte Catarinense,Mafra,Joinville,420790
+4208005,Itá,42005,Concórdia,4201,Oeste Catarinense,Concórdia,Chapecó,420800
+4208104,Itaiópolis,42006,Canoinhas,4202,Norte Catarinense,Mafra,Joinville,420810
+4208203,Itajaí,42013,Itajaí,4204,Vale do Itajaí,Itajaí,Blumenau,420820
+4208302,Itapema,42013,Itajaí,4204,Vale do Itajaí,Itajaí,Blumenau,420830
+4208401,Itapiranga,42001,São Miguel do Oeste,4201,Oeste Catarinense,São Miguel do Oeste,Chapecó,420840
+4208450,Itapoá,42008,Joinville,4202,Norte Catarinense,Joinville,Joinville,420845
+4208500,Ituporanga,42014,Ituporanga,4204,Vale do Itajaí,Ituporanga,Blumenau,420850
+4208609,Jaborá,42004,Joaçaba,4201,Oeste Catarinense,Joaçaba - Herval d'Oeste,Chapecó,420860
+4208708,Jacinto Machado,42020,Araranguá,4206,Sul Catarinense,Araranguá,Criciúma,420870
+4208807,Jaguaruna,42018,Tubarão,4206,Sul Catarinense,Tubarão,Criciúma,420880
+4208906,Jaraguá do Sul,42008,Joinville,4202,Norte Catarinense,Joinville,Joinville,420890
+4208955,Jardinópolis,42002,Chapecó,4201,Oeste Catarinense,Chapecó,Chapecó,420895
+4209003,Joaçaba,42004,Joaçaba,4201,Oeste Catarinense,Joaçaba - Herval d'Oeste,Chapecó,420900
+4209102,Joinville,42008,Joinville,4202,Norte Catarinense,Joinville,Joinville,420910
+4209151,José Boiteux,42011,Rio do Sul,4204,Vale do Itajaí,Ibirama - Presidente Getúlio,Blumenau,420915
+4209177,Jupiá,42003,Xanxerê,4201,Oeste Catarinense,São Lourenço do Oeste,Chapecó,420917
+4209201,Lacerdópolis,42004,Joaçaba,4201,Oeste Catarinense,Joaçaba - Herval d'Oeste,Chapecó,420920
+4209300,Lages,42010,Campos de Lages,4203,Serrana,Lages,Lages,420930
+4209409,Laguna,42018,Tubarão,4206,Sul Catarinense,Tubarão,Criciúma,420940
+4209458,Lajeado Grande,42003,Xanxerê,4201,Oeste Catarinense,Chapecó,Chapecó,420945
+4209508,Laurentino,42011,Rio do Sul,4204,Vale do Itajaí,Rio do Sul,Blumenau,420950
+4209607,Lauro Müller,42019,Criciúma,4206,Sul Catarinense,Criciúma,Criciúma,420960
+4209706,Lebon Régis,42004,Joaçaba,4201,Oeste Catarinense,Caçador,Caçador,420970
+4209805,Leoberto Leal,42015,Tijucas,4205,Grande Florianópolis,Ituporanga,Blumenau,420980
+4209854,Lindóia do Sul,42005,Concórdia,4201,Oeste Catarinense,Concórdia,Chapecó,420985
+4209904,Lontras,42011,Rio do Sul,4204,Vale do Itajaí,Rio do Sul,Blumenau,420990
+4210001,Luiz Alves,42012,Blumenau,4204,Vale do Itajaí,Itajaí,Blumenau,421000
+4210035,Luzerna,42004,Joaçaba,4201,Oeste Catarinense,Joaçaba - Herval d'Oeste,Chapecó,421003
+4210050,Macieira,42004,Joaçaba,4201,Oeste Catarinense,Caçador,Caçador,421005
+4210100,Mafra,42006,Canoinhas,4202,Norte Catarinense,Mafra,Joinville,421010
+4210209,Major Gercino,42015,Tijucas,4205,Grande Florianópolis,Brusque,Blumenau,421020
+4210308,Major Vieira,42006,Canoinhas,4202,Norte Catarinense,Mafra,Joinville,421030
+4210407,Maracajá,42020,Araranguá,4206,Sul Catarinense,Araranguá,Criciúma,421040
+4210506,Maravilha,42002,Chapecó,4201,Oeste Catarinense,Maravilha,Chapecó,421050
+4210555,Marema,42003,Xanxerê,4201,Oeste Catarinense,Chapecó,Chapecó,421055
+4210605,Massaranduba,42008,Joinville,4202,Norte Catarinense,Joinville,Joinville,421060
+4210704,Matos Costa,42004,Joaçaba,4201,Oeste Catarinense,Caçador,Caçador,421070
+4210803,Meleiro,42020,Araranguá,4206,Sul Catarinense,Araranguá,Criciúma,421080
+4210852,Mirim Doce,42011,Rio do Sul,4204,Vale do Itajaí,Rio do Sul,Blumenau,421085
+4210902,Modelo,42002,Chapecó,4201,Oeste Catarinense,Chapecó,Chapecó,421090
+4211009,Mondaí,42001,São Miguel do Oeste,4201,Oeste Catarinense,Chapecó,Chapecó,421100
+4211058,Monte Carlo,42009,Curitibanos,4203,Serrana,Videira,Caçador,421105
+4211108,Monte Castelo,42006,Canoinhas,4202,Norte Catarinense,Mafra,Joinville,421110
+4211207,Morro da Fumaça,42019,Criciúma,4206,Sul Catarinense,Criciúma,Criciúma,421120
+4211256,Morro Grande,42020,Araranguá,4206,Sul Catarinense,Criciúma,Criciúma,421125
+4211306,Navegantes,42013,Itajaí,4204,Vale do Itajaí,Itajaí,Blumenau,421130
+4211405,Nova Erechim,42002,Chapecó,4201,Oeste Catarinense,Chapecó,Chapecó,421140
+4211454,Nova Itaberaba,42002,Chapecó,4201,Oeste Catarinense,Chapecó,Chapecó,421145
+4211504,Nova Trento,42015,Tijucas,4205,Grande Florianópolis,Brusque,Blumenau,421150
+4211603,Nova Veneza,42019,Criciúma,4206,Sul Catarinense,Criciúma,Criciúma,421160
+4211652,Novo Horizonte,42002,Chapecó,4201,Oeste Catarinense,São Lourenço do Oeste,Chapecó,421165
+4211702,Orleans,42018,Tubarão,4206,Sul Catarinense,Criciúma,Criciúma,421170
+4211751,Otacílio Costa,42010,Campos de Lages,4203,Serrana,Lages,Lages,421175
+4211801,Ouro,42004,Joaçaba,4201,Oeste Catarinense,Joaçaba - Herval d'Oeste,Chapecó,421180
+4211850,Ouro Verde,42003,Xanxerê,4201,Oeste Catarinense,Xanxerê,Chapecó,421185
+4211876,Paial,42005,Concórdia,4201,Oeste Catarinense,Chapecó,Chapecó,421187
+4211892,Painel,42010,Campos de Lages,4203,Serrana,Lages,Lages,421189
+4211900,Palhoça,42016,Florianópolis,4205,Grande Florianópolis,Florianópolis,Florianópolis,421190
+4212007,Palma Sola,42001,São Miguel do Oeste,4201,Oeste Catarinense,São Miguel do Oeste,Chapecó,421200
+4212056,Palmeira,42010,Campos de Lages,4203,Serrana,Lages,Lages,421205
+4212106,Palmitos,42002,Chapecó,4201,Oeste Catarinense,Chapecó,Chapecó,421210
+4212205,Papanduva,42006,Canoinhas,4202,Norte Catarinense,Mafra,Joinville,421220
+4212239,Paraíso,42001,São Miguel do Oeste,4201,Oeste Catarinense,São Miguel do Oeste,Chapecó,421223
+4212254,Passo de Torres,42020,Araranguá,4206,Sul Catarinense,Araranguá,Criciúma,421225
+4212270,Passos Maia,42003,Xanxerê,4201,Oeste Catarinense,Xanxerê,Chapecó,421227
+4212304,Paulo Lopes,42016,Florianópolis,4205,Grande Florianópolis,Florianópolis,Florianópolis,421230
+4212403,Pedras Grandes,42018,Tubarão,4206,Sul Catarinense,Tubarão,Criciúma,421240
+4212502,Penha,42013,Itajaí,4204,Vale do Itajaí,Itajaí,Blumenau,421250
+4212601,Peritiba,42005,Concórdia,4201,Oeste Catarinense,Concórdia,Chapecó,421260
+4212650,Pescaria Brava,42018,Tubarão,4206,Sul Catarinense,Tubarão,Criciúma,421265
+4212700,Petrolândia,42014,Ituporanga,4204,Vale do Itajaí,Ituporanga,Blumenau,421270
+4212809,Balneário Piçarras,42013,Itajaí,4204,Vale do Itajaí,Itajaí,Blumenau,421280
+4212908,Pinhalzinho,42002,Chapecó,4201,Oeste Catarinense,Chapecó,Chapecó,421290
+4213005,Pinheiro Preto,42004,Joaçaba,4201,Oeste Catarinense,Videira,Caçador,421300
+4213104,Piratuba,42005,Concórdia,4201,Oeste Catarinense,Concórdia,Chapecó,421310
+4213153,Planalto Alegre,42002,Chapecó,4201,Oeste Catarinense,Chapecó,Chapecó,421315
+4213203,Pomerode,42012,Blumenau,4204,Vale do Itajaí,Blumenau,Blumenau,421320
+4213302,Ponte Alta,42009,Curitibanos,4203,Serrana,Lages,Lages,421330
+4213351,Ponte Alta do Norte,42009,Curitibanos,4203,Serrana,Curitibanos,Lages,421335
+4213401,Ponte Serrada,42003,Xanxerê,4201,Oeste Catarinense,Xanxerê,Chapecó,421340
+4213500,Porto Belo,42013,Itajaí,4204,Vale do Itajaí,Itajaí,Blumenau,421350
+4213609,Porto União,42006,Canoinhas,4202,Norte Catarinense,Mafra,Joinville,421360
+4213708,Pouso Redondo,42011,Rio do Sul,4204,Vale do Itajaí,Rio do Sul,Blumenau,421370
+4213807,Praia Grande,42020,Araranguá,4206,Sul Catarinense,Araranguá,Criciúma,421380
+4213906,Presidente Castello Branco,42005,Concórdia,4201,Oeste Catarinense,Concórdia,Chapecó,421390
+4214003,Presidente Getúlio,42011,Rio do Sul,4204,Vale do Itajaí,Ibirama - Presidente Getúlio,Blumenau,421400
+4214102,Presidente Nereu,42011,Rio do Sul,4204,Vale do Itajaí,Rio do Sul,Blumenau,421410
+4214151,Princesa,42001,São Miguel do Oeste,4201,Oeste Catarinense,São Miguel do Oeste,Chapecó,421415
+4214201,Quilombo,42002,Chapecó,4201,Oeste Catarinense,Chapecó,Chapecó,421420
+4214300,Rancho Queimado,42017,Tabuleiro,4205,Grande Florianópolis,Florianópolis,Florianópolis,421430
+4214409,Rio das Antas,42004,Joaçaba,4201,Oeste Catarinense,Videira,Caçador,421440
+4214508,Rio do Campo,42011,Rio do Sul,4204,Vale do Itajaí,Rio do Sul,Blumenau,421450
+4214607,Rio do Oeste,42011,Rio do Sul,4204,Vale do Itajaí,Rio do Sul,Blumenau,421460
+4214706,Rio dos Cedros,42012,Blumenau,4204,Vale do Itajaí,Blumenau,Blumenau,421470
+4214805,Rio do Sul,42011,Rio do Sul,4204,Vale do Itajaí,Rio do Sul,Blumenau,421480
+4214904,Rio Fortuna,42018,Tubarão,4206,Sul Catarinense,Tubarão,Criciúma,421490
+4215000,Rio Negrinho,42007,São Bento do Sul,4202,Norte Catarinense,São Bento do Sul - Rio Negrinho,Joinville,421500
+4215059,Rio Rufino,42010,Campos de Lages,4203,Serrana,Lages,Lages,421505
+4215075,Riqueza,42001,São Miguel do Oeste,4201,Oeste Catarinense,Chapecó,Chapecó,421507
+4215109,Rodeio,42012,Blumenau,4204,Vale do Itajaí,Blumenau,Blumenau,421510
+4215208,Romelândia,42001,São Miguel do Oeste,4201,Oeste Catarinense,São Miguel do Oeste,Chapecó,421520
+4215307,Salete,42011,Rio do Sul,4204,Vale do Itajaí,Rio do Sul,Blumenau,421530
+4215356,Saltinho,42002,Chapecó,4201,Oeste Catarinense,Maravilha,Chapecó,421535
+4215406,Salto Veloso,42004,Joaçaba,4201,Oeste Catarinense,Videira,Caçador,421540
+4215455,Sangão,42018,Tubarão,4206,Sul Catarinense,Tubarão,Criciúma,421545
+4215505,Santa Cecília,42009,Curitibanos,4203,Serrana,Curitibanos,Lages,421550
+4215554,Santa Helena,42001,São Miguel do Oeste,4201,Oeste Catarinense,São Miguel do Oeste,Chapecó,421555
+4215604,Santa Rosa de Lima,42018,Tubarão,4206,Sul Catarinense,Tubarão,Criciúma,421560
+4215653,Santa Rosa do Sul,42020,Araranguá,4206,Sul Catarinense,Araranguá,Criciúma,421565
+4215679,Santa Terezinha,42006,Canoinhas,4202,Norte Catarinense,Rio do Sul,Blumenau,421567
+4215687,Santa Terezinha do Progresso,42002,Chapecó,4201,Oeste Catarinense,Maravilha,Chapecó,421568
+4215695,Santiago do Sul,42002,Chapecó,4201,Oeste Catarinense,Chapecó,Chapecó,421569
+4215703,Santo Amaro da Imperatriz,42016,Florianópolis,4205,Grande Florianópolis,Florianópolis,Florianópolis,421570
+4215752,São Bernardino,42002,Chapecó,4201,Oeste Catarinense,São Lourenço do Oeste,Chapecó,421575
+4215802,São Bento do Sul,42007,São Bento do Sul,4202,Norte Catarinense,São Bento do Sul - Rio Negrinho,Joinville,421580
+4215901,São Bonifácio,42017,Tabuleiro,4205,Grande Florianópolis,Florianópolis,Florianópolis,421590
+4216008,São Carlos,42002,Chapecó,4201,Oeste Catarinense,Chapecó,Chapecó,421600
+4216057,São Cristóvão do Sul,42009,Curitibanos,4203,Serrana,Curitibanos,Lages,421605
+4216107,São Domingos,42003,Xanxerê,4201,Oeste Catarinense,Xanxerê,Chapecó,421610
+4216206,São Francisco do Sul,42008,Joinville,4202,Norte Catarinense,Joinville,Joinville,421620
+4216255,São João do Oeste,42001,São Miguel do Oeste,4201,Oeste Catarinense,São Miguel do Oeste,Chapecó,421625
+4216305,São João Batista,42015,Tijucas,4205,Grande Florianópolis,Brusque,Blumenau,421630
+4216354,São João do Itaperiú,42013,Itajaí,4204,Vale do Itajaí,Joinville,Joinville,421635
+4216404,São João do Sul,42020,Araranguá,4206,Sul Catarinense,Araranguá,Criciúma,421640
+4216503,São Joaquim,42010,Campos de Lages,4203,Serrana,Lages,Lages,421650
+4216602,São José,42016,Florianópolis,4205,Grande Florianópolis,Florianópolis,Florianópolis,421660
+4216701,São José do Cedro,42001,São Miguel do Oeste,4201,Oeste Catarinense,São Miguel do Oeste,Chapecó,421670
+4216800,São José do Cerrito,42010,Campos de Lages,4203,Serrana,Lages,Lages,421680
+4216909,São Lourenço do Oeste,42002,Chapecó,4201,Oeste Catarinense,São Lourenço do Oeste,Chapecó,421690
+4217006,São Ludgero,42018,Tubarão,4206,Sul Catarinense,Tubarão,Criciúma,421700
+4217105,São Martinho,42018,Tubarão,4206,Sul Catarinense,Tubarão,Criciúma,421710
+4217154,São Miguel da Boa Vista,42002,Chapecó,4201,Oeste Catarinense,Maravilha,Chapecó,421715
+4217204,São Miguel do Oeste,42001,São Miguel do Oeste,4201,Oeste Catarinense,São Miguel do Oeste,Chapecó,421720
+4217253,São Pedro de Alcântara,42016,Florianópolis,4205,Grande Florianópolis,Florianópolis,Florianópolis,421725
+4217303,Saudades,42002,Chapecó,4201,Oeste Catarinense,Chapecó,Chapecó,421730
+4217402,Schroeder,42008,Joinville,4202,Norte Catarinense,Joinville,Joinville,421740
+4217501,Seara,42005,Concórdia,4201,Oeste Catarinense,Concórdia,Chapecó,421750
+4217550,Serra Alta,42002,Chapecó,4201,Oeste Catarinense,Chapecó,Chapecó,421755
+4217600,Siderópolis,42019,Criciúma,4206,Sul Catarinense,Criciúma,Criciúma,421760
+4217709,Sombrio,42020,Araranguá,4206,Sul Catarinense,Araranguá,Criciúma,421770
+4217758,Sul Brasil,42002,Chapecó,4201,Oeste Catarinense,Chapecó,Chapecó,421775
+4217808,Taió,42011,Rio do Sul,4204,Vale do Itajaí,Rio do Sul,Blumenau,421780
+4217907,Tangará,42004,Joaçaba,4201,Oeste Catarinense,Videira,Caçador,421790
+4217956,Tigrinhos,42002,Chapecó,4201,Oeste Catarinense,Maravilha,Chapecó,421795
+4218004,Tijucas,42015,Tijucas,4205,Grande Florianópolis,Itajaí,Blumenau,421800
+4218103,Timbé do Sul,42020,Araranguá,4206,Sul Catarinense,Araranguá,Criciúma,421810
+4218202,Timbó,42012,Blumenau,4204,Vale do Itajaí,Blumenau,Blumenau,421820
+4218251,Timbó Grande,42006,Canoinhas,4202,Norte Catarinense,Caçador,Caçador,421825
+4218301,Três Barras,42006,Canoinhas,4202,Norte Catarinense,Mafra,Joinville,421830
+4218350,Treviso,42019,Criciúma,4206,Sul Catarinense,Criciúma,Criciúma,421835
+4218400,Treze de Maio,42018,Tubarão,4206,Sul Catarinense,Tubarão,Criciúma,421840
+4218509,Treze Tílias,42004,Joaçaba,4201,Oeste Catarinense,Joaçaba - Herval d'Oeste,Chapecó,421850
+4218608,Trombudo Central,42011,Rio do Sul,4204,Vale do Itajaí,Rio do Sul,Blumenau,421860
+4218707,Tubarão,42018,Tubarão,4206,Sul Catarinense,Tubarão,Criciúma,421870
+4218756,Tunápolis,42001,São Miguel do Oeste,4201,Oeste Catarinense,São Miguel do Oeste,Chapecó,421875
+4218806,Turvo,42020,Araranguá,4206,Sul Catarinense,Araranguá,Criciúma,421880
+4218855,União do Oeste,42002,Chapecó,4201,Oeste Catarinense,Chapecó,Chapecó,421885
+4218905,Urubici,42010,Campos de Lages,4203,Serrana,Lages,Lages,421890
+4218954,Urupema,42010,Campos de Lages,4203,Serrana,Lages,Lages,421895
+4219002,Urussanga,42019,Criciúma,4206,Sul Catarinense,Criciúma,Criciúma,421900
+4219101,Vargeão,42003,Xanxerê,4201,Oeste Catarinense,Xanxerê,Chapecó,421910
+4219150,Vargem,42009,Curitibanos,4203,Serrana,Joaçaba - Herval d'Oeste,Chapecó,421915
+4219176,Vargem Bonita,42004,Joaçaba,4201,Oeste Catarinense,Joaçaba - Herval d'Oeste,Chapecó,421917
+4219200,Vidal Ramos,42014,Ituporanga,4204,Vale do Itajaí,Ituporanga,Blumenau,421920
+4219309,Videira,42004,Joaçaba,4201,Oeste Catarinense,Videira,Caçador,421930
+4219358,Vitor Meireles,42011,Rio do Sul,4204,Vale do Itajaí,Ibirama - Presidente Getúlio,Blumenau,421935
+4219408,Witmarsum,42011,Rio do Sul,4204,Vale do Itajaí,Ibirama - Presidente Getúlio,Blumenau,421940
+4219507,Xanxerê,42003,Xanxerê,4201,Oeste Catarinense,Xanxerê,Chapecó,421950
+4219606,Xavantina,42005,Concórdia,4201,Oeste Catarinense,Xanxerê,Chapecó,421960
+4219705,Xaxim,42003,Xanxerê,4201,Oeste Catarinense,Chapecó,Chapecó,421970
+4219853,Zortéa,42009,Curitibanos,4203,Serrana,Joaçaba - Herval d'Oeste,Chapecó,421985
+4220000,Balneário Rincão,42019,Criciúma,4206,Sul Catarinense,Criciúma,Criciúma,422000
