@@ -1,0 +1,7 @@
+# Pipeline de dados (Etapas 1 e 2)
+polars>=2.1.0
+
+# Dashboard e visualização (Etapa de entrega)
+streamlit>=1.39
+plotly>=5.24
+pandas>=2.2

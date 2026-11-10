@@ -1,0 +1,20 @@
+# Saídas geradas pelo pipeline (parquet grandes)
+data/processed/*.parquet
+
+# Dados brutos grandes (excedem o limite de 100 MB do GitHub).
+# Baixe a base do Novo CAGED e coloque em data/raw/ manualmente (ver README).
+data/raw/Novo_Caged_MOV_Limpo.csv
+
+# Artefatos Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Notebooks checkpoints
+.ipynb_checkpoints/
+
+# Temporários de análise
+_*.py
+_*.json
+_*.txt
