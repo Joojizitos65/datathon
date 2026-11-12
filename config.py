@@ -11,6 +11,7 @@ BASE = Path(__file__).resolve().parent
 CAGED_CSV = BASE / "Novo_Caged_MOV_Limpo.csv"
 MUNICIPIOS_CSV = BASE / "Municipios_SC_limpo.csv"
 DICIONARIO_XLSX = BASE / "Dicionario_de_dados.xlsx"
+CONTEXTO_JSON = BASE / "fontes_datathon" / "contexto.json"
 
 # --- Saídas -----------------------------------------------------------------
 DIR_EXTERNOS = BASE / "dados_externos"        # cache das APIs do IBGE

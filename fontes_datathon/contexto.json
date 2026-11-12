@@ -1,0 +1,110 @@
+{
+  "_como_editar": "Textos do dashboard. Edite à vontade: o app lê este arquivo a cada execução. Em 'municipios', os números 'Nosso dado' são calculados a partir dos dados (soma do saldo das subclasses CNAE listadas, nos municípios listados, em 12 meses). Nas recomendações, termos entre chaves, como {pct_pedido_ind}, são preenchidos com números calculados (indústria B–F, 12 meses).",
+  "estado": [
+    {
+      "tag": "Contexto",
+      "titulo": "Pleno emprego",
+      "numero": "2,1%",
+      "texto": "Desocupação de SC no 2º trimestre de 2026, a menor do país (PNAD Contínua/IBGE). Com tão pouca gente disponível, as empresas disputam os mesmos trabalhadores.",
+      "fonte": "Movimento Econômico (IBGE)",
+      "url": "https://movimentoeconomico.com.br/trabalho/2026/08/14/pnad-nordeste-tem-quatro-dos-cinco-piores-indices-de-desocupacao-do-pais/"
+    },
+    {
+      "tag": "Contexto",
+      "titulo": "Qualificação em escala",
+      "numero": "953,4 mil",
+      "texto": "Trabalhadores que SC precisará qualificar entre 2025 e 2027 para atender a indústria, segundo o Mapa do Trabalho Industrial (CNI/SENAI).",
+      "fonte": "NSC Total",
+      "url": "https://www.nsctotal.com.br/?p=7320009"
+    },
+    {
+      "tag": "Choque externo",
+      "titulo": "Tarifaço dos EUA",
+      "numero": "19 mil",
+      "texto": "Empregos que SC pode perder em um ano se as tarifas americanas forem mantidas (estimativa da FIESC). Madeira, autopeças, equipamentos elétricos e móveis são os mais expostos.",
+      "fonte": "BP Money (FIESC)",
+      "url": "https://bpmoney.com.br/?p=385576"
+    },
+    {
+      "tag": "Apagão",
+      "titulo": "Joinville sem gente",
+      "numero": "2 mil+",
+      "texto": "Vagas abertas em Joinville mesmo com o maior saldo do estado. Faltam operadores de CNC e especialistas em automação, e as empresas sobem salários e benefícios para atrair candidatos.",
+      "fonte": "Gazeta do Povo",
+      "url": "https://www.gazetadopovo.com.br/santa-catarina/joinville-cidade-mais-rica-de-sc-gera-empregos-rapido-demais/"
+    }
+  ],
+  "municipios": [
+    {
+      "municipios": ["Navegantes"],
+      "tag": "Expansão",
+      "titulo": "Estaleiro puxa as contratações",
+      "subclasses": [3011301],
+      "rotulo_dado": "construção de embarcações",
+      "texto": "O estaleiro Navship recebeu R$ 2,3 bilhões do Fundo da Marinha Mercante para construir seis navios de apoio offshore para a Petrobras e fez feirões com mais de 500 vagas.",
+      "fontes": [{"nome": "NSC Total", "url": "https://www.nsctotal.com.br/?p=7818766"}]
+    },
+    {
+      "municipios": ["Navegantes"],
+      "tag": "A investigar",
+      "titulo": "Salto em material elétrico automotivo",
+      "subclasses": [2945000],
+      "rotulo_dado": "material elétrico para veículos",
+      "texto": "O saldo veio quase todo em julho e agosto de 2026. Não encontramos notícia que explique (pode ser uma fábrica nova ou uma transferência). Confirmar antes de citar no pitch.",
+      "fontes": []
+    },
+    {
+      "municipios": ["Guatambú"],
+      "tag": "Expansão",
+      "titulo": "Frigorífico ampliado",
+      "subclasses": [1012101],
+      "rotulo_dado": "abate de aves",
+      "texto": "A Aurora ampliou e modernizou o frigorífico de Guatambu, que passou de 115 mil para 414,8 mil aves abatidas por dia.",
+      "fontes": [{"nome": "Avinews", "url": "https://avinews.com/pt-br/em-2023-aurora-coop-abateu-11-mais-cabecas-de-frangos/"}]
+    },
+    {
+      "municipios": ["Mafra", "Campo Alegre"],
+      "tag": "Retração",
+      "titulo": "Fábrica de chicotes fechada",
+      "subclasses": [2945000],
+      "rotulo_dado": "material elétrico para veículos (Mafra + Campo Alegre)",
+      "texto": "A Kromberg & Schubert fechou a fábrica de chicotes elétricos automotivos de Mafra em outubro de 2025. A FIESC registrou cerca de 380 vagas fechadas no setor em Mafra e Campo Alegre, o que bate com o nosso dado.",
+      "fontes": [
+        {"nome": "NSC Total", "url": "https://www.nsctotal.com.br/?p=7695661"},
+        {"nome": "Observatório FIESC", "url": "https://observatorio.fiesc.com.br/sites/default/files/2025-11/%5BBOLETINS%5D%20Emprego%20industrial%20-%20out.25.pdf"}
+      ]
+    },
+    {
+      "municipios": ["Campo Alegre"],
+      "tag": "Retração",
+      "titulo": "Móveis sob o tarifaço",
+      "subclasses": [3101200],
+      "rotulo_dado": "fabricação de móveis",
+      "texto": "Campo Alegre faz parte do polo moveleiro com São Bento do Sul e Rio Negrinho, que destina cerca de 62% da produção aos EUA. As tarifas de 50% desde agosto de 2025 derrubaram pedidos e levaram a demissões no polo.",
+      "fontes": [
+        {"nome": "Click Petróleo e Gás", "url": "https://clickpetroleoegas.com.br/mais-de-4-mil-demissoes-ja-foram-registradas-no-setor-madeireiro-brasileiro-apos-tarifaco-dos-estados-unidos-em-agosto-mhbb01/"},
+        {"nome": "NSC Total", "url": "https://www.nsctotal.com.br/?p=7706682"}
+      ]
+    }
+  ],
+  "recomendacoes": [
+    {
+      "titulo": "Reter antes de contratar",
+      "evidencia": "Na indústria, {pct_pedido_ind} das saídas são a pedido do trabalhador ({pct_pedido_alim} em alimentos e {pct_pedido_vest} em vestuário), e quem entra ganha {gap_ind} a menos do que quem sai.",
+      "acao": "Programas de retenção nas atividades de maior giro: progressão salarial nos primeiros 12 meses, previsibilidade de turnos e transporte, e trilhas internas de promoção.",
+      "medir": "Queda das saídas a pedido e do turnover (desligamentos ÷ admissões) por atividade."
+    },
+    {
+      "titulo": "Recolocar o Planalto Norte",
+      "evidencia": "São Bento do Sul, Rio Negrinho, Campo Alegre e Mafra somam {saldo_planalto} vagas industriais em 12 meses, com móveis e autopeças atingidos pelo tarifaço e pelo fechamento de fábrica.",
+      "acao": "Força-tarefa de requalificação rápida (SENAI e SINE) para levar esses trabalhadores a atividades que seguem contratando no estado, como alimentos ({saldo_alim}) e materiais elétricos ({saldo_eletr}).",
+      "medir": "Trabalhadores recolocados em até 6 meses e saldo industrial da região voltando a zero."
+    },
+    {
+      "titulo": "Formar para os polos que crescem",
+      "evidencia": "Construção naval e outros equipamentos de transporte ({saldo_naval}), manutenção de máquinas ({saldo_manut}) e materiais elétricos ({saldo_eletr}) estão entre os maiores saldos. Na contratação, o superior completo paga {sal_sup}, contra {sal_med} do ensino médio.",
+      "acao": "Cursos técnicos curtos e dirigidos (soldagem, caldeiraria, eletricista industrial, manutenção) nos polos em expansão, como Navegantes e o Oeste, conectados às macrofamílias de CBO.",
+      "medir": "Vagas preenchidas nas ocupações-alvo e salário de admissão nessas ocupações."
+    }
+  ]
+}

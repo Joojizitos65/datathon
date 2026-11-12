@@ -23,7 +23,8 @@ localidades do IBGE e guarda o resultado em `dados_externos/`; depois disso não
 | `referencias.py` | Cadastro de municípios, microrregiões e divisões CNAE (IBGE), dicionário de dados |
 | `pipeline.py` | Ingestão, validação, limpeza, cruzamento, indicadores e classificação de cenários |
 | `cbo.py` | Macrofamílias de CBO: regra base + exportação/importação para LLM |
-| `dashboard.py` | Painel Streamlit (7 abas, mapa, barras, dispersão, mapa de calor) |
+| `dashboard.py` | Painel Streamlit (8 abas, mapa, barras, dispersão, mapa de calor) |
+| `contexto.py` | Carrega `fontes_datathon/contexto.json` e calcula os números das recomendações e dos casos por município |
 | `perfil_caged.py` | Perfil exploratório somente leitura dos dados brutos |
 
 Saídas: `dados_processados/agregados/` (tabelas pequenas, versionadas) e `dados_processados/caged_limpo.parquet`
@@ -65,6 +66,36 @@ python pipeline.py            # importa as respostas; CBOs fora delas ficam com 
 Rótulos fora da lista são rejeitados com aviso. **Ainda nenhuma resposta de LLM foi importada**: hoje todas as
 2.206 CBOs usam a regra por grupo da CBO.
 
+## Mapa sem depender de internet
+
+`px.choropleth_map` baixa o fundo do mapa (tiles) de um servidor online; sem rede, o mapa
+fica em branco. O painel usa `go.Choropleth`, que só depende de:
+
+- `dados_externos/malha_sc_municipios.geojson`: a malha dos 295 municípios de SC (cache da
+  API do IBGE, criado na primeira execução do pipeline). Mantida em vez do
+  `fontes_datathon/sc_municipios.geojson` fornecido porque este último tem só 293 polígonos
+  (sem Pescaria Brava e Balneário Rincão).
+- `static/world_110m.json`: o TopoJSON base que o Plotly normalmente baixa de `cdn.plot.ly`.
+  Está versionado em `static/` e `.streamlit/config.toml` liga `enableStaticServing = true`
+  para o Streamlit servi-lo localmente (`config={"topojsonURL": "app/static/"}` no
+  `st.plotly_chart`).
+
+## Contexto estadual, casos por município e recomendações
+
+A aba "Contexto e recomendações" lê `fontes_datathon/contexto.json` (cards de contexto
+estadual, 5 casos por município com notícia e fonte, e 3 recomendações). A equipe edita
+esse arquivo sem tocar no código.
+
+- O "nosso dado" de cada caso (ex.: +1.532 em material elétrico em Navegantes) vem da nova
+  tabela `dados_processados/agregados/municipio_subclasse.parquet` (saldo por município x
+  subclasse CNAE, só indústria), gerada pelo `pipeline.py`.
+- Os termos entre chaves das recomendações (`{pct_pedido_ind}`, `{saldo_planalto}` etc.) são
+  preenchidos a partir de `estado_setor`, `estado_divisao`, `municipio_setor` e da nova tabela
+  `estado_escolaridade.parquet` (salário mediano de admissão por faixa de escolaridade).
+- Enquanto essas tabelas não existirem (antes da primeira execução do pipeline com o CSV
+  completo), a aba mostra um aviso e os textos aparecem sem os números calculados, em vez de
+  quebrar o painel.
+
 ## Limites conhecidos
 
 - Sem estoque de empregos (RAIS), não há taxa de rotatividade real. Usamos movimentos por habitante.
@@ -78,5 +109,10 @@ Rótulos fora da lista são rejeitados com aviso. **Ainda nenhuma resposta de LL
 1. Confirmar o tratamento de exclusões com a organização.
 2. Rodar a etapa de IA e comparar as macrofamílias com a regra base.
 3. Calibrar os limiares em `config.py` e validar os cenários com conhecimento do parque industrial de SC.
-4. Escrever o roteiro do pitch de 3 minutos a partir das abas "Visão geral" e "Ocupações".
-5. Publicar o repositório (o CSV do CAGED não vai ao Git: tem 413 MB e o limite do GitHub é 100 MB).
+4. Rodar `python pipeline.py` com o CAGED completo para gerar `municipio_subclasse.parquet` e
+   `estado_escolaridade.parquet` e ver a aba "Contexto e recomendações" com os números preenchidos.
+5. Investigar o salto de Navegantes em material elétrico automotivo (caso "a investigar" em
+   `contexto.json`) antes de citá-lo no pitch.
+6. Escrever o roteiro do pitch de 3 minutos a partir das abas "Visão geral", "Ocupações" e
+   "Contexto e recomendações".
+7. Publicar o repositório (o CSV do CAGED não vai ao Git: tem 413 MB e o limite do GitHub é 100 MB).

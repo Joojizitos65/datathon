@@ -1,0 +1,28 @@
+Arquivos de apoio - Datathon SC (Raio-X do Mercado de Trabalho Industrial)
+
+sc_municipios.geojson
+  Malha dos municípios de SC (293 polígonos; faltam Pescaria Brava e Balneário Rincão).
+  Fonte: tbrugz/geodata-br (GitHub), arquivo geojs-42-mun.json.
+  O código IBGE de 7 dígitos fica em properties.id. No Plotly: featureidkey="properties.id".
+  Para cruzar com o CAGED (6 dígitos), use os 6 primeiros dígitos do código IBGE.
+
+world_110m.json
+  Arquivo base que o mapa vetorial do Plotly (go.Choropleth) baixa da internet.
+  Fonte: pacote npm sane-topojson. Para o mapa funcionar sem internet:
+    1. coloque o arquivo em static/world_110m.json, na raiz do app;
+    2. em .streamlit/config.toml, adicione:
+         [server]
+         enableStaticServing = true
+    3. no st.plotly_chart, passe config={"topojsonURL": "app/static/"}.
+
+contexto.json
+  Textos do painel: 4 cards de contexto estadual, 5 casos por município (com as
+  subclasses CNAE usadas para calcular o "nosso dado") e 3 recomendações (rascunho).
+  Termos entre chaves, como {pct_pedido_ind}, são preenchidos pelo app com números calculados.
+
+cbo_lista.csv
+  Os 2.207 CBOs da base com movimentações, saldo, movimentações na indústria,
+  descrição (do dicionário de dados) e grande grupo (1º dígito). Ordenado por movimentações.
+  Os 200 primeiros cobrem 87% das movimentações: ponto de partida para o agrupamento com IA.
+
+A lista completa de notícias e bases, com links e datas, está na aba "Fontes e notícias" do guia.

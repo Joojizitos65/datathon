@@ -15,6 +15,7 @@ import plotly.graph_objects as go
 import streamlit as st
 
 import config as cfg
+import contexto as ctxmod
 import referencias as ref
 
 PASTA = cfg.DIR_AGREGADOS
@@ -94,9 +95,9 @@ st.caption(f"Setor selecionado: **{nomes[setor]}**")
 est = est_setor[est_setor["setor"] == setor].iloc[0]
 ms = micro_setor[micro_setor["setor"] == setor].copy()
 
-(aba_geral, aba_territorio, aba_setores, aba_renda, aba_cbo, aba_perfil, aba_metodo) = st.tabs(
+(aba_geral, aba_territorio, aba_setores, aba_renda, aba_cbo, aba_perfil, aba_contexto, aba_metodo) = st.tabs(
     ["Visão geral", "Território", "Setores (CNAE)", "Renda e escolaridade",
-     "Ocupações (CBO)", "Perfil", "Metodologia"]
+     "Ocupações (CBO)", "Perfil", "Contexto e recomendações", "Metodologia"]
 )
 
 # =============================================================================
@@ -175,16 +176,31 @@ with aba_territorio:
         dim_mun[["municipio_codigo", "codigo_ibge"]], on="municipio_codigo", how="left")
     mun["codigo_ibge"] = mun["codigo_ibge"].astype(str)
     limite = max(abs(mun[coluna].quantile(0.05)), abs(mun[coluna].quantile(0.95)))
-    fig = px.choropleth_map(
-        mun, geojson=malha(), locations="codigo_ibge", featureidkey="properties.codarea",
-        color=coluna, hover_name="municipio_nome",
-        hover_data={"codigo_ibge": False, "saldo": ":,", "admissoes": ":,", "desligamentos": ":,"},
-        color_continuous_scale="RdYlGn", range_color=(-limite, limite), color_continuous_midpoint=0,
-        map_style="carto-positron", center={"lat": -27.3, "lon": -50.5}, zoom=6.0, opacity=0.8,
-        labels={coluna: escolha},
+    # go.Choropleth (mapa vetorial) em vez de px.choropleth_map: este último baixa o fundo
+    # (tiles) de um servidor de mapas pela internet, o que deixa o painel em branco sem
+    # conexão (ex.: rede do auditório no pitch). O go.Choropleth só precisa do GeoJSON dos
+    # municípios (já em cache local) e do TopoJSON base do mundo, servido por static/.
+    fig = go.Figure(
+        go.Choropleth(
+            geojson=malha(), locations=mun["codigo_ibge"], featureidkey="properties.codarea",
+            z=mun[coluna], locationmode="geojson-id",
+            colorscale="RdYlGn", zmin=-limite, zmax=limite, zmid=0,
+            text=mun["municipio_nome"], marker_line_color="#37474f", marker_line_width=0.4,
+            colorbar=dict(title=escolha, orientation="h", y=-0.08, len=0.6),
+            customdata=mun[["saldo", "admissoes", "desligamentos"]],
+            hovertemplate=(
+                "<b>%{text}</b><br>" + escolha + ": %{z:,.1f}<br>"
+                "Saldo: %{customdata[0]:,}<br>Admissões: %{customdata[1]:,}<br>"
+                "Desligamentos: %{customdata[2]:,}<extra></extra>"
+            ),
+        )
+    )
+    fig.update_geos(
+        fitbounds=False, visible=False, scope="south america",
+        lonaxis_range=[-53.95, -47.55], lataxis_range=[-29.45, -25.85],
     )
     fig.update_layout(height=600, margin=dict(l=0, r=0, t=0, b=0))
-    st.plotly_chart(fig, width="stretch")
+    st.plotly_chart(fig, width="stretch", config={"topojsonURL": "app/static/"})
     st.caption("A escala de cores é cortada nos percentis 5 e 95 para que municípios muito pequenos "
                "não escondam os demais. Em municípios pequenos poucas contratações mudam muito o indicador por habitante.")
 
@@ -373,6 +389,82 @@ with aba_perfil:
     p1.plotly_chart(comparar("faixa_etaria", "Faixa etária", cfg.FAIXAS_ETARIAS_ROTULOS + ["Não informada"]), width="stretch")
     p2.plotly_chart(comparar("escolaridade_grupo", "Escolaridade", cfg.ESCOLARIDADE_ORDEM + ["Não informada"]), width="stretch")
     st.plotly_chart(comparar("sexo_rotulo", "Sexo"), width="stretch")
+
+# =============================================================================
+# Contexto e recomendações
+# =============================================================================
+with aba_contexto:
+    if not cfg.CONTEXTO_JSON.exists():
+        st.info(f"Arquivo de contexto não encontrado em `{cfg.CONTEXTO_JSON}`.")
+    else:
+        ctx = ctxmod.carregar()
+        municipio_subclasse_disp = (PASTA / "municipio_subclasse.parquet").exists()
+
+        st.subheader("O que está por trás: contexto estadual")
+        cols = st.columns(len(ctx["estado"]))
+        for col, card in zip(cols, ctx["estado"]):
+            with col:
+                st.markdown(f"**{card['tag']}**")
+                st.metric(card["titulo"], card["numero"])
+                st.caption(card["texto"])
+                st.caption(f"Fonte: [{card['fonte']}]({card['url']})")
+
+        st.divider()
+        st.subheader("Casos por município: nosso dado x a notícia")
+        if not municipio_subclasse_disp:
+            st.warning(
+                "`municipio_subclasse.parquet` ainda não existe. Rode `python pipeline.py` com o "
+                "CAGED completo para calcular o saldo de cada caso (os textos abaixo aparecem sem o número)."
+            )
+            municipio_subclasse = pd.DataFrame(columns=["municipio_codigo", "subclasse", "saldo"])
+        else:
+            municipio_subclasse = carregar("municipio_subclasse")
+
+        for caso in ctx["municipios"]:
+            dado = ctxmod.nosso_dado_caso(caso, municipio_subclasse, dim_mun)
+            with st.container(border=True):
+                st.markdown(f"**{caso['tag']}** · {', '.join(caso['municipios'])}")
+                st.markdown(f"#### {caso['titulo']}")
+                if dado["encontrado"]:
+                    st.metric(f"Nosso dado ({caso['rotulo_dado']}, 12 meses)", ctxmod.fmt_saldo(dado["saldo"]))
+                else:
+                    st.caption(f"Nosso dado ({caso['rotulo_dado']}): não foi possível calcular agora.")
+                st.write(caso["texto"])
+                if caso["fontes"]:
+                    links = " · ".join(f"[{f['nome']}]({f['url']})" for f in caso["fontes"])
+                    st.caption(f"Fonte: {links}")
+                else:
+                    st.caption("Sem notícia encontrada; tratado como \"a investigar\".")
+
+        st.divider()
+        st.subheader("O que fazer: recomendações")
+        est_div_ctx = carregar("estado_divisao")
+        est_escolaridade = carregar("estado_escolaridade") if (PASTA / "estado_escolaridade.parquet").exists() else None
+        if est_escolaridade is None:
+            st.warning(
+                "`estado_escolaridade.parquet` ainda não existe. Rode `python pipeline.py` de novo "
+                "(com a tabela nova) para preencher os números de salário por escolaridade nas recomendações."
+            )
+            placeholders = {}
+        else:
+            placeholders = ctxmod.calcular_placeholders(
+                est_setor, est_div_ctx, est_escolaridade, carregar("municipio_setor"), dim_mun, IND,
+            )
+
+        for rec in ctx["recomendacoes"]:
+            with st.container(border=True):
+                st.markdown(f"#### {rec['titulo']}")
+                try:
+                    evidencia = rec["evidencia"].format(**placeholders) if placeholders else rec["evidencia"]
+                except KeyError:
+                    evidencia = rec["evidencia"]
+                st.write(f"**Evidência:** {evidencia}")
+                try:
+                    acao = rec["acao"].format(**placeholders) if placeholders else rec["acao"]
+                except KeyError:
+                    acao = rec["acao"]
+                st.write(f"**Ação:** {acao}")
+                st.caption(f"Como medir: {rec['medir']}")
 
 # =============================================================================
 # Metodologia

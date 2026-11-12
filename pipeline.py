@@ -331,6 +331,24 @@ def classificar(t: pd.DataFrame, grupo: list[str]) -> pd.DataFrame:
     return t.drop(columns=limiares)
 
 
+def agregar_municipio_subclasse(df: pd.DataFrame, nomes_municipio: dict) -> pd.DataFrame:
+    """Saldo por município x subclasse CNAE (só indústria), para os casos de data/contexto.json.
+
+    O cubo por divisão (2 dígitos) esconde histórias como a de material elétrico para
+    veículos em Navegantes x Mafra; o "nosso dado" dos cards de contexto precisa da
+    subclasse (7 dígitos) e do município isolado.
+    """
+    ind = df[df["industria"]]
+    t = (
+        ind.groupby(["municipio_codigo", "subclasse"], observed=True)
+        .agg(admissoes=("adm", "sum"), desligamentos=("desl", "sum"))
+        .reset_index()
+    )
+    t["saldo"] = t["admissoes"] - t["desligamentos"]
+    t["municipio_nome"] = t["municipio_codigo"].map(nomes_municipio)
+    return t
+
+
 def empilhar_setor(df_ag: pd.DataFrame) -> pd.DataFrame:
     """Cria a coluna `setor`: cada seção CNAE e também o agregado 'IND' (indústria B a F)."""
     cats = list(df_ag["secao"].cat.categories) + [cfg.SETOR_INDUSTRIA]
@@ -449,13 +467,19 @@ def main() -> None:
         "estado_nivel": est_nivel,
         "micro_nivel": micro_nivel,
         "perfil": agregar(st, ["setor", "sexo_rotulo", "faixa_etaria", "escolaridade_grupo"], pops),
+        "estado_escolaridade": agregar(st, ["setor", "escolaridade_grupo"], pops),
     }
+
+    municipio_subclasse = agregar_municipio_subclasse(
+        df, dict(zip(dim_mun["municipio_codigo"], dim_mun["municipio_nome"]))
+    )
 
     log("6/6 Gravação")
     for nome, t in tabelas.items():
         salvar(anexar_nomes(t, nomes), nome)
     salvar(dim_mun, "dim_municipio")
     salvar(tab_cbo, "dim_cbo")
+    salvar(municipio_subclasse, "municipio_subclasse")
 
     ind_estado = est_setor[est_setor["setor"] == cfg.SETOR_INDUSTRIA].iloc[0]
     meta = {
