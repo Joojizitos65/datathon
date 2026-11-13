@@ -171,13 +171,41 @@ def divisoes_cnae(forcar: bool = False) -> pd.DataFrame:
     return df
 
 
+def _area_assinada(anel: list) -> float:
+    """Área assinada do anel (fórmula do cadarço): positiva = anti-horário, negativa = horário."""
+    return sum(anel[i][0] * anel[i + 1][1] - anel[i + 1][0] * anel[i][1] for i in range(len(anel) - 1)) / 2
+
+
+def _orientar_aneis(geo: dict) -> dict:
+    """Põe os anéis no sentido que o Plotly espera: externo horário, buracos anti-horário.
+
+    A malha do IBGE vem com o anel externo anti-horário (padrão RFC 7946). O `go.Choropleth` do Plotly
+    projeta os polígonos numa esfera e, com o sentido invertido, entende cada município como "o mundo
+    inteiro menos o município": o mapa fica um retângulo liso, sem divisas.
+    """
+    for feature in geo.get("features", []):
+        g = feature.get("geometry") or {}
+        if g.get("type") not in ("Polygon", "MultiPolygon"):
+            continue
+        poligonos = [g["coordinates"]] if g["type"] == "Polygon" else g["coordinates"]
+        for poligono in poligonos:
+            for i, anel in enumerate(poligono):
+                horario = _area_assinada(anel) < 0
+                if horario != (i == 0):  # externo (i == 0) deve ser horário; buracos, anti-horário
+                    anel.reverse()
+    return geo
+
+
 def malha_municipios(forcar: bool = False) -> dict:
-    """GeoJSON dos municípios de SC (propriedade `codarea` = código IBGE de 7 dígitos)."""
+    """GeoJSON dos municípios de SC (propriedade `codarea` = código IBGE de 7 dígitos).
+
+    Os anéis são reorientados para o sentido esperado pelo Plotly (ver `_orientar_aneis`).
+    """
     arquivo = cfg.DIR_EXTERNOS / "malha_sc_municipios.geojson"
     if arquivo.exists() and not forcar:
-        return json.loads(arquivo.read_text(encoding="utf-8"))
+        return _orientar_aneis(json.loads(arquivo.read_text(encoding="utf-8")))
 
     geo = _baixar_json(URL_MALHA)
     cfg.DIR_EXTERNOS.mkdir(parents=True, exist_ok=True)
     arquivo.write_text(json.dumps(geo, ensure_ascii=False), encoding="utf-8")
-    return geo
+    return _orientar_aneis(geo)

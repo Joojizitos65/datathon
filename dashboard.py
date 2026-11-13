@@ -10,6 +10,7 @@ from __future__ import annotations
 import json
 import textwrap
 
+import numpy as np
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
@@ -30,6 +31,28 @@ CORES = {
 ORDEM_CENARIO = list(CORES)
 IND = cfg.SETOR_INDUSTRIA
 
+# Mapa de municípios (aba Território): diagnóstico de cada município no setor escolhido.
+CORES_DIAG = {  # mesma paleta do mapa original (azul = cresce, vermelho = encolhe, laranja = gira demais)
+    "Expansão acelerada": "#2a78d6",
+    "Alta rotatividade": "#eb6834",
+    "Retração": "#a32d2d",
+    "Estável": "#cfcfcb",
+    "Dados insuficientes": "#ececea",
+}
+# Escala divergente: vermelho (perda) - claro (zero) - azul (ganho).
+ESCALA_DIVERGENTE = [[0, "#7f1f1f"], [0.25, "#d34a47"], [0.45, "#f3c4c2"], [0.5, "#f4f4f5"],
+                     [0.55, "#b7d3f6"], [0.75, "#2a78d6"], [1, "#104281"]]
+ESCALA_SEQUENCIAL = [[0, "#cde2fb"], [0.5, "#3987e5"], [1, "#0d366b"]]
+COR_SEM_DADO = "#ececea"
+# Rótulos de referência no mapa: (latitude, longitude, posição do texto)
+CIDADES = {
+    "Joinville": (-26.273, -48.996, "middle right"), "Blumenau": (-26.864, -49.098, "middle left"),
+    "Navegantes": (-26.826, -48.73, "middle right"), "Florianópolis": (-27.614, -48.492, "middle right"),
+    "Criciúma": (-28.718, -49.387, "middle left"), "Lages": (-27.96, -50.353, "middle right"),
+    "Mafra": (-26.215, -49.878, "top center"), "Joaçaba": (-27.152, -51.587, "bottom center"),
+    "Chapecó": (-27.116, -52.661, "bottom center"), "São Miguel do Oeste": (-26.728, -53.509, "top right"),
+}
+
 st.set_page_config(page_title="Raio-X do Trabalho Industrial em SC", layout="wide")
 
 
@@ -46,27 +69,25 @@ def metadados() -> dict:
 
 @st.cache_data
 def malha() -> dict:
-    """Malha dos municípios com os anéis na orientação que o Plotly (d3-geo) espera.
+    return ref.malha_municipios()
 
-    O d3-geo trata o anel externo como horário e os furos como anti-horários. A malha do
-    IBGE vem no padrão oposto (RFC 7946), o que faz cada município pintar "o resto do
-    mundo" e aparecer como um buraco no mapa.
+
+@st.cache_data
+def contorno(codigo_ibge: str) -> tuple[list, list]:
+    """Anéis externos do município como uma linha (lon, lat) separada por None.
+
+    Serve para desenhar o destaque do município selecionado sobre o mapa sem bloquear hover e clique.
     """
-    def area(anel):  # > 0 quando anti-horário (fórmula do laço)
-        return sum(x1 * y2 - x2 * y1 for (x1, y1, *_), (x2, y2, *_) in zip(anel, anel[1:]))
-
-    def orientar(poligono):
-        return [anel[::-1] if (area(anel) > 0) == (i == 0) else anel
-                for i, anel in enumerate(poligono)]
-
-    geo = ref.malha_municipios()
-    for feicao in geo["features"]:
-        g = feicao["geometry"]
-        if g["type"] == "Polygon":
-            g["coordinates"] = orientar(g["coordinates"])
-        elif g["type"] == "MultiPolygon":
-            g["coordinates"] = [orientar(p) for p in g["coordinates"]]
-    return geo
+    for f in malha()["features"]:
+        if f["properties"]["codarea"] == codigo_ibge:
+            g = f["geometry"]
+            polys = [g["coordinates"]] if g["type"] == "Polygon" else g["coordinates"]
+            lon, lat = [], []
+            for poly in polys:
+                lon += [p[0] for p in poly[0]] + [None]
+                lat += [p[1] for p in poly[0]] + [None]
+            return lon, lat
+    return [], []
 
 
 if not (PASTA / "metadados.json").exists():
@@ -188,47 +209,200 @@ with aba_geral:
 # Território
 # =============================================================================
 with aba_territorio:
-    metricas = {
-        "Saldo por 10 mil habitantes": "saldo_por_10mil",
-        "Saldo absoluto": "saldo",
-        "Admissões por 10 mil habitantes": "adm_por_10mil",
-    }
-    escolha = st.selectbox("Indicador do mapa", list(metricas), key="metrica_mapa")
-    coluna = metricas[escolha]
-    mun = carregar("municipio_setor")
-    mun = mun[mun["setor"] == setor].merge(
-        dim_mun[["municipio_codigo", "codigo_ibge"]], on="municipio_codigo", how="left")
-    mun["codigo_ibge"] = mun["codigo_ibge"].astype(str)
-    limite = max(abs(mun[coluna].quantile(0.05)), abs(mun[coluna].quantile(0.95)))
-    # go.Choropleth (mapa vetorial) em vez de px.choropleth_map: este último baixa o fundo
-    # (tiles) de um servidor de mapas pela internet, o que deixa o painel em branco sem
-    # conexão (ex.: rede do auditório no pitch). O go.Choropleth só precisa do GeoJSON dos
-    # municípios (já em cache local) e do TopoJSON base do mundo, servido por static/.
-    fig = go.Figure(
-        go.Choropleth(
-            geojson=malha(), locations=mun["codigo_ibge"], featureidkey="properties.codarea",
-            z=mun[coluna], locationmode="geojson-id",
-            colorscale="RdYlGn", zmin=-limite, zmax=limite, zmid=0,
-            text=mun["municipio_nome"], marker_line_color="#37474f", marker_line_width=0.4,
-            colorbar=dict(title=escolha, orientation="h", y=-0.08, len=0.6),
-            customdata=mun[["saldo", "admissoes", "desligamentos"]],
-            hovertemplate=(
-                "<b>%{text}</b><br>" + escolha + ": %{z:,.1f}<br>"
-                "Saldo: %{customdata[0]:,}<br>Admissões: %{customdata[1]:,}<br>"
-                "Desligamentos: %{customdata[2]:,}<extra></extra>"
-            ),
+    # --- Base: os 295 municípios, com ou sem movimentação no setor escolhido ---------------------
+    base_mun = dim_mun[["municipio_codigo", "codigo_ibge", "municipio_nome", "pop_estimada_2026"]].copy()
+    base_mun["codigo_ibge"] = base_mun["codigo_ibge"].astype(str)
+    dados_mun = carregar("municipio_setor")
+    dados_mun = dados_mun[dados_mun["setor"] == setor][[
+        "municipio_codigo", "admissoes", "desligamentos", "saldo", "movimentos",
+        "razao_desl_adm", "pct_pedido_desl", "sal_mediana_adm"]]
+    mp = base_mun.merge(dados_mun, on="municipio_codigo", how="left")
+    for c in ["admissoes", "desligamentos", "saldo", "movimentos"]:
+        mp[c] = mp[c].fillna(0).astype(int)
+    mp["saldo_10k"] = mp["saldo"] / mp["pop_estimada_2026"] * 1e4
+    mp["giro_10k"] = mp["movimentos"] / mp["pop_estimada_2026"] * 1e4
+
+    # --- Controles --------------------------------------------------------------------------------
+    metrica = st.segmented_control(
+        "Colorir o mapa por",
+        ["Diagnóstico", "Saldo por 10 mil hab.", "Desligamentos por admissão", "Saídas a pedido",
+         "Salário de admissão"],
+        default="Diagnóstico", key="metrica_mapa") or "Diagnóstico"
+    c_minimo, _ = st.columns([2, 3])
+    min_mov = c_minimo.slider(
+        "Mín. de movimentações por município", 0, 2000, cfg.MIN_MOV_CELULA, 50, key="min_mov_mapa",
+        help="Abaixo desse volume no setor, o município aparece como 'Dados insuficientes': "
+             "taxas de cidades muito pequenas oscilam demais.")
+
+    # --- Diagnóstico de cada município (relativo aos demais, no setor escolhido) ----------------
+    ok = mp["movimentos"] >= max(min_mov, 1)
+    if ok.sum() >= 5:
+        q_alto = mp.loc[ok, "saldo_10k"].quantile(0.8)
+        q_baixo = mp.loc[ok, "saldo_10k"].quantile(0.2)
+        giro_alto = mp.loc[ok, "giro_10k"].quantile(0.8)
+    else:
+        q_alto, q_baixo, giro_alto = np.inf, -np.inf, np.inf
+    mp["diag"] = np.select(
+        [~ok,
+         ok & (mp["saldo_10k"] >= q_alto) & (mp["saldo"] > 0),
+         ok & (mp["saldo_10k"] <= q_baixo) & (mp["saldo"] < 0),
+         ok & (mp["giro_10k"] >= giro_alto)],
+        ["Dados insuficientes", "Expansão acelerada", "Retração", "Alta rotatividade"], "Estável")
+
+    # Textos do hover (já no padrão brasileiro)
+    mp["h_saldo"] = mp["saldo"].map(lambda x: fmt(x, 0, sinal=True))
+    mp["h_10k"] = mp["saldo_10k"].map(lambda x: fmt(x, 1))
+    mp["h_rot"] = mp["razao_desl_adm"].map(lambda x: fmt(x, 2))
+    mp["h_ped"] = mp["pct_pedido_desl"].map(lambda x: "-" if pd.isna(x) else f"{fmt(x * 100, 0)}%")
+    mp["h_sal"] = mp["sal_mediana_adm"].map(lambda x: "-" if pd.isna(x) else f"R$ {fmt(x, 0)}")
+    mp["h_mov"] = mp["movimentos"].map(lambda x: fmt(x))
+    HOVER = ["municipio_nome", "diag", "h_saldo", "h_10k", "h_rot", "h_ped", "h_sal", "h_mov"]
+    HT = ("<b>%{customdata[0]}</b> · %{customdata[1]}<br>"
+          "Saldo: %{customdata[2]} vagas (%{customdata[3]} por 10 mil hab.)<br>"
+          "Desligamentos por admissão: %{customdata[4]} · Saídas a pedido: %{customdata[5]}<br>"
+          "Salário mediano de admissão: %{customdata[6]}<br>"
+          "Movimentações: %{customdata[7]}<extra></extra>")
+
+    contagem = mp["diag"].value_counts()
+    st.info(
+        f"**{contagem.get('Expansão acelerada', 0)} municípios em expansão acelerada** e "
+        f"**{contagem.get('Retração', 0)} em retração**. Outros {contagem.get('Alta rotatividade', 0)} têm "
+        f"alta rotatividade: muito movimento por habitante e pouco saldo. "
+        f"Setor: {nomes[setor]}.")
+
+    # --- Clique no mapa -> município em destaque -----------------------------------------------------
+    # A seleção do clique chega em session_state antes do rerun. Só aplicamos quando o clique muda,
+    # para não sobrescrever uma escolha feita depois na caixa de seleção.
+    cod_por_nome = dict(zip(mp["municipio_nome"], mp["codigo_ibge"]))
+    nome_por_cod = {v: k for k, v in cod_por_nome.items()}
+    clique = (st.session_state.get("mapa_sel") or {}).get("selection", {}).get("points", [])
+    cod_clicado = next((p.get("location") for p in clique if p.get("location")), None)
+    if cod_clicado != st.session_state.get("_ult_clique_mapa"):
+        st.session_state["_ult_clique_mapa"] = cod_clicado
+        if cod_clicado in nome_por_cod:
+            st.session_state["mun_sel_mapa"] = nome_por_cod[cod_clicado]
+    mun_atual = st.session_state.get("mun_sel_mapa")
+
+    c_mapa, c_lado = st.columns([2.15, 1], gap="large")
+    with c_mapa:
+        # go.Choropleth (mapa vetorial) em vez de px.choropleth_map: este último baixa o fundo
+        # (tiles) de um servidor de mapas pela internet, o que deixa o painel em branco sem
+        # conexão (ex.: rede do auditório no pitch). O go.Choropleth só precisa do GeoJSON dos
+        # municípios (já em cache local) e do TopoJSON base do mundo, servido por static/.
+        fig = go.Figure()
+        comum = dict(
+            geojson=malha(), featureidkey="properties.codarea",
+            marker=dict(line=dict(color="white", width=0.6)), hovertemplate=HT,
+            # sem esmaecer o resto do mapa quando um município é clicado (o destaque é o contorno)
+            selected=dict(marker=dict(opacity=1)), unselected=dict(marker=dict(opacity=1)),
         )
-    )
-    fig.update_geos(
-        # scope="world" faz o Plotly pedir world_110m.json, o único TopoJSON em static/.
-        # Com "south america" ele pede south-america_110m.json (404) e o mapa não desenha.
-        fitbounds=False, visible=False, scope="world",
-        lonaxis_range=[-53.95, -47.55], lataxis_range=[-29.45, -25.85],
-    )
-    fig.update_layout(height=600, margin=dict(l=0, r=0, t=0, b=0))
-    st.plotly_chart(fig, width="stretch", config={"topojsonURL": "app/static/"})
-    st.caption("A escala de cores é cortada nos percentis 5 e 95 para que municípios muito pequenos "
-               "não escondam os demais. Em municípios pequenos poucas contratações mudam muito o indicador por habitante.")
+        if metrica == "Diagnóstico":
+            for cat, cor in CORES_DIAG.items():
+                sub = mp[mp["diag"] == cat]
+                if sub.empty:
+                    continue
+                fig.add_trace(go.Choropleth(
+                    locations=sub["codigo_ibge"], z=np.ones(len(sub)), colorscale=[[0, cor], [1, cor]],
+                    showscale=False, name=cat, showlegend=True, customdata=sub[HOVER], **comum))
+            fig.update_layout(legend=dict(orientation="h", x=0.0, y=0.0, yanchor="bottom",
+                                          bgcolor="rgba(255,255,255,0)"))
+        else:
+            col, escala, centro, formato = {
+                "Saldo por 10 mil hab.": ("saldo_10k", ESCALA_DIVERGENTE, 0.0, ",.0f"),
+                # mais desligamentos que admissões = ruim: mesma escala, invertida (abaixo de 1 azul, acima de 1 vermelho)
+                "Desligamentos por admissão": (
+                    "razao_desl_adm", [[1 - p, cor] for p, cor in ESCALA_DIVERGENTE][::-1], 1.0, ".2f"),
+                "Saídas a pedido": ("pct_pedido_desl", ESCALA_SEQUENCIAL, None, ".0%"),
+                "Salário de admissão": ("sal_mediana_adm", ESCALA_SEQUENCIAL, None, ",.0f"),
+            }[metrica]
+            # Fundo cinza para todos os municípios; os com volume suficiente são pintados por cima.
+            fig.add_trace(go.Choropleth(
+                locations=mp["codigo_ibge"], z=np.zeros(len(mp)), colorscale=[[0, COR_SEM_DADO], [1, COR_SEM_DADO]],
+                showscale=False, customdata=mp[HOVER], **comum))
+            validos = mp[ok & mp[col].notna()]
+            if len(validos):
+                if centro is None:
+                    zmin, zmax = float(validos[col].quantile(0.02)), float(validos[col].quantile(0.98))
+                else:
+                    lim = float((validos[col] - centro).abs().quantile(0.95)) or 1.0
+                    zmin, zmax = centro - lim, centro + lim
+                fig.add_trace(go.Choropleth(
+                    locations=validos["codigo_ibge"], z=validos[col], colorscale=escala, zmin=zmin, zmax=zmax,
+                    colorbar=dict(thickness=12, len=0.6, x=1.0, tickformat=formato, outlinewidth=0),
+                    customdata=validos[HOVER], **comum))
+            fig.update_layout(showlegend=False)
+
+        # Rótulos das principais cidades
+        fig.add_trace(go.Scattergeo(
+            lon=[c[1] for c in CIDADES.values()], lat=[c[0] for c in CIDADES.values()],
+            text=list(CIDADES), mode="markers+text", textposition=[c[2] for c in CIDADES.values()],
+            marker=dict(size=4, color="#212121"), textfont=dict(size=11, color="#212121"),
+            hoverinfo="skip", showlegend=False))
+        # Contorno do município em destaque (linha, não preenchimento: não bloqueia hover nem clique)
+        if mun_atual in cod_por_nome:
+            lon_c, lat_c = contorno(cod_por_nome[mun_atual])
+            if lon_c:
+                fig.add_trace(go.Scattergeo(lon=lon_c, lat=lat_c, mode="lines",
+                                            line=dict(color="#212121", width=2.4),
+                                            hoverinfo="skip", showlegend=False))
+        # O estado vai de lon -53,84 a -48,36 e lat -29,35 a -25,96. Há folga a leste para os rótulos da costa
+        # e o domain reserva a faixa de baixo para a legenda do diagnóstico, que senão cobre o sul do estado.
+        fig.update_geos(
+            fitbounds=False, visible=False, bgcolor="rgba(0,0,0,0)", projection_type="mercator",
+            lonaxis_range=[-54.1, -47.35], lataxis_range=[-29.6, -25.72],
+            domain=dict(x=[0, 1], y=[0.08 if metrica == "Diagnóstico" else 0, 1]))
+        fig.update_layout(
+            height=470, margin=dict(l=0, r=0, t=0, b=0), paper_bgcolor="rgba(0,0,0,0)", separators=",.",
+            dragmode="pan", uirevision="mapa",  # uirevision: zoom e arraste do usuário sobrevivem aos reruns
+            modebar=dict(orientation="v", bgcolor="rgba(255,255,255,0.95)"))
+        st.plotly_chart(
+            fig, width="stretch", key="mapa_sel", on_select="rerun", selection_mode="points",
+            config={"displayModeBar": True, "displaylogo": False, "scrollZoom": False,
+                    "topojsonURL": "app/static/", "modeBarButtons": [["zoomInGeo", "zoomOutGeo", "resetGeo"]]})
+        st.caption(
+            "Use **+ / −** no canto do mapa para dar zoom, arraste para mover e **clique num município** para "
+            f"destacá-lo. Cinza claro: menos de {min_mov} movimentações no setor. Nas escalas contínuas as cores são "
+            "cortadas nos percentis extremos, para que municípios muito pequenos não escondam os demais.")
+
+    with c_lado:
+        if metrica == "Diagnóstico":
+            st.markdown(
+                "<div style='font-size:0.9rem;line-height:1.6;margin-bottom:1.2rem'>"
+                f"<span style='color:{CORES_DIAG['Expansão acelerada']}'>■</span> <b>Expansão acelerada</b>: 20% maiores "
+                "saldos por habitante.<br>"
+                f"<span style='color:{CORES_DIAG['Retração']}'>■</span> <b>Retração</b>: 20% menores saldos, com perda "
+                "de vagas.<br>"
+                f"<span style='color:{CORES_DIAG['Alta rotatividade']}'>■</span> <b>Alta rotatividade</b>: muito movimento "
+                "por habitante.<br>"
+                f"<span style='color:{CORES_DIAG['Estável']}'>■</span> <b>Estável</b> · "
+                f"<span style='color:{CORES_DIAG['Dados insuficientes']};text-shadow:0 0 1px #000'>■</span> "
+                "<b>Dados insuficientes</b></div>",
+                unsafe_allow_html=True)
+        elegiveis = mp[ok]
+
+        def linhas(df: pd.DataFrame) -> str:
+            return "\n".join(
+                f"- {r.municipio_nome}: {fmt(r.saldo, 0, sinal=True)} ({fmt(r.saldo_10k, 0, sinal=True)}/10 mil)"
+                for r in df.itertuples())
+
+        st.markdown("**Maiores altas** (saldo por 10 mil hab.)\n\n" + linhas(elegiveis.nlargest(6, "saldo_10k")))
+        st.markdown("**Maiores quedas**\n\n" + linhas(elegiveis.nsmallest(6, "saldo_10k")))
+
+    # --- Município em destaque -----------------------------------------------------------------------
+    st.selectbox("Município em destaque", sorted(cod_por_nome), index=None, key="mun_sel_mapa",
+                 placeholder="Escolha um município ou clique nele no mapa")
+    if st.session_state.get("mun_sel_mapa") in cod_por_nome:
+        r = mp[mp["municipio_nome"] == st.session_state["mun_sel_mapa"]].iloc[0]
+        if r["movimentos"] == 0:
+            st.info(f"{r['municipio_nome']} não tem movimentações neste setor no período.")
+        else:
+            k1, k2, k3, k4, k5 = st.columns(5)
+            k1.metric("Diagnóstico", r["diag"])
+            k2.metric("Saldo (12 meses)", fmt(r["saldo"], 0, sinal=True),
+                      help=f"{fmt(r['admissoes'])} admissões e {fmt(r['desligamentos'])} desligamentos.")
+            k3.metric("Saldo por 10 mil hab.", fmt(r["saldo_10k"], 1, sinal=True))
+            k4.metric("Desligamentos por admissão", r["h_rot"])
+            k5.metric("Salário mediano de admissão", r["h_sal"])
 
     st.subheader("Microrregiões")
     st.dataframe(
