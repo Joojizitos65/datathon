@@ -154,18 +154,19 @@
 <script src="vendor/qrcode.js"></script>
 <script>
 (() => {
-  // O QR aponta para o painel no mesmo endereço em que este deck está publicado (ex.: a Vercel).
-  // Aberto do disco, use slides.html?url=https://seu-projeto.vercel.app para definir o destino.
+  // Destino do QR: ?url=... se informado; senão o próprio endereço, quando o deck está publicado
+  // (ex.: a Vercel); senão o painel servido direto do repositório público.
+  const RESERVA = "https://htmlpreview.github.io/?https://github.com/Joojizitos65/datathon/blob/master/web/index.html";
   const param = new URLSearchParams(location.search).get("url");
-  const publicado = /^https?:$/.test(location.protocol) && !/^(localhost|127\.|0\.0\.0\.0)/.test(location.hostname);
-  const url = param || (publicado ? location.origin + "/" : "");
+  const publicado = /^https?:$/.test(location.protocol) && !/^(localhost|127\.|0\.0\.0\.0|htmlpreview\.)/.test(location.hostname);
+  const url = (param && /^https?:\/\//.test(param) ? param : "") || (publicado ? location.origin + "/" : RESERVA);
   document.querySelectorAll("[data-qr]").forEach((el) => {
     if (!url) { el.innerHTML = '<div class="vazio">O QR aparece quando o deck é aberto pelo link publicado (ou com ?url=...)</div>'; return; }
     const qr = qrcode(0, "M"); qr.addData(url); qr.make();
     el.innerHTML = qr.createSvgTag({ cellSize: 4, margin: 0, scalable: true });
     el.querySelector("svg").setAttribute("aria-label", "QR code para " + url);
   });
-  document.querySelectorAll("[data-url]").forEach((el) => { el.textContent = url.replace(/^https?:\/\//, "").replace(/\/$/, ""); });
+  document.querySelectorAll("[data-url]").forEach((el) => { el.textContent = url === RESERVA ? "github.com/Joojizitos65/datathon" : url.replace(/^https?:\/\//, "").replace(/\/$/, ""); });
 
   const slides = [...document.querySelectorAll(".slide")];
   const atual = () => Math.round(scrollY / innerHeight);
