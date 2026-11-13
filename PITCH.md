@@ -1,26 +1,111 @@
 # Roteiro do pitch (3 minutos)
 
-Rascunho para a equipe ajustar. Cerca de 400 palavras faladas, o que dá 3 minutos em ritmo
-normal. Todos os números vêm de `dados_processados/agregados/` (indústria = seções B a F,
-competências 2025-09 a 2026-08). A coluna "Tela" indica a seção do painel novo (`web/index.html`) a mostrar.
-A primeira tela do painel (Visão geral) responde às três partes da pergunta de uma vez: regiões, setores e os motivos.
-Dá para fazer o pitch inteiro nela; as outras seções ficam como apoio para as perguntas da banca.
+Cerca de 430 palavras faladas, o que dá 3 minutos com as pausas. Todos os números vêm de
+`dados_processados/agregados/` (indústria = seções B a F, competências 2025-09 a 2026-08) e estão
+na tabela "Números de apoio" abaixo.
 
-## Mensagem central
+**Para quem falamos.** A banca é de especialistas de empresas parceiras: gente que contrata, treina
+e perde funcionário. O pitch não explica o problema para eles; mostra que nós medimos a dor que
+eles já sentem, e que ela tem endereço.
 
-**A indústria de SC contrata 571 mil pessoas por ano para crescer 2,6 mil. O problema não é
-abrir vaga: é segurar gente.**
+**A ideia que precisa ficar.** A indústria de SC não sofre de falta de gente. Sofre de falta de
+motivo para ficar.
+
+**Tela.** O pitch inteiro acontece na Visão geral do painel (`web/index.html`), que responde às três
+partes da pergunta sem rolagem. As outras seções são apoio para as perguntas da banca.
+
+## Arco
+
+| Momento | Tempo | O que a banca deve sentir |
+|---|---|---|
+| 1. A dor | 0:00–0:25 | "Isso acontece comigo." |
+| 2. O tamanho | 0:25–0:55 | "É maior do que eu imaginava." |
+| 3. Onde | 0:55–1:25 | "Eles responderam a pergunta." |
+| 4. A virada | 1:25–2:05 | "Eu não tinha visto por esse ângulo." |
+| 5. A saída | 2:05–2:40 | "Dá para fazer segunda-feira." |
+| 6. O fecho | 2:40–3:00 | "Quero esse painel." |
 
 ## Roteiro
 
-| Tempo | Tela | Fala |
-|---|---|---|
-| 0:00–0:30 | Visão geral (KPIs) | "Em 12 meses, a indústria catarinense fez 571 mil admissões e 568 mil desligamentos. Saldo: 2.645 vagas. São 216 contratações para cada vaga que fica. Santa Catarina tem a menor desocupação do país, 2,1%, então cada saída é uma vaga difícil de repor. Analisamos 3,4 milhões de movimentações do Novo CAGED para entender onde isso aperta e por quê." |
-| 0:30–1:05 | Território (mapa) | "O estado está partido em dois. O litoral norte e o Oeste crescem: Itajaí soma +4.235 vagas, Chapecó +2.276, Joaçaba +1.169. Só Navegantes responde por +2.765, mais que o saldo industrial do estado inteiro; sem ela, a indústria de SC teria fechado no negativo. Do outro lado, o Planalto Norte encolhe: São Bento do Sul, Rio Negrinho, Campo Alegre e Mafra perderam juntas 1.497 vagas, com móveis e autopeças expostos ao tarifaço americano." |
-| 1:05–1:35 | Setores (CNAE) | "Por setor, a mesma divisão. Alimentos abriu 4.739 vagas e materiais elétricos, 2.018. Vestuário fechou 4.571, madeira 1.391 e móveis 1.319. A indústria tradicional do Vale e do Planalto perde espaço para alimentos, naval e elétricos." |
-| 1:35–2:10 | Gargalos (quadrantes) | "E como renda e escolaridade explicam? Cruzamos 348 combinações de região e setor. O salário de admissão fica entre 98% e 100% da mediana em todos os grupos, e a escolaridade em torno de 11 anos: a indústria paga parecido e exige parecido em todo o estado. O que separa o apagão é o giro: esses setores contratam 2,5 vezes mais que os estáveis, e 54% das saídas são pedido de demissão. No estado, quem entra ganha R$ 2.210 e quem sai ganhava R$ 2.301. A empresa perde o experiente e repõe com um mais barato, que também vai embora." |
-| 2:10–2:50 | Contexto e recomendações | "Três ações. Um: reter antes de contratar, com progressão salarial nos primeiros 12 meses nas atividades de maior giro, alimentos e vestuário. Dois: recolocar o Planalto Norte, com requalificação rápida via SENAI e SINE para os setores que seguem contratando. Três: formar para os polos que crescem, com cursos técnicos curtos em soldagem, elétrica e manutenção em Navegantes e no Oeste." |
-| 2:50–3:00 | Visão geral | "O apagão de mão de obra em SC não é falta de vaga, é excesso de giro. O painel mostra, município a município, onde agir primeiro." |
+As frases em **negrito** são os picos: fale mais devagar, olhando para a banca, e faça silêncio
+depois. *(pausa)* é um segundo inteiro, contado.
+
+### 1. A dor · 0:00–0:25 · tela ainda sem destaque
+
+> Quem aqui já contratou alguém, treinou, e três meses depois recebeu um pedido de demissão?
+> *(pausa)*
+> Na indústria catarinense isso acontece a cada dois minutos. Foram 271 mil pedidos de demissão em
+> doze meses.
+> **Antes de eu terminar este pitch, vai acontecer de novo.**
+
+### 2. O tamanho · 0:25–0:55 · aponte a manchete
+
+> Nós analisamos 3,4 milhões de movimentações do Novo CAGED. No último ano, a indústria de Santa
+> Catarina contratou 571 mil pessoas. Sabem quanto ela cresceu?
+> *(pausa)*
+> 2.645 vagas.
+> **São 216 contratações para ficar com uma.**
+> E este é o estado com a menor desocupação do país. Não tem fila na porta. Cada pessoa que sai é
+> uma vaga que demora a fechar.
+
+### 3. Onde · 0:55–1:25 · cartões 1 e 2
+
+> O desafio perguntou onde está a expansão e onde está o apagão. Está aqui.
+> Itajaí e Chapecó puxam o crescimento. Alimentos abriu 4.739 vagas; materiais elétricos, 2.018.
+> Do outro lado, o Planalto Norte encolhe: São Bento do Sul, Rio Negrinho, Campo Alegre e Mafra
+> perderam juntas 1.497 vagas, e o vestuário fechou 4.571 no estado.
+> **Santa Catarina não tem um mercado de trabalho industrial. Tem dois, andando em direções opostas.**
+
+### 4. A virada · 1:25–2:05 · faixa "Como renda e escolaridade explicam?"
+
+> E renda e escolaridade explicam isso? Aqui veio a nossa surpresa.
+> Fomos procurar a diferença entre quem cresce e quem trava. Não achamos. Salário de entrada: igual.
+> Escolaridade: onze anos de estudo, em todo lugar.
+> *(pausa)*
+> O que muda é o giro. Onde há apagão, a indústria contrata duas vezes e meia mais, e mais da metade
+> das saídas é o trabalhador indo embora por conta própria.
+> E o número que explica tudo: quem entra ganha R$ 2.210. Quem saiu ganhava R$ 2.301.
+> **A indústria perde o experiente, repõe com um mais barato, e chama isso de falta de mão de obra.**
+> Não falta gente. Falta motivo para ficar.
+
+### 5. A saída · 2:05–2:40 · volte o olhar para a banca
+
+> Três movimentos, e o painel diz onde começar cada um.
+> Um: **reter antes de contratar.** Progressão salarial no primeiro ano, começando por alimentos e
+> vestuário, onde mais se pede demissão.
+> Dois: **recolocar o Planalto Norte.** Quem perdeu a vaga em móveis tem chão de fábrica, e alimentos
+> e elétricos estão contratando.
+> Três: **formar onde cresce.** Curso curto de solda, elétrica e manutenção em Itajaí e no Oeste,
+> ligado às vagas que já existem.
+
+### 6. O fecho · 2:40–3:00 · sem olhar para a tela
+
+> O Raio-X mostra, município por município, onde o investimento em gente rende e onde ele está
+> escorrendo.
+> *(pausa)*
+> **Vocês não precisam de mais currículos. Precisam que quem entrou ontem ainda esteja lá no ano que vem.**
+> Obrigado.
+
+## Como falar
+
+- **Uma pessoa fala a dor e o fecho.** A mesma voz abre e fecha; dá unidade. As partes 3 e 4 podem
+  ficar com quem domina os dados.
+- **A pergunta de abertura é de verdade.** Espere alguém da banca reagir (um aceno basta) antes de
+  continuar.
+- **"2.645 vagas" sozinho.** Depois de "Sabem quanto ela cresceu?", o número vem seco, sem frase em volta.
+- **A parte 4 é o pico do pitch.** Comece mais baixo ("Não achamos.") e suba até a frase em negrito.
+- **Não leia a tela.** A tela prova; a fala convence. Aponte, não narre.
+- **Se o tempo apertar,** corte a lista de municípios da parte 3 e o terceiro movimento da parte 5.
+  Nunca corte a parte 4 nem o fecho.
+
+## Frases de reserva
+
+- Para a frase mais dura da parte 4, se a equipe preferir um tom menos provocador diante de
+  empregadores: "A indústria perde o experiente e repõe com um mais barato, que também vai embora."
+- Para perguntas sobre escolaridade: "Só 4% dos admitidos têm ensino superior. A disputa é por
+  operador, não por diploma."
+- Para perguntas sobre o método: "Cenário é comparação entre microrregiões do mesmo setor, com
+  limiares documentados no repositório. É ponto de partida, não sentença."
 
 ## Números de apoio (para perguntas da banca)
 
@@ -30,6 +115,9 @@ abrir vaga: é segurar gente.**
 | Saldo de SC, todos os setores | +41.394 | `metadados.json` |
 | Saldo da indústria (B a F) | +2.645 (transformação +1.008, construção +1.533) | `estado_setor` |
 | Admissões / desligamentos na indústria | 571.139 / 568.494 | `estado_setor` |
+| Contratações por vaga líquida | 216 (571.139 ÷ 2.645) | `estado_setor` |
+| Pedidos de demissão na indústria em 12 meses | cerca de 271 mil (47,7% de 568.494 desligamentos): 743 por dia, um a cada 1,9 minuto | `estado_setor` |
+| Giro do grupo em apagão x estáveis | 34,8 x 14,0 admissões por 10 mil hab. (2,5 vezes); 54% de saídas a pedido | `micro_divisao` |
 | Saídas a pedido na indústria | 47,7% (alimentos 56,5%, vestuário 55,7%) | `estado_setor`, `estado_divisao` |
 | Correlação do saldo com renda e escolaridade | 0,01 (salário relativo) e −0,03 (anos de estudo), Spearman, 364 células | `micro_divisao` |
 | Medianas por grupo: admissões por 10 mil hab. | apagão 34,8; expansão 29,3; retração 17,8; estável 14,0 | `micro_divisao` |
@@ -43,19 +131,19 @@ abrir vaga: é segurar gente.**
 
 ## Cuidados antes de apresentar
 
-1. **Navegantes.** Dos +2.765, cerca de 1.532 vêm de material elétrico automotivo, concentrados
-   em julho e agosto de 2026, sem notícia que explique (caso "a investigar" em
-   `contexto.json`). A frase "sem Navegantes a indústria fecharia no negativo" depende desse
-   número. Confirmar antes de usar, ou trocar pela versão segura: "o estaleiro de Navegantes
-   puxa as contratações".
-2. **Rótulo "Sinal de apagão" em São Bento do Sul.** A regra atual marca a microrregião como
-   apagão, mas ela tem o pior saldo do estado (−1.055) e o contexto é de retração (móveis,
-   tarifaço). O roteiro trata como retração. Ver "Decisão pendente" no README.
-3. **Ocupações.** Os saldos por macrofamília de CBO que estão hoje no painel usam a regra
-   antiga. A classificação revisada (`llm/respostas/`) muda a macrofamília de 12,9% das
-   movimentações industriais, então o roteiro não cita números por ocupação. Depois de rodar
-   `python pipeline.py` com o CAGED completo, dá para incluir um dado de ocupação em 1:35–2:10.
-4. **Filtro de exclusões (MOV x EX)** não foi aplicado porque as colunas não vieram no CSV.
-   Se a banca perguntar, a resposta está no README.
-5. Os dados de contexto (2,1% de desocupação, tarifaço) vêm de notícias listadas em
-   `fontes_datathon/contexto.json`, não do CAGED.
+1. **"271 mil pedidos de demissão" são pedidos, não pessoas.** A mesma pessoa pode pedir demissão
+   mais de uma vez no ano. Diga sempre "pedidos".
+2. **"A cada dois minutos"** é a média do ano inteiro (24 horas, 365 dias). Vale como imagem; se
+   perguntarem, a conta está na tabela acima.
+3. **"Menor desocupação do país" (2,1%)** vem de notícia listada em `fontes_datathon/contexto.json`,
+   não do CAGED.
+4. **Navegantes ficou fora do roteiro de propósito.** Dos +2.765 do município, cerca de 1.532 vêm de
+   um salto em material elétrico automotivo em julho e agosto de 2026, ainda sem explicação.
+5. **São Bento do Sul** aparece no painel com o rótulo "Sinal de apagão", mas o roteiro a trata como
+   retração (pior saldo do estado, contexto de móveis e tarifaço). Ver "Decisão pendente" no README.
+6. **"Recolocar o Planalto Norte"** é uma recomendação, não um dado: o CAGED não diz se quem saiu de
+   móveis tem perfil para alimentos ou elétricos.
+7. **Ocupações não entram no roteiro.** Os saldos por macrofamília de CBO do painel ainda usam a
+   regra antiga; a classificação revisada só vale depois de rodar o pipeline com o CAGED completo.
+8. **Filtro de exclusões (MOV x EX)** não foi aplicado porque as colunas não vieram no CSV. A
+   resposta está no README.
