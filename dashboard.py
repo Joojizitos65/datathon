@@ -8,6 +8,7 @@ Lê somente as tabelas agregadas geradas por `pipeline.py` (dados_processados/ag
 from __future__ import annotations
 
 import json
+import textwrap
 
 import pandas as pd
 import plotly.express as px
@@ -45,7 +46,27 @@ def metadados() -> dict:
 
 @st.cache_data
 def malha() -> dict:
-    return ref.malha_municipios()
+    """Malha dos municípios com os anéis na orientação que o Plotly (d3-geo) espera.
+
+    O d3-geo trata o anel externo como horário e os furos como anti-horários. A malha do
+    IBGE vem no padrão oposto (RFC 7946), o que faz cada município pintar "o resto do
+    mundo" e aparecer como um buraco no mapa.
+    """
+    def area(anel):  # > 0 quando anti-horário (fórmula do laço)
+        return sum(x1 * y2 - x2 * y1 for (x1, y1, *_), (x2, y2, *_) in zip(anel, anel[1:]))
+
+    def orientar(poligono):
+        return [anel[::-1] if (area(anel) > 0) == (i == 0) else anel
+                for i, anel in enumerate(poligono)]
+
+    geo = ref.malha_municipios()
+    for feicao in geo["features"]:
+        g = feicao["geometry"]
+        if g["type"] == "Polygon":
+            g["coordinates"] = orientar(g["coordinates"])
+        elif g["type"] == "MultiPolygon":
+            g["coordinates"] = [orientar(p) for p in g["coordinates"]]
+    return geo
 
 
 if not (PASTA / "metadados.json").exists():
@@ -104,19 +125,22 @@ ms = micro_setor[micro_setor["setor"] == setor].copy()
 # Visão geral
 # =============================================================================
 with aba_geral:
-    c1, c2, c3, c4, c5 = st.columns(5)
-    c1.metric("Saldo líquido (12 meses)", fmt(est["saldo"], sinal=True),
-              help="Admissões menos desligamentos no período.")
-    c2.metric("Saldo por 10 mil habitantes", fmt(est["saldo_por_10mil"], 1, sinal=True),
-              help="Saldo dividido pela população estimada de 2026 do estado.")
-    c3.metric("Salário mediano de admissão", f"R$ {fmt(est['sal_mediana_adm'], 0)}",
-              help="Só registros com salário válido (ver aba Metodologia).")
-    c4.metric("Desligamentos por admissão", fmt(est["razao_desl_adm"], 2),
-              help="Acima de 1 indica mais saídas que entradas.")
+    # Rótulos curtos e um número por cartão: textos longos são cortados com "…" pelo Streamlit.
+    c1, c2, c3, c4, c5, c6 = st.columns(6)
+    c1.metric("Saldo (12 meses)", fmt(est["saldo"], sinal=True),
+              help="Saldo líquido: admissões menos desligamentos no período.")
+    c2.metric("Saldo / 10 mil hab.", fmt(est["saldo_por_10mil"], 1, sinal=True),
+              help="Saldo dividido pela população estimada de 2026 do estado, por 10 mil habitantes.")
+    c3.metric("Salário de admissão", f"R$ {fmt(est['sal_mediana_adm'], 0)}",
+              help="Mediana. Só registros com salário válido (ver aba Metodologia).")
+    c4.metric("Deslig. / admissão", fmt(est["razao_desl_adm"], 2),
+              help="Desligamentos por admissão. Acima de 1 indica mais saídas que entradas.")
     n_apagao = int((ms["cenario"] == "Sinal de apagão").sum())
     n_exp = int((ms["cenario"] == "Expansão acelerada").sum())
-    c5.metric("Microrregiões em alerta", f"{n_apagao} apagão | {n_exp} expansão",
-              help="Classificação relativa entre as microrregiões (ver aba Metodologia).")
+    c5.metric("Sinal de apagão", f"{n_apagao}",
+              help="Microrregiões classificadas como sinal de apagão (ver aba Metodologia).")
+    c6.metric("Em expansão", f"{n_exp}",
+              help="Microrregiões classificadas como expansão acelerada (ver aba Metodologia).")
 
     esquerda, direita = st.columns([3, 2])
     with esquerda:
@@ -196,7 +220,9 @@ with aba_territorio:
         )
     )
     fig.update_geos(
-        fitbounds=False, visible=False, scope="south america",
+        # scope="world" faz o Plotly pedir world_110m.json, o único TopoJSON em static/.
+        # Com "south america" ele pede south-america_110m.json (404) e o mapa não desenha.
+        fitbounds=False, visible=False, scope="world",
         lonaxis_range=[-53.95, -47.55], lataxis_range=[-29.45, -25.85],
     )
     fig.update_layout(height=600, margin=dict(l=0, r=0, t=0, b=0))
@@ -382,7 +408,13 @@ with aba_perfil:
                      color_discrete_map={"Admitidos": "#1565c0", "Desligados": "#90a4ae"},
                      labels={coluna: "", "pct": "% do grupo", "grupo": ""}, title=titulo)
         fig.update_yaxes(tickformat=".0%")
-        fig.update_layout(height=360, legend_orientation="h", margin=dict(l=0, r=0, t=40, b=0))
+        # Rótulos longos (escolaridade) quebrados em linhas e legenda no topo: inclinados,
+        # eles invadiam a legenda e eram cortados na borda do gráfico.
+        categorias = list(g.index)
+        fig.update_xaxes(tickangle=0, tickmode="array", tickvals=categorias,
+                         ticktext=["<br>".join(textwrap.wrap(str(c), 14)) for c in categorias])
+        fig.update_layout(height=380, margin=dict(l=0, r=0, t=60, b=0),
+                          legend=dict(orientation="h", y=1.02, yanchor="bottom", x=1, xanchor="right"))
         return fig
 
     p1, p2 = st.columns(2)

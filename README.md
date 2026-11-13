@@ -101,8 +101,9 @@ esse arquivo sem tocar no código.
 - Sem estoque de empregos (RAIS), não há taxa de rotatividade real. Usamos movimentos por habitante.
 - Quase todas as admissões vêm com tipo "ignorado" (97), então não dá para separar primeiro emprego de reemprego.
 - Os limiares dos cenários são uma convenção inicial e precisam de calibração e leitura crítica pela equipe.
-- O dashboard foi testado por execução automatizada (sem erros em vários filtros), mas **não foi aberto em
-  navegador**: o aspecto visual e a renderização do mapa precisam de uma conferência manual.
+- O dashboard foi aberto em navegador automatizado (Chromium, 1440 px) e as 8 abas foram conferidas por
+  captura de tela com o setor padrão (Indústria). Os demais setores e larguras de tela menores (projetor,
+  notebook) ainda precisam de uma conferência manual.
 
 ## Próximos passos sugeridos
 
