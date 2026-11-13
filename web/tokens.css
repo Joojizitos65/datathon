@@ -1,0 +1,85 @@
+/* Tokens do sistema de design "Raio-X". Toda cor, medida e fonte do painel sai daqui.
+   Documentação: DESIGN_SYSTEM.md. Cores de dados validadas (daltonismo e contraste). */
+:root {
+  color-scheme: light;
+
+  /* Superfícies e tinta */
+  --papel: #f5f2ec;            /* plano da página */
+  --cartao: #fdfcfa;           /* superfície de cartões e gráficos */
+  --tinta: #14181d;            /* texto principal */
+  --tinta-2: #4b525a;          /* texto secundário */
+  --tinta-3: #7d8289;          /* eixos, legendas, notas */
+  --fio: #e4dfd5;              /* linhas de grade e divisórias */
+  --eixo: #c5c0b5;             /* linha de base dos gráficos */
+  --borda: rgba(20, 24, 29, 0.10);
+
+  /* Marca: usada só na interface (navegação, foco, destaque), nunca em dados */
+  --marca: #0e4f5c;
+  --marca-suave: #dcebed;
+
+  /* Cenários (categórico, ordem fixa) */
+  --cen-expansao: #2a78d6;
+  --cen-apagao: #1baf7a;
+  --cen-retracao: #eb6834;
+  --cen-estavel: #b3b0a8;
+  --cen-insuficiente: #dedad1;
+
+  /* Séries de fluxo */
+  --serie-admissoes: #2a78d6;
+  --serie-desligamentos: #eb6834;
+
+  /* Polaridade (saldo): azul = positivo, vermelho = negativo, cinza = perto de zero */
+  --pos: #2a78d6;
+  --neg: #d03b3b;
+  --div-1: #b92f2f; --div-2: #e27a72; --div-3: #f3c1bb; --div-4: #ebe8e1;
+  --div-5: #b7d3f6; --div-6: #5598e7; --div-7: #1c5cab;
+
+  /* Magnitude (sequencial, um matiz) */
+  --seq-1: #cde2fb; --seq-2: #9ec5f4; --seq-3: #5598e7; --seq-4: #256abf; --seq-5: #0d366b;
+  --sem-dado: #efece5;
+
+  /* Tipografia: só fontes do sistema, para funcionar sem internet */
+  --fonte: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --fonte-titulo: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --t-nota: 12px; --t-corpo: 14px; --t-lead: 17px; --t-h2: 24px; --t-numero: 30px; --t-h1: 44px;
+
+  /* Espaço (base 4), raio, sombra, movimento */
+  --e1: 4px; --e2: 8px; --e3: 12px; --e4: 16px; --e5: 24px; --e6: 32px; --e7: 48px; --e8: 72px;
+  --raio: 10px; --raio-p: 6px;
+  --sombra: 0 1px 2px rgba(20, 24, 29, 0.05), 0 6px 20px rgba(20, 24, 29, 0.05);
+  --rapido: 120ms ease-out;
+  --largura: 1200px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --papel: #0f1113; --cartao: #1a1c1e; --tinta: #f0efec; --tinta-2: #c3c2b7; --tinta-3: #8b8a84;
+    --fio: #2c2e30; --eixo: #3a3c3e; --borda: rgba(255, 255, 255, 0.10);
+    --marca: #7cc4d1; --marca-suave: #16343a;
+    --cen-expansao: #3987e5; --cen-apagao: #199e70; --cen-retracao: #d95926;
+    --cen-estavel: #5c5d5c; --cen-insuficiente: #37393a;
+    --serie-admissoes: #3987e5; --serie-desligamentos: #d95926;
+    --pos: #3987e5; --neg: #e66767;
+    --div-1: #e66767; --div-2: #a34343; --div-3: #5e3030; --div-4: #38383a;
+    --div-5: #1f3f6b; --div-6: #2a62ab; --div-7: #5598e7;
+    --seq-1: #173357; --seq-2: #1c4a85; --seq-3: #256abf; --seq-4: #5598e7; --seq-5: #b7d3f6;
+    --sem-dado: #242627;
+    --sombra: none;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --papel: #0f1113; --cartao: #1a1c1e; --tinta: #f0efec; --tinta-2: #c3c2b7; --tinta-3: #8b8a84;
+  --fio: #2c2e30; --eixo: #3a3c3e; --borda: rgba(255, 255, 255, 0.10);
+  --marca: #7cc4d1; --marca-suave: #16343a;
+  --cen-expansao: #3987e5; --cen-apagao: #199e70; --cen-retracao: #d95926;
+  --cen-estavel: #5c5d5c; --cen-insuficiente: #37393a;
+  --serie-admissoes: #3987e5; --serie-desligamentos: #d95926;
+  --pos: #3987e5; --neg: #e66767;
+  --div-1: #e66767; --div-2: #a34343; --div-3: #5e3030; --div-4: #38383a;
+  --div-5: #1f3f6b; --div-6: #2a62ab; --div-7: #5598e7;
+  --seq-1: #173357; --seq-2: #1c4a85; --seq-3: #256abf; --seq-4: #5598e7; --seq-5: #b7d3f6;
+  --sem-dado: #242627;
+  --sombra: none;
+}

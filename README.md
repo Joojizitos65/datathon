@@ -27,6 +27,9 @@ localidades do IBGE e guarda o resultado em `dados_externos/`; depois disso não
 | `contexto.py` | Carrega `fontes_datathon/contexto.json` e calcula os números das recomendações e dos casos por município |
 | `perfil_caged.py` | Perfil exploratório somente leitura dos dados brutos |
 | `PITCH.md` | Roteiro do pitch de 3 minutos, com os números de apoio e os cuidados |
+| `web/` | Painel próprio (HTML, CSS e JS puros), que vai substituir o Streamlit. Abra `web/index.html` |
+| `exportar_web.py` | Gera `web/dados.js` a partir das tabelas agregadas |
+| `DESIGN_SYSTEM.md` | Sistema de design do painel novo: auditoria, tokens, componentes e o que falta migrar |
 
 Saídas: `dados_processados/agregados/` (tabelas pequenas, versionadas) e `dados_processados/caged_limpo.parquet`
 (base completa limpa, ignorada pelo Git).

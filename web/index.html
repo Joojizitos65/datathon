@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Raio-X do trabalho industrial em SC</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+<header class="barra">
+  <div class="conteudo">
+    <div class="selo">Raio<span>-X</span></div>
+    <nav class="nav" aria-label="Seções">
+      <a href="#panorama">Panorama</a>
+      <a href="#territorio">Território</a>
+      <a href="#setores">Setores</a>
+      <a href="#alertas">Alertas</a>
+    </nav>
+    <div class="periodo" id="periodo"></div>
+  </div>
+</header>
+
+<main class="conteudo">
+  <div class="abertura">
+    <div class="sobretitulo">Indústria de Santa Catarina · Novo CAGED</div>
+    <h1 id="manchete"></h1>
+    <p class="lead" id="lead"></p>
+  </div>
+
+  <section id="panorama" aria-labelledby="t-panorama">
+    <h2 id="t-panorama">Panorama</h2>
+    <p class="subtitulo">Indústria (seções B a F da CNAE), soma dos 12 meses.</p>
+    <div class="grade kpis" id="kpis"></div>
+    <div class="grade duas" style="margin-top: var(--e4)">
+      <div class="cartao">
+        <h3>Onde a indústria cresce e onde encolhe</h3>
+        <p class="apoio">Saldo de vagas por 10 mil habitantes, por microrregião. A cor indica o cenário.</p>
+        <ul class="legenda" id="leg-micro"></ul>
+        <div class="grafico" id="g-micro"></div>
+      </div>
+      <div class="grade" style="align-content: start">
+        <div class="cartao">
+          <h3>Admissões e desligamentos por mês</h3>
+          <p class="apoio">As duas curvas andam coladas: a indústria contrata quase só para repor.</p>
+          <ul class="legenda" id="leg-fluxo"></ul>
+          <div class="grafico" id="g-fluxo"></div>
+        </div>
+        <div class="cartao">
+          <h3>Saldo mensal</h3>
+          <p class="apoio">Admissões menos desligamentos.</p>
+          <div class="grafico" id="g-saldo"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="territorio" aria-labelledby="t-territorio">
+    <h2 id="t-territorio">Território</h2>
+    <p class="subtitulo">Os 295 municípios. Passe o mouse para ver o detalhe de cada um.</p>
+    <div class="cartao">
+      <div class="cabecalho">
+        <div>
+          <h3 id="mapa-titulo"></h3>
+          <p class="apoio" id="mapa-apoio"></p>
+        </div>
+        <div class="seletor" id="mapa-seletor" role="group" aria-label="Indicador do mapa"></div>
+      </div>
+      <div class="escala" id="mapa-escala"></div>
+      <div class="grafico" id="g-mapa"></div>
+    </div>
+  </section>
+
+  <section id="setores" aria-labelledby="t-setores">
+    <h2 id="t-setores">Setores</h2>
+    <p class="subtitulo">Saldo de vagas por divisão da CNAE em 12 meses, no estado.</p>
+    <div class="cartao">
+      <ul class="legenda" id="leg-setores"></ul>
+      <div class="grafico" id="g-setores"></div>
+    </div>
+  </section>
+
+  <section id="alertas" aria-labelledby="t-alertas">
+    <h2 id="t-alertas">Alertas</h2>
+    <p class="subtitulo">Microrregiões fora do padrão estadual e o que os indicadores apontam como fator.</p>
+    <div class="cartao"><div class="rolagem" id="t-alertas-tabela"></div></div>
+  </section>
+
+  <p class="nota-final" id="rodape"></p>
+</main>
+
+<div class="dica" id="dica" role="status"></div>
+<script src="dados.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
