@@ -1,6 +1,6 @@
 # Roteiro do pitch (3 minutos)
 
-Cerca de 430 palavras faladas, o que dá 3 minutos com as pausas. Todos os números vêm de
+Cerca de 390 palavras faladas, o que dá 3 minutos com as pausas e sobra uma folga. Todos os números vêm de
 `dados_processados/agregados/` (indústria = seções B a F, competências 2025-09 a 2026-08) e estão
 na tabela "Números de apoio" abaixo.
 
