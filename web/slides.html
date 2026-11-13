@@ -48,6 +48,30 @@
   .qr .url { font-size: 0.8125rem; color: var(--color-neutral-dark); word-break: break-all; margin-top: 0.25rem; }
   .rodape { position: absolute; bottom: 2.5rem; left: 5rem; right: 5rem; display: flex; justify-content: space-between; font-size: 0.875rem; color: var(--color-neutral-dark); }
   .capa .rodape { color: var(--color-brand-corporate-light); }
+  /* Barras de análise */
+  .faixas { display: grid; gap: 0.5rem; margin-top: 0.5rem; }
+  .faixa { display: grid; grid-template-columns: 9rem 1fr 1fr 6.5rem; align-items: center; gap: 0; font-size: 1.25rem; }
+  .faixa .neg, .faixa .pos { height: 1.75rem; display: flex; }
+  .faixa .neg { justify-content: flex-end; border-right: 2px solid var(--color-neutral-dark); }
+  .faixa .neg i { background: var(--color-brand-senai-pure); border-radius: var(--radius-sm) 0 0 var(--radius-sm); display: block; }
+  .faixa .pos i { background: var(--color-brand-corporate-pure); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; display: block; }
+  .faixa b { text-align: right; font-variant-numeric: tabular-nums; }
+  .barra-l { display: grid; grid-template-columns: 15rem 1fr 5.5rem; align-items: center; gap: 1rem; font-size: 1.25rem; margin-top: 0.6rem; }
+  .barra-l i { display: block; height: 1.75rem; background: var(--color-brand-senai-pure); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
+  .barra-l i.azul { background: var(--color-brand-corporate-pure); }
+  .barra-l b { text-align: right; font-variant-numeric: tabular-nums; }
+  .leitura { font-size: 1.375rem; line-height: 1.4; color: var(--color-neutral-darkest); margin: 0; }
+  .leitura + .leitura { margin-top: 1rem; }
+  .leitura b { color: var(--color-brand-senai-darker); }
+  .nota { font-size: 1rem; color: var(--color-neutral-dark); margin-top: 1rem; }
+  table.plano { width: 100%; border-collapse: collapse; font-size: 1.0625rem; line-height: 1.35; background: var(--color-neutral-white); border-radius: var(--radius-lg); box-shadow: var(--shadow-level-1); overflow: hidden; }
+  table.plano th { text-align: left; font-size: 0.875rem; color: var(--color-neutral-white); background: var(--color-brand-corporate-pure); padding: 0.75rem 1rem; font-weight: 700; }
+  table.plano td { padding: 0.75rem 1rem; border-top: 1px solid var(--color-neutral-lightest); vertical-align: top; }
+  table.plano td:first-child { font-weight: 700; width: 17%; }
+  table.plano td:nth-child(2) { width: 30%; color: var(--color-neutral-dark); }
+  table.plano td:nth-child(4) { width: 19%; color: var(--color-neutral-dark); }
+  .quadro.denso { padding-top: 5.5rem; justify-content: flex-start; }
+  .quadro.denso h2 { font-size: 2.25rem; max-width: none; margin-bottom: 1.25rem; }
   @media print {
     @page { size: 1280px 720px; margin: 0; }
     html { font-size: 16px; scroll-snap-type: none; }
@@ -66,7 +90,7 @@
     </div>
     <div class="qr"><div data-qr></div><div class="rotulo">Abra o painel</div><div class="url" data-url></div></div>
   </div>
-  <div class="rodape"><span>Fonte: Novo CAGED, set/2025 a ago/2026 · IBGE</span><span>1 / 8</span></div>
+  <div class="rodape"><span>Fonte: Novo CAGED, set/2025 a ago/2026 · IBGE</span><span data-n></span></div>
 </div></section>
 
 <section class="slide"><div class="quadro">
@@ -75,7 +99,7 @@
     <div><div class="numero laranja">2 min</div><div class="legenda-n">É o intervalo entre um pedido de demissão e o próximo na indústria catarinense.</div></div>
     <div><h2 style="font-size: 2.5rem">271 mil pedidos de demissão em 12 meses.</h2><p class="sub">Contratou, treinou, perdeu. Antes de este pitch acabar, acontece de novo.</p></div>
   </div>
-  <div class="rodape"><span>47,7% dos 568.494 desligamentos da indústria foram a pedido do trabalhador</span><span>2 / 8</span></div>
+  <div class="rodape"><span>47,7% dos 568.494 desligamentos da indústria foram a pedido do trabalhador</span><span data-n></span></div>
 </div></section>
 
 <section class="slide"><div class="quadro">
@@ -85,7 +109,7 @@
     <div><div class="numero laranja">2.645</div><div class="legenda-n">vagas a mais no fim do ano</div></div>
   </div>
   <p class="frase">216 contratações para ficar com uma.</p>
-  <div class="rodape"><span>3,4 milhões de movimentações analisadas · SC tem a menor desocupação do país (2,1%, IBGE)</span><span>3 / 8</span></div>
+  <div class="rodape"><span>3,4 milhões de movimentações analisadas · SC tem a menor desocupação do país (2,1%, IBGE)</span><span data-n></span></div>
 </div></section>
 
 <section class="slide"><div class="quadro">
@@ -105,7 +129,7 @@
       <div class="linha"><span>Móveis</span><b>−1.319</b></div>
     </div>
   </div>
-  <div class="rodape"><span>Saldo de vagas na indústria em 12 meses · Planalto Norte: São Bento do Sul, Rio Negrinho, Campo Alegre e Mafra</span><span>4 / 8</span></div>
+  <div class="rodape"><span>Saldo de vagas na indústria em 12 meses · Planalto Norte: São Bento do Sul, Rio Negrinho, Campo Alegre e Mafra</span><span data-n></span></div>
 </div></section>
 
 <section class="slide"><div class="quadro">
@@ -116,7 +140,7 @@
     <div class="cartao"><h3>Escolaridade</h3><p>Cerca de 11 anos de estudo em todos os grupos. Só 4% com superior.</p></div>
     <div class="cartao laranja"><h3>O que muda: o giro</h3><p>Onde há apagão, a indústria contrata 2,5 vezes mais, e 54% das saídas são a pedido.</p></div>
   </div>
-  <div class="rodape"><span>348 combinações de microrregião e setor, medianas por cenário</span><span>5 / 8</span></div>
+  <div class="rodape"><span>348 combinações de microrregião e setor, medianas por cenário</span><span data-n></span></div>
 </div></section>
 
 <section class="slide"><div class="quadro">
@@ -125,18 +149,95 @@
   <div class="par"><span>Quem entra</span><i style="width: 96%; background: var(--color-brand-corporate-pure)"></i><b>R$ 2.210</b></div>
   <div class="par"><span>Quem saiu</span><i style="width: 100%; background: var(--color-brand-senai-pure)"></i><b>R$ 2.301</b></div>
   <p class="frase">Não falta gente. Falta motivo para ficar.</p>
-  <div class="rodape"><span>Salário mediano de admissão e de desligamento na indústria de SC</span><span>6 / 8</span></div>
+  <div class="rodape"><span>Salário mediano de admissão e de desligamento na indústria de SC</span><span data-n></span></div>
 </div></section>
 
-<section class="slide"><div class="quadro">
-  <div class="etapa">A saída</div>
-  <h2 style="font-size: 2.5rem; max-width: none">Três movimentos. O painel diz onde começar cada um.</h2>
-  <div class="colunas tres">
-    <div class="cartao"><div class="passo">1</div><h3 style="margin-top: 0.75rem">Reter antes de contratar</h3><p>Progressão salarial no primeiro ano, começando por alimentos e vestuário.</p></div>
-    <div class="cartao"><div class="passo">2</div><h3 style="margin-top: 0.75rem">Recolocar o Planalto Norte</h3><p>Requalificação rápida para os setores que seguem contratando.</p></div>
-    <div class="cartao"><div class="passo">3</div><h3 style="margin-top: 0.75rem">Formar onde cresce</h3><p>Cursos curtos de solda, elétrica e manutenção em Itajaí e no Oeste.</p></div>
+<section class="slide"><div class="quadro denso">
+  <div class="etapa">Nossa análise · quem entra e quem sai</div>
+  <h2>A indústria troca experiência por juventude.</h2>
+  <div class="colunas" style="grid-template-columns: 1.25fr 1fr; align-items: center">
+    <div class="cartao"><h3>Saldo de vagas por idade</h3>
+    <div class="faixas">
+      <div class="faixa"><span>14 a 17 anos</span><div class="neg"></div><div class="pos"><i style="width:97%"></i></div><b>+9.658</b></div>
+      <div class="faixa"><span>18 a 24 anos</span><div class="neg"></div><div class="pos"><i style="width:100%"></i></div><b>+9.916</b></div>
+      <div class="faixa"><span>25 a 29 anos</span><div class="neg"><i style="width:31%"></i></div><div class="pos"></div><b>−3.042</b></div>
+      <div class="faixa"><span>30 a 39 anos</span><div class="neg"><i style="width:49%"></i></div><div class="pos"></div><b>−4.890</b></div>
+      <div class="faixa"><span>40 a 49 anos</span><div class="neg"><i style="width:25%"></i></div><div class="pos"></div><b>−2.488</b></div>
+      <div class="faixa"><span>50 a 59 anos</span><div class="neg"><i style="width:40%"></i></div><div class="pos"></div><b>−3.930</b></div>
+      <div class="faixa"><span>60 ou mais</span><div class="neg"><i style="width:33%"></i></div><div class="pos"></div><b>−3.242</b></div>
+    </div></div>
+    <div>
+      <p class="leitura">Só cresce o emprego de <b>quem tem menos de 25 anos: +19.574</b>.</p>
+      <p class="leitura">Dos 25 anos em diante, a indústria <b>perdeu 17.592 vagas</b>.</p>
+      <p class="leitura">O mesmo vale para a escolaridade: <b>+8.420</b> até o médio incompleto, <b>−5.775</b> do médio completo para cima.</p>
+    </div>
   </div>
-  <div class="rodape"><span>Recomendações da equipe a partir dos dados</span><span>7 / 8</span></div>
+  <div class="rodape"><span>Admissões menos desligamentos na indústria de SC, 12 meses, por faixa etária e grau de instrução</span><span data-n></span></div>
+</div></section>
+
+<section class="slide"><div class="quadro denso">
+  <div class="etapa">Nossa análise · ocupações</div>
+  <h2>Quanto mais qualificado o cargo, mais barato sai o substituto.</h2>
+  <div class="colunas" style="grid-template-columns: 1.25fr 1fr; align-items: center">
+    <div class="cartao"><h3>Salário de quem entra em relação a quem saiu</h3>
+      <div class="barra-l"><span>Engenharia e P&amp;D</span><div><i class="" style="width:100%"></i></div><b>−17,1%</b></div>
+      <div class="barra-l"><span>Direção e gerência</span><div><i class="" style="width:60%"></i></div><b>−10,2%</b></div>
+      <div class="barra-l"><span>Técnicos industriais</span><div><i class="" style="width:57%"></i></div><b>−9,7%</b></div>
+      <div class="barra-l"><span>Manutenção</span><div><i class="" style="width:43%"></i></div><b>−7,3%</b></div>
+      <div class="barra-l"><span>Ofícios qualificados</span><div><i class="" style="width:20%"></i></div><b>−3,5%</b></div>
+      <div class="barra-l"><span>Operação de máquinas</span><div><i class="" style="width:16%"></i></div><b>−2,8%</b></div>
+    </div>
+    <div>
+      <p class="leitura">A indústria abriu <b>+13.843</b> vagas de operação de máquinas.</p>
+      <p class="leitura">E fechou <b>−8.464</b> em ofícios qualificados (montagem, costura, solda) e <b>−2.148</b> em técnicos.</p>
+      <p class="leitura">Cresce na base, encolhe no meio: <b>é aí que a fábrica perde conhecimento.</b></p>
+    </div>
+  </div>
+  <div class="rodape"><span>Mediana do salário de admissão ÷ mediana do salário de desligamento, por família de ocupações (CBO, agrupadas por regra)</span><span data-n></span></div>
+</div></section>
+
+<section class="slide"><div class="quadro denso">
+  <div class="etapa">Nossa análise · abandono de vagas</div>
+  <h2>Onde mais se pede demissão: no Oeste e nos setores de linha.</h2>
+  <div class="colunas">
+    <div class="cartao"><h3>Setores: saídas a pedido</h3>
+      <div class="barra-l"><span>Alimentos</span><div><i class="" style="width:86%"></i></div><b>56%</b></div>
+      <div class="barra-l"><span>Vestuário</span><div><i class="" style="width:86%"></i></div><b>56%</b></div>
+      <div class="barra-l"><span>Madeira</span><div><i class="" style="width:83%"></i></div><b>54%</b></div>
+      <div class="barra-l"><span>Materiais elétricos</span><div><i class="" style="width:82%"></i></div><b>53%</b></div>
+      <p class="nota">Alimentos sozinho: 48,6 mil pedidos de demissão no ano, mesmo abrindo vagas.</p></div>
+    <div class="cartao"><h3>Microrregiões: saídas a pedido</h3>
+      <div class="barra-l"><span>São Miguel do Oeste</span><div><i class="" style="width:100%"></i></div><b>65%</b></div>
+      <div class="barra-l"><span>Ituporanga</span><div><i class="" style="width:94%"></i></div><b>61%</b></div>
+      <div class="barra-l"><span>Concórdia</span><div><i class="" style="width:89%"></i></div><b>58%</b></div>
+      <div class="barra-l"><span>Rio do Sul</span><div><i class="" style="width:89%"></i></div><b>58%</b></div>
+      <p class="nota">Florianópolis tem a menor taxa: 34%. A média da indústria é 48%.</p></div>
+  </div>
+  <div class="rodape"><span>Parcela dos desligamentos pedidos pelo trabalhador · setores com mais de 5 mil admissões</span><span data-n></span></div>
+</div></section>
+
+<section class="slide"><div class="quadro denso">
+  <div class="etapa">A saída · por região e setor</div>
+  <h2>Cada região tem um problema diferente. A ação também.</h2>
+  <table class="plano">
+    <tr><th>Onde</th><th>O que os dados mostram</th><th>O que fazer</th><th>Como medir</th></tr>
+    <tr><td>Oeste · alimentos</td><td>Chapecó abriu +2.543 vagas em alimentos, com 56% de saídas a pedido. São Miguel do Oeste chega a 65%.</td><td><b>Reter.</b> Aumento programado aos 3, 6 e 12 meses de casa; turno e transporte previsíveis; trilha de operador a técnico.</td><td>Saídas a pedido abaixo de 48%</td></tr>
+    <tr><td>Vale e Norte · vestuário</td><td>Blumenau e Joinville perderam 2.700 vagas em vestuário e abriram 1.472 em materiais elétricos.</td><td><b>Reconverter na mesma cidade.</b> Curso curto de montagem elétrica para quem sai da confecção, com vaga já combinada.</td><td>Recolocados em até 6 meses</td></tr>
+    <tr><td>Planalto Norte · móveis</td><td>São Bento do Sul perdeu 929 vagas em móveis; os 4 municípios, 1.497 na indústria.</td><td><b>Recolocar.</b> Força-tarefa SENAI e SINE; apoio às fábricas para vender além do mercado americano.</td><td>Saldo da região de volta a zero</td></tr>
+    <tr><td>Litoral Norte · naval e veículos</td><td>Itajaí abriu +2.587 vagas em veículos e naval. No estado, 22% das saídas do naval são fim de contrato.</td><td><b>Formar e efetivar.</b> Turmas de solda, caldeiraria e elétrica ligadas aos estaleiros; contrato temporário vira efetivo.</td><td>Vagas preenchidas com gente da região</td></tr>
+  </table>
+  <div class="rodape"><span>Saldos em 12 meses por microrregião e divisão CNAE · naval = outros equipamentos de transporte (CNAE 30) · ações são recomendações da equipe</span><span data-n></span></div>
+</div></section>
+
+<section class="slide"><div class="quadro denso">
+  <div class="etapa">A saída · por tipo de trabalho</div>
+  <h2>Três perfis, três formas de segurar gente.</h2>
+  <div class="colunas tres">
+    <div class="cartao azul"><h3>Operadores de linha</h3><p><b>Onde o giro é maior:</b> 56% de saídas a pedido, salário de entrada de R$ 2.112.</p><p style="margin-top: 0.75rem">Degrau salarial no primeiro ano e caminho claro até operador pleno. Quem enxerga o próximo passo não sai por R$ 100.</p></div>
+    <div class="cartao laranja"><h3>Técnicos e ofícios</h3><p><b>Onde a perda custa mais:</b> −10.612 vagas, e o substituto do técnico entra ganhando 10% menos.</p><p style="margin-top: 0.75rem">Carreira técnica com faixa salarial própria e bônus de permanência. Reter um técnico sai mais barato que formar outro.</p></div>
+    <div class="cartao"><h3>Jovens e veteranos</h3><p><b>Onde está a chance:</b> +19.574 vagas até 24 anos, −17.592 dos 25 em diante.</p><p style="margin-top: 0.75rem">Veterano como instrutor remunerado do aprendiz. O jovem aprende mais rápido e o experiente ganha motivo para ficar.</p></div>
+  </div>
+  <div class="rodape"><span>Ocupações agrupadas por família da CBO (por regra) · ações são recomendações da equipe</span><span data-n></span></div>
 </div></section>
 
 <section class="slide capa"><div class="quadro">
@@ -148,7 +249,7 @@
     </div>
     <div class="qr"><div data-qr></div><div class="rotulo">Veja no seu município</div><div class="url" data-url></div></div>
   </div>
-  <div class="rodape"><span>Raio-X do Mercado de Trabalho de SC</span><span>8 / 8</span></div>
+  <div class="rodape"><span>Raio-X do Mercado de Trabalho de SC</span><span data-n></span></div>
 </div></section>
 
 <script src="vendor/qrcode.js"></script>
@@ -169,6 +270,7 @@
   document.querySelectorAll("[data-url]").forEach((el) => { el.textContent = url === RESERVA ? "github.com/Joojizitos65/datathon" : url.replace(/^https?:\/\//, "").replace(/\/$/, ""); });
 
   const slides = [...document.querySelectorAll(".slide")];
+  slides.forEach((sl, i) => { const n = sl.querySelector("[data-n]"); if (n) n.textContent = `${i + 1} / ${slides.length}`; });
   const atual = () => Math.round(scrollY / innerHeight);
   const ir = (i) => slides[Math.max(0, Math.min(slides.length - 1, i))].scrollIntoView();
   addEventListener("keydown", (e) => {

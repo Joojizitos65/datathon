@@ -14,6 +14,28 @@ motivo para ficar.
 **Tela.** O pitch inteiro acontece na Visão geral do painel (`web/index.html`), que responde às três
 partes da pergunta sem rolagem. As outras seções são apoio para as perguntas da banca.
 
+## Slides (`web/slides.html`, PDF em `entregas/`)
+
+São 12 slides. Os de 1 a 6 e o 12 acompanham a fala de 3 minutos. Os de 7 a 11 aprofundam a análise
+e as soluções: use-os se houver mais tempo, ou deixe-os para as perguntas da banca.
+
+| Slide | Conteúdo | Momento da fala |
+|---|---|---|
+| 1 | Capa com QR code do painel | antes de começar |
+| 2 | A cada 2 minutos, um pedido de demissão | 1. A dor |
+| 3 | 571 mil contratações, 2.645 vagas | 2. O tamanho |
+| 4 | Dois mercados: quem cresce e quem encolhe | 3. Onde |
+| 5 | Renda e escolaridade iguais; o que muda é o giro | 4. A virada |
+| 6 | Quem entra ganha menos que quem sai | 4. A virada (pico) |
+| 7 | Análise: a indústria troca experiência por juventude | apoio |
+| 8 | Análise: quanto mais qualificado, mais barato o substituto | apoio |
+| 9 | Análise: onde mais se pede demissão | apoio |
+| 10 | Soluções por região e setor | 5. A saída |
+| 11 | Soluções por tipo de trabalho | 5. A saída |
+| 12 | Fecho com QR code | 6. O fecho |
+
+Na versão de 3 minutos, a parte 5 é falada sobre o slide 10; passe pelos slides 7 a 9 sem parar ou pule-os.
+
 ## Arco
 
 | Momento | Tempo | O que a banca deve sentir |
@@ -122,6 +144,16 @@ depois. *(pausa)* é um segundo inteiro, contado.
 | Correlação do saldo com renda e escolaridade | 0,01 (salário relativo) e −0,03 (anos de estudo), Spearman, 364 células | `micro_divisao` |
 | Medianas por grupo: admissões por 10 mil hab. | apagão 34,8; expansão 29,3; retração 17,8; estável 14,0 | `micro_divisao` |
 | Medianas por grupo: saídas a pedido | apagão 54%; expansão 50%; retração 44%; estável 47% | `micro_divisao` |
+| Saldo por idade | até 24 anos: +19.574; 25 anos ou mais: −17.592 | `perfil` |
+| Saldo por escolaridade | até médio incompleto: +8.420; médio completo ou mais: −5.775 | `perfil` |
+| Salário do substituto por ocupação (admissão ÷ desligamento) | engenharia −17,1%; direção −10,2%; técnicos −9,7%; manutenção −7,3%; ofícios −3,5%; operação −2,8% | `estado_macrofamilia` (regra) |
+| Saldo por ocupação | operação de máquinas +13.843; ofícios qualificados −8.464; técnicos −2.148 | `estado_macrofamilia` (regra) |
+| Saídas a pedido por microrregião | São Miguel do Oeste 65%; Ituporanga 61%; Concórdia 58%; Rio do Sul 58%; Florianópolis 34% | `micro_setor` |
+| Saídas a pedido por setor | alimentos 56% (48,6 mil pedidos); vestuário 56%; madeira 54%; materiais elétricos 53% | `estado_divisao` |
+| Vestuário x elétricos em Blumenau e Joinville | −1.750 e −950 em vestuário; +568 e +904 em materiais elétricos | `micro_divisao` |
+| Itajaí: veículos e naval | +1.622 e +965 | `micro_divisao` |
+| Chapecó: alimentos | +2.543, com 56% de saídas a pedido | `micro_divisao` |
+| São Bento do Sul: móveis | −929 | `micro_divisao` |
 | Salário mediano, admissão x desligamento | R$ 2.210 x R$ 2.301 | `estado_setor` |
 | Admitidos com superior completo | 4,2% | `estado_setor` |
 | Maior saldo por 10 mil hab. (microrregião) | Itajaí +43,4; Chapecó +41,5 | `micro_setor` |
@@ -143,7 +175,14 @@ depois. *(pausa)* é um segundo inteiro, contado.
    retração (pior saldo do estado, contexto de móveis e tarifaço). Ver "Decisão pendente" no README.
 6. **"Recolocar o Planalto Norte"** é uma recomendação, não um dado: o CAGED não diz se quem saiu de
    móveis tem perfil para alimentos ou elétricos.
-7. **Ocupações não entram no roteiro.** Os saldos por macrofamília de CBO do painel ainda usam a
-   regra antiga; a classificação revisada só vale depois de rodar o pipeline com o CAGED completo.
+7. **Ocupações (slides 8 e 11) usam a classificação por regra.** A classificação revisada só vale
+   depois de rodar o pipeline com o CAGED completo e pode mexer nesses números: ela move parte dos
+   "ofícios" para "operação de máquinas". A direção do achado deve se manter, os valores não.
 8. **Filtro de exclusões (MOV x EX)** não foi aplicado porque as colunas não vieram no CSV. A
    resposta está no README.
+9. **O CAGED mede vagas formais, não desemprego.** "Perda de vagas" e "saída a pedido" são o que os
+   dados mostram; não dá para afirmar quantas dessas pessoas ficaram desempregadas.
+10. **As ações dos slides 10 e 11 são recomendações da equipe.** Os dados mostram onde está o
+    problema; não medem o efeito de cada ação.
+11. **"Troca experiência por juventude" (slide 7)** descreve o saldo por idade. Parte da queda acima
+    de 50 anos é aposentadoria, que o CAGED registra como desligamento.
