@@ -17,8 +17,8 @@ a { color: var(--marca); }
 .barra .periodo { margin-left: auto; color: var(--color-brand-corporate-light); font-size: var(--t-nota); white-space: nowrap; }
 
 /* Abertura */
-.abertura { padding: var(--e8) 0 var(--e6); }
-.sobretitulo { color: var(--acento-texto); font-size: var(--t-nota); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
+.abertura { padding: var(--e4) 0 var(--e3); }
+.sobretitulo { color: var(--acento-texto); font-size: 14px; font-weight: 700; }
 h1 { font: 700 var(--t-h1)/1.15 var(--fonte-titulo); margin: var(--e3) 0 var(--e4); max-width: 24ch; text-wrap: balance; }
 .lead { font-size: var(--t-lead); line-height: 24px; color: var(--tinta-2); max-width: 76ch; margin: 0; }
 
@@ -143,3 +143,27 @@ details.dados .rolagem { max-height: 280px; overflow-y: auto; margin-top: var(--
 .achado b { color: var(--acento-texto); }
 #t-quad th, #t-quad td { padding: var(--e2) 6px; }
 #t-quad .etiqueta { white-space: normal; }
+
+/* Visão geral: a resposta à pergunta do desafio em uma tela */
+.visao { padding: 0 0 var(--e5); }
+.visao h1 { font-size: 32px; margin: var(--e2) 0; max-width: none; }
+.visao .lead { max-width: 110ch; }
+.grade.iguais { grid-template-columns: 1fr 1fr; }
+.visao .cartao { padding: var(--e4) var(--e5); }
+.visao .cartao .apoio { margin-bottom: var(--e2); }
+.visao .legenda { margin-bottom: var(--e2); }
+.porque { margin-top: var(--e4); }
+.pergunta { color: var(--acento-texto); font-size: var(--t-nota); font-weight: 700; margin-bottom: var(--e1); }
+.fatos { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--e5); margin-top: var(--e3); }
+.fato { border-left: 4px solid var(--acento); padding-left: var(--e3); }
+.fato .titulo { font-weight: 700; font-size: 14px; line-height: 20px; }
+.fato .texto { color: var(--tinta-2); font-size: 13px; line-height: 18px; margin-top: 2px; }
+.par { display: grid; grid-template-columns: 72px 1fr auto; align-items: center; gap: var(--e2); font-size: var(--t-nota); color: var(--tinta-2); margin-top: var(--e1); }
+.par .trilho { height: 10px; background: var(--fio); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
+.par .trilho i { display: block; height: 100%; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
+.par .trilho i.azul { background: var(--pos); } .par .trilho i.laranja { background: var(--neg); } .par .trilho i.neutro { background: var(--cen-estavel); }
+.par b { color: var(--tinta); font-variant-numeric: tabular-nums; }
+@media (max-width: 1080px) { .fatos { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 860px) { .grade.iguais, .fatos { grid-template-columns: 1fr; } }
+.visao .cartao .apoio { max-width: none; }
+.visao { scroll-margin-top: 64px; }

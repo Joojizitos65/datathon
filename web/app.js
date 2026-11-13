@@ -116,12 +116,12 @@
 
   // --- Barras horizontais divergentes --------------------------------------------
   function barras(el, linhas, o) {
-    const L = larguraDe(el), margE = Math.min(o.margemNome, L * 0.42), margD = 56, alt = o.alturaLinha, esp = 22, topo = 4;
+    const L = larguraDe(el), margE = Math.min(o.margemNome, L * (o.fracaoNome || 0.42)), margD = 56, alt = o.alturaLinha, esp = 22, topo = 4;
     const H = topo + linhas.length * alt + esp;
     const s = tela(el, L, H, o.rotulo);
     const vals = linhas.map(o.valor), min = Math.min(0, ...vals), max = Math.max(0, ...vals);
-    const folga = 52 * (max - min) / (L - margE - margD - 104);            // espaço para o valor na ponta
-    const x = (v) => margE + ((v - (min - (min < 0 ? folga : 0))) / ((max + folga) - (min - (min < 0 ? folga : 0)))) * (L - margE - margD);
+    const xa = margE + (min < 0 ? 52 : 0), xb = L - (max > 0 ? 56 : 8);              // reserva para o valor na ponta
+    const x = (v) => xa + ((v - min) / ((max - min) || 1)) * (xb - xa);
     const p = passo(Math.max(max, -min), 3);
     for (let t = Math.ceil(min / p) * p; t <= max; t += p) {
       svg("line", { class: t === 0 ? "base-linha" : "grade-linha", x1: x(t), x2: x(t), y1: topo, y2: H - esp }, s);
@@ -267,16 +267,14 @@
 
   // --- Montagem da página -----------------------------------------------------------------
   const E = D.estado, [ini, fim] = D.meta.janela;
-  $("periodo").textContent = `${mes(ini)} a ${mes(fim)} · ${num(D.meta.linhas)} movimentações`;
+  $("periodo").textContent = `${mes(ini)} a ${mes(fim)}`;
   $("manchete").textContent = `${mil(E.admissoes)} contratações para crescer ${num(E.saldo)} vagas`;
-  $("lead").textContent = `Em 12 meses a indústria catarinense admitiu ${num(E.admissoes)} pessoas e desligou ${num(E.desligamentos)}. ` +
-    `${pct(E.pct_pedido)} das saídas foram a pedido do trabalhador, e quem entra recebe ${reais(E.sal_adm)} contra ${reais(E.sal_desl)} de quem sai. ` +
-    `O gargalo não é abrir vaga: é segurar gente.`;
+  $("lead").textContent = `Em 12 meses a indústria catarinense admitiu ${num(E.admissoes)} pessoas e desligou ${num(E.desligamentos)}: ` +
+    `${num(E.admissoes / E.saldo)} contratações para cada vaga que fica. Fonte: ${num(D.meta.linhas)} movimentações do Novo CAGED.`;
 
   const nCen = (nome) => D.micro.filter((m) => m.cenario === nome).length;
   const KPIS = [
     ["Saldo em 12 meses", sinal(E.saldo), "admissões menos desligamentos"],
-    ["Saldo por 10 mil hab.", sinal(E.saldo10, 1), "população estimada de 2026"],
     ["Salário de admissão", reais(E.sal_adm), `mediana · desligados: ${reais(E.sal_desl)}`],
     ["Saídas a pedido", pct(E.pct_pedido), "dos desligamentos"],
     ["Em expansão", num(nCen("Expansão acelerada")), `de ${D.micro.length} microrregiões`],
@@ -294,7 +292,34 @@
   legenda($("leg-fluxo"), SERIES.map((s) => [s.classe, s.nome]), "amostra linha-chave");
   legenda($("leg-setores"), [["pos", "Abriu vagas"], ["neg", "Fechou vagas"]]);
 
+  // Visão geral: 5 maiores e 5 menores de cada recorte
+  const pontas = (lista) => (lista.length > 10 ? [...lista.slice(0, 5), ...lista.slice(-5)] : lista);
+  const NOME_CURTO = { 10: "Alimentos", 13: "Têxteis", 14: "Vestuário", 15: "Couro e calçados", 16: "Madeira", 23: "Minerais não metálicos",
+    27: "Materiais elétricos", 29: "Veículos", 30: "Outros equipamentos de transporte", 31: "Móveis", 33: "Manutenção de máquinas", 43: "Serviços para construção" };
+  const curtoDiv = (d) => NOME_CURTO[d.codigo] || curto(d.nome);
+  const curto = (n) => { const t = n.replace(/^Fabricação de (produtos )?/i, "").replace(/^Confecção de artigos do /i, "").replace(/, exceto .*$/i, ""); return t[0].toUpperCase() + t.slice(1); };
+  const lista = (nomes) => (nomes.length > 1 ? nomes.slice(0, -1).join(", ") + " e " + nomes[nomes.length - 1] : nomes[0]);
+  const topMicro = pontas(micro), topDiv = pontas(divisoes);
+  $("r-regioes").textContent = `${lista(micro.slice(0, 3).map((m) => m.nome))} crescem; ${micro[micro.length - 1].nome} perde mais`;
+  $("r-setores").textContent = `${lista(divisoes.slice(0, 2).map(curtoDiv))} abrem vagas; ${curtoDiv(divisoes[divisoes.length - 1]).toLowerCase()} fecha ${num(-divisoes[divisoes.length - 1].saldo)}`;
+  legenda($("leg-top-regioes"), CENARIOS.filter(([, n]) => topMicro.some((m) => m.cenario === n)));
+  legenda($("leg-top-setores"), [["pos", "Abriu vagas"], ["neg", "Fechou vagas"]]);
+
   function desenhar() {
+  barras($("g-top-regioes"), topMicro, {
+    rotulo: "Cinco maiores e cinco menores saldos por 10 mil habitantes entre as microrregiões", margemNome: 130, alturaLinha: 24,
+    valor: (m) => m.saldo10, nome: (m) => m.nome, classe: (m) => classeCenario(m.cenario),
+    rotuloValor: (m) => sinal(m.saldo10, 1), eixo: (t) => sinal(t),
+    dica: (m) => [["Cenário", m.cenario], ["Saldo", sinal(m.saldo)], ["Saldo / 10 mil hab.", sinal(m.saldo10, 1)],
+      ["Salário de admissão", reais(m.sal_adm)], ["Saídas a pedido", pct(m.pct_pedido)], ["Fatores", m.fatores || "–"]],
+  });
+  barras($("g-top-setores"), topDiv, {
+    rotulo: "Cinco maiores e cinco menores saldos de vagas entre as divisões CNAE", margemNome: 210, fracaoNome: 0.5, alturaLinha: 24,
+    valor: (d) => d.saldo, nome: curtoDiv, classe: (d) => (d.saldo >= 0 ? "pos" : "neg"),
+    rotuloValor: (d) => sinal(d.saldo), eixo: (t) => (t === 0 ? "0" : sinal(t / 1000) + " mil"),
+    dica: (d) => [["Divisão CNAE", `${d.codigo} · ${d.nome}`], ["Saldo", sinal(d.saldo)], ["Admissões", num(d.admissoes)],
+      ["Salário de admissão", reais(d.sal_adm)], ["Saídas a pedido", pct(d.pct_pedido)]],
+  });
   barras($("g-micro"), micro, {
     rotulo: "Saldo por 10 mil habitantes em cada microrregião", margemNome: 150, alturaLinha: 26,
     valor: (m) => m.saldo10, nome: (m) => m.nome, classe: (m) => classeCenario(m.cenario),
@@ -333,6 +358,25 @@
     { titulo: "Adm./10 mil", num: true, valor: (r) => num(r.adm10, 1) }, { titulo: "A pedido", num: true, valor: (r) => pct(r.pedido) },
     { titulo: "Salário", num: true, valor: (r) => pct(r.sal) }, { titulo: "Estudo", num: true, valor: (r) => num(r.anos, 1) + " a" }], resumo);
   html("p", { class: "apoio", text: "Adm./10 mil: admissões por 10 mil habitantes. A pedido: parcela dos desligamentos pedidos pelo trabalhador. Salário: admissão em relação à mediana estadual do setor. Estudo: anos de estudo dos admitidos." }, $("t-quad")).style.margin = "16px 0 0";
+  // Visão geral, cartão 3: os motivos, cada um com sua medida
+  const fatos = $("fatos"), maxSal = Math.max(E.sal_adm, E.sal_desl);
+  function fato(titulo, texto, pares) {
+    const f = html("div", { class: "fato" }, fatos);
+    html("div", { class: "titulo", text: titulo }, f); html("div", { class: "texto", text: texto }, f);
+    for (const [rot, fr, cor, val] of pares) {
+      const p = html("div", { class: "par" }, f); html("span", { text: rot }, p);
+      html("i", { class: cor, style: `width:${Math.round(fr * 100)}%` }, html("div", { class: "trilho" }, p)); html("b", { text: val }, p);
+    }
+  }
+  const maisPedido = [...D.divisoes].filter((d) => d.admissoes > 20000).sort((a, b) => b.pct_pedido - a.pct_pedido)[0];
+  fato("Renda: quem entra ganha menos que quem sai", `Salário mediano na indústria. A diferença é de ${pct(1 - E.sal_adm / E.sal_desl, 0)}.`,
+    [["Admitidos", E.sal_adm / maxSal, "azul", reais(E.sal_adm)], ["Desligados", E.sal_desl / maxSal, "laranja", reais(E.sal_desl)]]);
+  fato("Quase metade sai por conta própria", `Parcela dos desligamentos a pedido do trabalhador.`,
+    [["Indústria", E.pct_pedido, "laranja", pct(E.pct_pedido)], [curtoDiv(maisPedido), maisPedido.pct_pedido, "laranja", pct(maisPedido.pct_pedido)]]);
+  fato("Apagão é giro: contrata muito e não cresce", `Admissões por 10 mil habitantes, mediana dos grupos (microrregião × setor).`,
+    [["Apagão", 1, "laranja", num(ap.adm10, 1)], ["Estáveis", es.adm10 / ap.adm10, "neutro", num(es.adm10, 1)]]);
+  fato("Escolaridade não separa os grupos", `De ${num(Math.min(...anosR), 1)} a ${num(Math.max(...anosR), 1)} anos de estudo em todos os cenários, e salário entre ${pct(Math.min(...sals))} e ${pct(Math.max(...sals))} da mediana do setor. Só ${pct(E.pct_superior)} dos admitidos têm ensino superior: a disputa é por operador.`, []);
+
   verDados($("g-quad"), [
     { titulo: "Microrregião", valor: (p) => p.micro }, { titulo: "Divisão CNAE", valor: (p) => p.divisao }, { titulo: "Cenário", valor: (p) => p.cenario },
     { titulo: "Adm. / 10 mil", num: true, valor: (p) => num(p.adm10, 1) }, { titulo: "Saldo / 10 mil", num: true, valor: (p) => sinal(p.saldo10, 1) }],
