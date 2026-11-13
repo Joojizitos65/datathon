@@ -1,4 +1,4 @@
-# Sistema de design "Raio-X"
+# Sistema de design do painel (padrão UniSENAI)
 
 Base visual do painel próprio em `web/`, que substitui o Streamlit. Este documento tem a
 auditoria do que existia, os tokens, os componentes e o que falta migrar.
@@ -20,75 +20,70 @@ Para atualizar os dados depois de rodar o pipeline: `python exportar_web.py`.
 
 | Problema | Onde | O que o sistema novo faz |
 |---|---|---|
-| Verde x vermelho para saldo e para o mapa | barras de CNAE e CBO, mapa, mapa de calor | Não distingue para quem tem daltonismo (cerca de 8% dos homens). Trocado por azul x vermelho com cinza no zero |
+| Verde x vermelho para saldo e para o mapa | barras de CNAE e CBO, mapa, mapa de calor | Não distingue para quem tem daltonismo (cerca de 8% dos homens). Trocado por azul x laranja com cinza no zero |
 | "Sinal de apagão" vermelho e "Retração" laranja | cenários | As duas cores "quentes" se confundem. Cada cenário ganhou um matiz próprio, validado |
 | Barras relativas com linha de saldo por cima | evolução mensal | Dois gráficos de um eixo cada: fluxo (linhas) e saldo (colunas) |
 | Rótulos cortados com "…" | KPIs | Rótulo curto com nota de apoio embaixo |
-| Aparência genérica | página toda | Identidade própria: papel quente, título em serifa, manchete calculada dos dados |
+| Aparência genérica | página toda | Padrão visual UniSENAI e manchete calculada dos dados |
 | Depende de servidor Python | execução | Página estática: abre do disco |
 | Sem tabela equivalente | todos os gráficos | Cada figura tem "Ver dados em tabela" |
 
 ## 2. Princípios
 
-1. **A manchete vem primeiro.** A página abre com a conclusão em uma frase, calculada dos dados.
-2. **Cor tem função.** Cada cor significa uma coisa só: cenário, polaridade do saldo ou magnitude. A cor da marca nunca aparece em dados.
-3. **Nunca só cor.** Cenário sempre vem com o nome escrito; toda figura tem legenda e tabela.
-4. **Funciona offline.** Sem fontes, bibliotecas ou mapas baixados da internet.
-5. **Tudo sai dos tokens.** `estilo.css` e `app.js` não têm cor literal: mudar a identidade é editar `tokens.css`.
+1. **Padrão UniSENAI.** O painel usa os tokens do Portal da Indústria (escala nacional): laranja SENAI, azul institucional, Inter, raios e sombra oficiais. Nenhuma cor fora da lista.
+2. **A manchete vem primeiro.** A página abre com a conclusão em uma frase, calculada dos dados.
+3. **Cor tem função.** Azul = expansão e saldo positivo; laranja = apagão e saldo negativo, como no slide do desafio.
+4. **Nunca só cor.** Cenário sempre vem com o nome escrito; toda figura tem legenda e tabela.
+5. **Funciona offline.** Sem fontes, bibliotecas ou mapas baixados da internet.
+6. **Tudo sai dos tokens.** `estilo.css` e `app.js` não têm cor literal.
 
 ## 3. Tokens (`web/tokens.css`)
 
-### Cor
+Os tokens oficiais (`--color-brand-senai-*`, `--color-brand-corporate-*`, `--color-neutral-*`,
+`--radius-*`, `--shadow-level-1`, `--font-family-base`) estão declarados com os nomes do portal.
+Os apelidos abaixo dizem a função de cada um no painel.
 
-| Token | Claro | Escuro | Uso |
+| Função | Apelido | Token oficial | Valor |
 |---|---|---|---|
-| `--papel` | `#f5f2ec` | `#0f1113` | Fundo da página |
-| `--cartao` | `#fdfcfa` | `#1a1c1e` | Superfície de cartões e gráficos |
-| `--tinta` / `--tinta-2` / `--tinta-3` | `#14181d` / `#4b525a` / `#7d8289` | `#f0efec` / `#c3c2b7` / `#8b8a84` | Texto principal, secundário e notas |
-| `--fio` / `--eixo` | `#e4dfd5` / `#c5c0b5` | `#2c2e30` / `#3a3c3e` | Grade e linha de base |
-| `--marca` | `#0e4f5c` | `#7cc4d1` | Navegação, foco e destaque de interface |
-| `--cen-expansao` | `#2a78d6` | `#3987e5` | Expansão acelerada |
-| `--cen-apagao` | `#1baf7a` | `#199e70` | Sinal de apagão |
-| `--cen-retracao` | `#eb6834` | `#d95926` | Retração |
-| `--cen-estavel` | `#b3b0a8` | `#5c5d5c` | Estável (recua de propósito) |
-| `--pos` / `--neg` | `#2a78d6` / `#d03b3b` | `#3987e5` / `#e66767` | Saldo positivo e negativo |
-| `--div-1` a `--div-7` | vermelho → cinza → azul | idem | Mapa de saldo (divergente) |
-| `--seq-1` a `--seq-5` | azul claro → escuro | azul escuro → claro | Mapas de magnitude |
+| Fundo da página | `--papel` | neutral-portal | `#F8F8F8` |
+| Cartão | `--cartao` | neutral-white | `#FFFFFF` |
+| Título e texto | `--tinta` | neutral-darkest | `#262626` |
+| Texto de apoio e eixos | `--tinta-2`, `--tinta-3` | neutral-dark | `#646464` |
+| Cabeçalho | `--capa` | corporate-darkest | `#070B1B` |
+| Barra de 4 px e destaque | `--acento` | senai-pure | `#E84910` |
+| Laranja em texto | `--acento-texto` | senai-darker | `#9F2D0B` |
+| Links e seletor ativo | `--marca` | corporate-pure | `#164194` |
+| Anel de foco | `--foco` | highlight-pure | `#F673AD` |
+| Expansão, saldo positivo, admissões | `--cen-expansao`, `--pos` | corporate-pure | `#164194` |
+| Apagão, saldo negativo, desligamentos | `--cen-apagao`, `--neg` | senai-pure | `#E84910` |
+| Retração | `--cen-retracao` | senai-darkest | `#680C07` |
+| Estável | `--cen-estavel` | corporate-light | `#9BACC3` |
+| Mapa de saldo (7 passos) | `--div-1` a `--div-7` | senai pure/medium/light, neutral-lightest, corporate lighter/medium/pure | laranja → cinza → azul |
+| Mapa de magnitude (5 passos) | `--seq-1` a `--seq-5` | corporate lightest → pure | azul claro → escuro |
 
-As cores de cenário e o par positivo/negativo passaram no validador de paleta (separação para
-daltonismo, distinção em visão normal e contraste) nos dois modos, sobre a superfície real dos
-cartões. Única ressalva: o verde de "Sinal de apagão" tem contraste 2,75:1 no modo claro, abaixo
-de 3:1, e por isso ele sempre aparece com rótulo de texto.
+As três cores de cenário passaram na separação para daltonismo (pior par ΔE 22) e no contraste
+de 3:1 sobre branco. O azul e o vinho são mais escuros que a faixa recomendada para marcas de
+gráfico; foram mantidos por serem os tons oficiais, e por isso todo cenário aparece com rótulo.
+`#E84910` não é usado em texto corrido (3,89:1 sobre branco): texto laranja usa `#9F2D0B`.
 
-### Tipografia
+**Tipografia:** Inter, com queda para a fonte do sistema (a Inter não está versionada; ver seção 7).
+Tamanhos da escala oficial: 12, 14, 16, 24, 32 e 40 px. Pesos 400, 500 e 700.
 
-| Token | Valor | Uso |
-|---|---|---|
-| `--fonte-titulo` | Iowan Old Style, Palatino, Georgia (serifa do sistema) | Manchete, títulos de seção, selo |
-| `--fonte` | system-ui, Segoe UI, Roboto | Todo o resto, inclusive números |
-| `--t-h1` / `--t-h2` | 44 px / 24 px | Manchete e seção |
-| `--t-numero` | 30 px | Valor de indicador |
-| `--t-lead` / `--t-corpo` / `--t-nota` | 17 / 14 / 12 px | Abertura, corpo, notas e eixos |
+**Espaço e forma:** 4, 8, 16, 24 e 32 px (48 e 64 px entre seções). Raio 16 px em cartões, 8 px em
+controles e dica, 4 px em amostras. Sombra level-1. Largura de conteúdo de 1216 px.
 
-### Espaço, forma e movimento
-
-| Token | Valor |
-|---|---|
-| `--e1` a `--e8` | 4, 8, 12, 16, 24, 32, 48, 72 px |
-| `--raio` / `--raio-p` | 10 px (cartão) / 6 px (controles e dica) |
-| `--sombra` | sombra leve em dois níveis (desligada no modo escuro) |
-| `--rapido` | 120 ms |
-| `--largura` | 1200 px de conteúdo |
+**Sem modo escuro:** o padrão UniSENAI define só o tema claro.
 
 ## 4. Componentes
 
 | Componente | Classe | Quando usar | Estados |
 |---|---|---|---|
-| Barra de navegação | `.barra`, `.nav` | Fixa no topo, âncoras para as seções | padrão, hover, foco |
+| Cabeçalho | `.barra`, `.nav` | Fixo no topo, fundo `#070B1B` com barra laranja de 4 px, âncoras para as seções | padrão, hover, foco |
 | Abertura | `.abertura`, `h1`, `.lead` | Uma por página: manchete e resumo | – |
 | Cartão | `.cartao` | Todo bloco de conteúdo | – |
 | Indicador | `.cartao.kpi` | Um número com rótulo e nota. No máximo 6 por linha | – |
 | Legenda | `.legenda` | Obrigatória com 2 ou mais séries | – |
+| Achado | `.achado` | Uma frase de conclusão com barra laranja de 4 px à esquerda | – |
 | Etiqueta de cenário | `.etiqueta` | Cenário em tabela: ponto colorido + nome | – |
 | Seletor | `.seletor` | Trocar indicador (2 a 4 opções) | padrão, hover, selecionado (`aria-pressed`), foco |
 | Dica | `.dica` | Detalhe ao passar o mouse sobre qualquer marca | visível, oculta |
@@ -102,6 +97,7 @@ Gráficos (funções em `web/app.js`):
 | `barras` | Barras horizontais a partir do zero | Até 18 px de espessura, ponta arredondada, valor na ponta, nome à esquerda |
 | `linhas` | Linhas no tempo | 2 px, eixo a partir do zero, mira com os valores do mês |
 | `colunas` | Colunas com sinal | Azul acima do zero, vermelho abaixo; só o extremo é rotulado |
+| `quadrantes` | Dispersão com quatro quadrantes | Eixo X logarítmico, eixo Y limitado a ±20, linha vertical na mediana, rótulo em cada quadrante |
 | `mapa` | Coroplético por município | Divergente para saldo (corte nos percentis 5 e 95), sequencial em quintis para magnitude |
 
 **Faça:** use as funções existentes; ordene as barras pelo valor; escreva o título como a pergunta que o gráfico responde.
@@ -110,10 +106,9 @@ Gráficos (funções em `web/app.js`):
 ## 5. Acessibilidade
 
 - Cada SVG tem `role="img"` e `aria-label`; cada figura tem tabela equivalente.
-- Navegação por teclado com foco visível; o seletor usa botões reais com `aria-pressed`.
-- Modo escuro automático pelo sistema; `data-theme="light"` ou `"dark"` no `<html>` força um deles.
+- Navegação por teclado com o anel de foco rosa oficial; o seletor usa botões reais com `aria-pressed`.
 - Respeita `prefers-reduced-motion`. Layout de uma coluna abaixo de 860 px.
-- Conferido por captura de tela em 1440 px (claro e escuro) e 390 px, sem erros de console.
+- Conferido por captura de tela em 1440 px e 390 px, sem erros de console.
 
 ## 6. O que falta migrar do Streamlit
 
@@ -122,7 +117,7 @@ Gráficos (funções em `web/app.js`):
 | Visão geral | Migrada (Panorama e Alertas) |
 | Território | Migrada (mapa com 3 indicadores) |
 | Setores (CNAE) | Migrado o saldo por divisão no estado; falta o recorte por microrregião |
-| Renda e escolaridade | Falta |
+| Renda e escolaridade | Migrada como "Gargalos": quadrantes de contratação x saldo e medianas de renda e escolaridade por grupo |
 | Ocupações (CBO) | Falta (aguarda rodar o pipeline com a classificação nova) |
 | Perfil | Falta |
 | Contexto e recomendações | Falta |
@@ -131,8 +126,8 @@ Gráficos (funções em `web/app.js`):
 
 `dashboard.py` continua funcionando e fica como referência até a migração terminar.
 
-## 7. Decisões em aberto
+## 7. Pendências do padrão UniSENAI
 
-- **Nome e selo.** "Raio-X" veio do título do projeto; trocar é editar `index.html`.
-- **Cor da marca.** O azul-petróleo `--marca` é uma proposta. Se a equipe tiver uma cor própria, basta trocar o token.
-- **Fonte.** Uma fonte própria daria mais personalidade, mas precisa ser versionada em `web/` para funcionar offline.
+- **Logo.** O repositório não tem o arquivo oficial. O cabeçalho usa a palavra UniSENAI em Inter 700, como o padrão prevê; quando o arquivo chegar, ele entra no lugar, sem redesenho.
+- **Fonte Inter.** Não está versionada: sem ela instalada na máquina, o navegador usa a fonte do sistema. Para garantir, coloque os arquivos da Inter em `web/` e declare `@font-face`.
+- **Auditoria da seção 1** descreve o Streamlit; a tabela de cores antigas não se aplica ao painel novo.

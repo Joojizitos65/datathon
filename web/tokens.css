@@ -1,85 +1,83 @@
-/* Tokens do sistema de design "Raio-X". Toda cor, medida e fonte do painel sai daqui.
-   Documentação: DESIGN_SYSTEM.md. Cores de dados validadas (daltonismo e contraste). */
+/* Tokens do painel no padrão visual UniSENAI (Portal da Indústria, escala nacional).
+   Os tokens --color-*, --font-*, --radius-* e --shadow-* são os oficiais; os nomes curtos
+   abaixo são apelidos de função usados por estilo.css. Nenhum valor fora da lista oficial. */
 :root {
   color-scheme: light;
 
-  /* Superfícies e tinta */
-  --papel: #f5f2ec;            /* plano da página */
-  --cartao: #fdfcfa;           /* superfície de cartões e gráficos */
-  --tinta: #14181d;            /* texto principal */
-  --tinta-2: #4b525a;          /* texto secundário */
-  --tinta-3: #7d8289;          /* eixos, legendas, notas */
-  --fio: #e4dfd5;              /* linhas de grade e divisórias */
-  --eixo: #c5c0b5;             /* linha de base dos gráficos */
-  --borda: rgba(20, 24, 29, 0.10);
+  /* Marca SENAI */
+  --color-brand-senai-pure: #E84910;
+  --color-brand-senai-darker: #9F2D0B;
+  --color-brand-senai-darkest: #680C07;
+  --color-brand-senai-medium: #F2814D;
+  --color-brand-senai-light: #FFA882;
+  --color-brand-senai-lighter: #FDEBD3;
+  --color-brand-senai-lightest: #FFFAF2;
+  /* Institucional */
+  --color-brand-corporate-pure: #164194;
+  --color-brand-corporate-dark: #1A3C6F;
+  --color-brand-corporate-darker: #1C3156;
+  --color-brand-corporate-darkest: #070B1B;
+  --color-brand-corporate-medium: #5876AC;
+  --color-brand-corporate-light: #9BACC3;
+  --color-brand-corporate-lighter: #CAD9EB;
+  --color-brand-corporate-lightest: #E4ECF5;
+  /* Neutros, foco e feedback */
+  --color-neutral-darkest: #262626;
+  --color-neutral-dark: #646464;
+  --color-neutral-lighter: #DFDFDF;
+  --color-neutral-lightest: #F2F2F2;
+  --color-neutral-portal: #F8F8F8;
+  --color-neutral-white: #FFFFFF;
+  --color-highlight-pure: #F673AD;
 
-  /* Marca: usada só na interface (navegação, foco, destaque), nunca em dados */
-  --marca: #0e4f5c;
-  --marca-suave: #dcebed;
+  --font-family-base: Inter, system-ui, "Segoe UI", Roboto, Arial, sans-serif;
+  --radius-sm: 4px; --radius-md: 8px; --radius-lg: 16px; --radius-pill: 500px;
+  --shadow-level-1: 0 0.25rem 1rem rgba(0, 0, 0, 0.08);
 
-  /* Cenários (categórico, ordem fixa) */
-  --cen-expansao: #2a78d6;
-  --cen-apagao: #1baf7a;
-  --cen-retracao: #eb6834;
-  --cen-estavel: #b3b0a8;
-  --cen-insuficiente: #dedad1;
+  /* --- Apelidos de função ------------------------------------------------ */
+  --papel: var(--color-neutral-portal);
+  --cartao: var(--color-neutral-white);
+  --tinta: var(--color-neutral-darkest);
+  --tinta-2: var(--color-neutral-dark);
+  --tinta-3: var(--color-neutral-dark);
+  --fio: var(--color-neutral-lightest);
+  --eixo: var(--color-neutral-lighter);
+  --borda: var(--color-neutral-lighter);
+  --capa: var(--color-brand-corporate-darkest);
+  --marca: var(--color-brand-corporate-pure);          /* links e destaque de interface */
+  --marca-suave: var(--color-brand-corporate-lightest);
+  --acento: var(--color-brand-senai-pure);             /* barra de 4px e área gráfica */
+  --acento-texto: var(--color-brand-senai-darker);     /* laranja legível em texto */
+  --foco: var(--color-highlight-pure);
 
-  /* Séries de fluxo */
-  --serie-admissoes: #2a78d6;
-  --serie-desligamentos: #eb6834;
+  /* Cenários: azul = expansão e laranja = apagão, como no slide do desafio */
+  --cen-expansao: var(--color-brand-corporate-pure);
+  --cen-apagao: var(--color-brand-senai-pure);
+  --cen-retracao: var(--color-brand-senai-darkest);
+  --cen-estavel: var(--color-brand-corporate-light);
+  --cen-insuficiente: var(--color-neutral-lighter);
 
-  /* Polaridade (saldo): azul = positivo, vermelho = negativo, cinza = perto de zero */
-  --pos: #2a78d6;
-  --neg: #d03b3b;
-  --div-1: #b92f2f; --div-2: #e27a72; --div-3: #f3c1bb; --div-4: #ebe8e1;
-  --div-5: #b7d3f6; --div-6: #5598e7; --div-7: #1c5cab;
+  --serie-admissoes: var(--color-brand-corporate-pure);
+  --serie-desligamentos: var(--color-brand-senai-pure);
 
-  /* Magnitude (sequencial, um matiz) */
-  --seq-1: #cde2fb; --seq-2: #9ec5f4; --seq-3: #5598e7; --seq-4: #256abf; --seq-5: #0d366b;
-  --sem-dado: #efece5;
+  /* Polaridade do saldo: azul = positivo, laranja = negativo, cinza = perto de zero */
+  --pos: var(--color-brand-corporate-pure);
+  --neg: var(--color-brand-senai-pure);
+  --div-1: var(--color-brand-senai-pure); --div-2: var(--color-brand-senai-medium); --div-3: var(--color-brand-senai-light);
+  --div-4: var(--color-neutral-lightest);
+  --div-5: var(--color-brand-corporate-lighter); --div-6: var(--color-brand-corporate-medium); --div-7: var(--color-brand-corporate-pure);
+  /* Magnitude: escala institucional, do claro ao escuro */
+  --seq-1: var(--color-brand-corporate-lightest); --seq-2: var(--color-brand-corporate-lighter); --seq-3: var(--color-brand-corporate-light);
+  --seq-4: var(--color-brand-corporate-medium); --seq-5: var(--color-brand-corporate-pure);
+  --sem-dado: var(--color-neutral-lightest);
 
-  /* Tipografia: só fontes do sistema, para funcionar sem internet */
-  --fonte: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --fonte-titulo: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
-  --t-nota: 12px; --t-corpo: 14px; --t-lead: 17px; --t-h2: 24px; --t-numero: 30px; --t-h1: 44px;
+  --fonte: var(--font-family-base);
+  --fonte-titulo: var(--font-family-base);
+  --t-nota: 12px; --t-corpo: 14px; --t-lead: 16px; --t-h2: 24px; --t-numero: 32px; --t-h1: 40px;
 
-  /* Espaço (base 4), raio, sombra, movimento */
-  --e1: 4px; --e2: 8px; --e3: 12px; --e4: 16px; --e5: 24px; --e6: 32px; --e7: 48px; --e8: 72px;
-  --raio: 10px; --raio-p: 6px;
-  --sombra: 0 1px 2px rgba(20, 24, 29, 0.05), 0 6px 20px rgba(20, 24, 29, 0.05);
+  --e1: 4px; --e2: 8px; --e3: 16px; --e4: 16px; --e5: 24px; --e6: 32px; --e7: 48px; --e8: 64px;
+  --raio: var(--radius-lg); --raio-p: var(--radius-md);
+  --sombra: var(--shadow-level-1);
   --rapido: 120ms ease-out;
-  --largura: 1200px;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    color-scheme: dark;
-    --papel: #0f1113; --cartao: #1a1c1e; --tinta: #f0efec; --tinta-2: #c3c2b7; --tinta-3: #8b8a84;
-    --fio: #2c2e30; --eixo: #3a3c3e; --borda: rgba(255, 255, 255, 0.10);
-    --marca: #7cc4d1; --marca-suave: #16343a;
-    --cen-expansao: #3987e5; --cen-apagao: #199e70; --cen-retracao: #d95926;
-    --cen-estavel: #5c5d5c; --cen-insuficiente: #37393a;
-    --serie-admissoes: #3987e5; --serie-desligamentos: #d95926;
-    --pos: #3987e5; --neg: #e66767;
-    --div-1: #e66767; --div-2: #a34343; --div-3: #5e3030; --div-4: #38383a;
-    --div-5: #1f3f6b; --div-6: #2a62ab; --div-7: #5598e7;
-    --seq-1: #173357; --seq-2: #1c4a85; --seq-3: #256abf; --seq-4: #5598e7; --seq-5: #b7d3f6;
-    --sem-dado: #242627;
-    --sombra: none;
-  }
-}
-:root[data-theme="dark"] {
-  color-scheme: dark;
-  --papel: #0f1113; --cartao: #1a1c1e; --tinta: #f0efec; --tinta-2: #c3c2b7; --tinta-3: #8b8a84;
-  --fio: #2c2e30; --eixo: #3a3c3e; --borda: rgba(255, 255, 255, 0.10);
-  --marca: #7cc4d1; --marca-suave: #16343a;
-  --cen-expansao: #3987e5; --cen-apagao: #199e70; --cen-retracao: #d95926;
-  --cen-estavel: #5c5d5c; --cen-insuficiente: #37393a;
-  --serie-admissoes: #3987e5; --serie-desligamentos: #d95926;
-  --pos: #3987e5; --neg: #e66767;
-  --div-1: #e66767; --div-2: #a34343; --div-3: #5e3030; --div-4: #38383a;
-  --div-5: #1f3f6b; --div-6: #2a62ab; --div-7: #5598e7;
-  --seq-1: #173357; --seq-2: #1c4a85; --seq-3: #256abf; --seq-4: #5598e7; --seq-5: #b7d3f6;
-  --sem-dado: #242627;
-  --sombra: none;
+  --largura: 1216px;
 }

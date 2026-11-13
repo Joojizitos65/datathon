@@ -50,6 +50,10 @@ def main() -> None:
     mun = ler("municipio_setor")
     dim = ler("dim_municipio")[["municipio_codigo", "codigo_ibge", "microrregiao_nome"]]
 
+    # Microrregião x divisão CNAE com volume para classificar: os pontos do gráfico de quadrantes.
+    celulas = ler("micro_divisao")
+    celulas = celulas[(celulas["movimentos"] >= cfg.MIN_MOV_CELULA) & (celulas["cenario"] != "Volume insuficiente")]
+
     mensal_ind = (mensal[mensal["setor"] == IND].groupby("competencia", as_index=False)
                   [["admissoes", "desligamentos", "saldo"]].sum())
     mun_ind = mun[mun["setor"] == IND].merge(dim, on="municipio_codigo", how="left")
@@ -75,6 +79,11 @@ def main() -> None:
                                           "microrregiao_nome": "micro", "saldo": "saldo",
                                           "saldo_por_10mil": "saldo10", "adm_por_10mil": "adm10",
                                           "sal_mediana_adm": "sal_adm", "pct_pedido_desl": "pct_pedido"}, 3),
+        "celulas": registros(celulas, {"microrregiao_nome": "micro", "divisao_nome": "divisao", "saldo": "saldo",
+                                       "movimentos": "mov", "saldo_por_10mil": "saldo10", "adm_por_10mil": "adm10",
+                                       "sal_adm_rel": "sal_rel", "sal_mediana_adm": "sal_adm",
+                                       "anos_estudo_adm": "anos", "pct_pedido_desl": "pct_pedido",
+                                       "cenario": "cenario"}, 3),
         "malha": malha_compacta(),
     }
     SAIDA.parent.mkdir(parents=True, exist_ok=True)

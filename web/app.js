@@ -190,10 +190,40 @@
     });
   }
 
+  // --- Quadrantes (dispersão) ---------------------------------------------------------
+  const mediana = (v) => { const o = v.filter((x) => x != null).sort((a, b) => a - b); return o.length ? (o[(o.length - 1) >> 1] + o[o.length >> 1]) / 2 : null; };
+  function quadrantes(el, pontos) {
+    const L = larguraDe(el), H = Math.min(520, Math.max(340, L * 0.68)), mE = 48, mD = 16, mT = 24, mB = 44;
+    const s = tela(el, L, H, "Admissões por habitante contra saldo por habitante, por microrregião e setor");
+    const X0 = 1, X1 = 400, LIM = 20, lg = Math.log10;
+    const x = (v) => mE + ((lg(Math.min(X1, Math.max(X0, v))) - lg(X0)) / (lg(X1) - lg(X0))) * (L - mE - mD);
+    const y = (v) => mT + ((LIM - Math.min(LIM, Math.max(-LIM, v))) / (2 * LIM)) * (H - mT - mB);
+    for (const t of [-20, -10, 0, 10, 20]) {
+      svg("line", { class: t === 0 ? "base-linha" : "grade-linha", x1: mE, x2: L - mD, y1: y(t), y2: y(t) }, s);
+      svg("text", { x: mE - 6, y: y(t) + 4, "text-anchor": "end", text: (Math.abs(t) === LIM ? (t > 0 ? "≥ " : "≤ ") : "") + sinal(t) }, s);
+    }
+    for (const t of [1, 3, 10, 30, 100, 300]) svg("text", { x: x(t), y: H - mB + 16, "text-anchor": "middle", text: num(t) }, s);
+    const corte = mediana(pontos.map((p) => p.adm10));
+    svg("line", { class: "base-linha", x1: x(corte), x2: x(corte), y1: mT, y2: H - mB, "stroke-dasharray": "0" }, s);
+    svg("text", { class: "eixo-titulo", x: (mE + L - mD) / 2, y: H - 6, "text-anchor": "middle", text: "Admissões por 10 mil habitantes (escala logarítmica) →" }, s);
+    svg("text", { class: "eixo-titulo", x: mE, y: 12, text: "↑ Saldo por 10 mil habitantes" }, s);
+    svg("text", { class: "quadrante", x: L - mD - 4, y: mT + 16, "text-anchor": "end", text: "Contrata muito e cresce" }, s);
+    svg("text", { class: "quadrante", x: L - mD - 4, y: H - mB - 8, "text-anchor": "end", text: "Contrata muito e encolhe" }, s);
+    svg("text", { class: "quadrante", x: mE + 6, y: mT + 16, text: "Contrata pouco e cresce" }, s);
+    svg("text", { class: "quadrante", x: mE + 6, y: H - mB - 8, text: "Contrata pouco e encolhe" }, s);
+    const ordem = ["Estável", "Retração", "Expansão acelerada", "Sinal de apagão"], marcas = [];
+    [...pontos].sort((a, b) => ordem.indexOf(a.cenario) - ordem.indexOf(b.cenario)).forEach((p) => {
+      const c = svg("circle", { class: `marca bolha f-${classeCenario(p.cenario)}`, cx: x(p.adm10), cy: y(p.saldo10), r: p.cenario === "Estável" ? 4 : 5.5 }, s);
+      marcas.push(c);
+      comDica(c, `${p.micro} · ${p.divisao}`, [["Cenário", p.cenario], ["Admissões / 10 mil hab.", num(p.adm10, 1)], ["Saldo / 10 mil hab.", sinal(p.saldo10, 1)],
+        ["Saldo", sinal(p.saldo)], ["Salário adm. / mediana do setor", num(p.sal_rel, 2)], ["Anos de estudo (admitidos)", num(p.anos, 1)], ["Saídas a pedido", pct(p.pct_pedido)]], c, marcas);
+    });
+  }
+
   // --- Mapa coroplético ----------------------------------------------------------------
   const INDICADORES = [
     { chave: "saldo10", nome: "Saldo por habitante", titulo: "Saldo de vagas por 10 mil habitantes", tipo: "div", fmt: (v) => sinal(v, 1),
-      apoio: "Azul: mais admissões que desligamentos. Vermelho: o contrário. Escala cortada nos percentis 5 e 95." },
+      apoio: "Azul: mais admissões que desligamentos. Laranja: o contrário. Escala cortada nos percentis 5 e 95." },
     { chave: "adm10", nome: "Contratações", titulo: "Admissões por 10 mil habitantes", tipo: "seq", fmt: (v) => num(v, 0),
       apoio: "Quanto mais escuro, mais a indústria local contrata em relação à população. Faixas por quintil." },
     { chave: "sal_adm", nome: "Salário de admissão", titulo: "Salário mediano de admissão", tipo: "seq", fmt: reais,
@@ -274,6 +304,7 @@
   });
   linhas($("g-fluxo"), D.mensal, SERIES, "Admissões e desligamentos mensais na indústria");
   colunas($("g-saldo"), D.mensal, "Saldo mensal de vagas na indústria");
+  quadrantes($("g-quad"), D.celulas);
   barras($("g-setores"), divisoes, {
     rotulo: "Saldo de vagas por divisão CNAE", margemNome: 380, alturaLinha: 24,
     valor: (d) => d.saldo, nome: (d) => d.nome, classe: (d) => (d.saldo >= 0 ? "pos" : "neg"),
@@ -285,6 +316,27 @@
   desenhar();
   let espera;
   addEventListener("resize", () => { clearTimeout(espera); espera = setTimeout(desenhar, 150); });
+
+  // Gargalos: legenda, achado e medianas por cenário
+  const GRUPOS = ["Sinal de apagão", "Expansão acelerada", "Retração", "Estável"];
+  const resumo = GRUPOS.map((g) => { const c = D.celulas.filter((p) => p.cenario === g);
+    return { g, n: c.length, adm10: mediana(c.map((p) => p.adm10)), pedido: mediana(c.map((p) => p.pct_pedido)), sal: mediana(c.map((p) => p.sal_rel)), anos: mediana(c.map((p) => p.anos)) }; });
+  legenda($("leg-quad"), CENARIOS.filter(([, n]) => GRUPOS.includes(n)));
+  $("quad-apoio").textContent = `${num(D.celulas.length)} combinações de microrregião e divisão CNAE com ao menos 200 movimentações. Linha vertical: mediana das admissões. Valores além de ±20 ficam na borda.`;
+  const sals = resumo.map((r) => r.sal), anosR = resumo.map((r) => r.anos), ap = resumo[0], es = resumo[3];
+  const achado = $("achado");
+  achado.append("Renda e escolaridade são quase iguais nos quatro grupos: salário de admissão entre ", html("b", { text: `${pct(Math.min(...sals))} e ${pct(Math.max(...sals))}` }),
+    " da mediana do setor e ", html("b", { text: `${num(Math.min(...anosR), 1)} a ${num(Math.max(...anosR), 1)} anos` }), " de estudo. O que separa o apagão é o giro: ",
+    html("b", { text: `${num(ap.adm10 / es.adm10, 1)}×` }), ` mais admissões por habitante que os estáveis e ${pct(ap.pedido)} das saídas a pedido.`);
+  tabela($("t-quad"), [
+    { titulo: "Grupo", valor: (r) => etiqueta(r.g) },
+    { titulo: "Adm./10 mil", num: true, valor: (r) => num(r.adm10, 1) }, { titulo: "A pedido", num: true, valor: (r) => pct(r.pedido) },
+    { titulo: "Salário", num: true, valor: (r) => pct(r.sal) }, { titulo: "Estudo", num: true, valor: (r) => num(r.anos, 1) + " a" }], resumo);
+  html("p", { class: "apoio", text: "Adm./10 mil: admissões por 10 mil habitantes. A pedido: parcela dos desligamentos pedidos pelo trabalhador. Salário: admissão em relação à mediana estadual do setor. Estudo: anos de estudo dos admitidos." }, $("t-quad")).style.margin = "16px 0 0";
+  verDados($("g-quad"), [
+    { titulo: "Microrregião", valor: (p) => p.micro }, { titulo: "Divisão CNAE", valor: (p) => p.divisao }, { titulo: "Cenário", valor: (p) => p.cenario },
+    { titulo: "Adm. / 10 mil", num: true, valor: (p) => num(p.adm10, 1) }, { titulo: "Saldo / 10 mil", num: true, valor: (p) => sinal(p.saldo10, 1) }],
+    [...D.celulas].sort((a, b) => b.adm10 - a.adm10));
 
   verDados($("g-micro"), [
     { titulo: "Microrregião", valor: (m) => m.nome }, { titulo: "Cenário", valor: (m) => m.cenario },

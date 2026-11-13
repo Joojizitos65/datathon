@@ -2,7 +2,7 @@
 
 Rascunho para a equipe ajustar. Cerca de 400 palavras faladas, o que dá 3 minutos em ritmo
 normal. Todos os números vêm de `dados_processados/agregados/` (indústria = seções B a F,
-competências 2025-09 a 2026-08). A coluna "Tela" indica a aba do painel a mostrar.
+competências 2025-09 a 2026-08). A coluna "Tela" indica a seção do painel novo (`web/index.html`) a mostrar.
 
 ## Mensagem central
 
@@ -16,7 +16,7 @@ abrir vaga: é segurar gente.**
 | 0:00–0:30 | Visão geral (KPIs) | "Em 12 meses, a indústria catarinense fez 571 mil admissões e 568 mil desligamentos. Saldo: 2.645 vagas. São 216 contratações para cada vaga que fica. Santa Catarina tem a menor desocupação do país, 2,1%, então cada saída é uma vaga difícil de repor. Analisamos 3,4 milhões de movimentações do Novo CAGED para entender onde isso aperta e por quê." |
 | 0:30–1:05 | Território (mapa) | "O estado está partido em dois. O litoral norte e o Oeste crescem: Itajaí soma +4.235 vagas, Chapecó +2.276, Joaçaba +1.169. Só Navegantes responde por +2.765, mais que o saldo industrial do estado inteiro; sem ela, a indústria de SC teria fechado no negativo. Do outro lado, o Planalto Norte encolhe: São Bento do Sul, Rio Negrinho, Campo Alegre e Mafra perderam juntas 1.497 vagas, com móveis e autopeças expostos ao tarifaço americano." |
 | 1:05–1:35 | Setores (CNAE) | "Por setor, a mesma divisão. Alimentos abriu 4.739 vagas e materiais elétricos, 2.018. Vestuário fechou 4.571, madeira 1.391 e móveis 1.319. A indústria tradicional do Vale e do Planalto perde espaço para alimentos, naval e elétricos." |
-| 1:35–2:10 | Renda e escolaridade | "E por que não segura gente? Quase metade das saídas, 48%, é pedido de demissão do próprio trabalhador. Em alimentos, o setor que mais cresce, são 57%. E quem entra ganha menos que quem sai: mediana de R$ 2.210 na admissão contra R$ 2.301 no desligamento. A empresa perde um trabalhador experiente e repõe com um mais barato, que também vai embora. Só 4% dos admitidos têm ensino superior: a disputa é por operador, não por diploma." |
+| 1:35–2:10 | Gargalos (quadrantes) | "E como renda e escolaridade explicam? Cruzamos 348 combinações de região e setor. O salário de admissão fica entre 98% e 100% da mediana em todos os grupos, e a escolaridade em torno de 11 anos: a indústria paga parecido e exige parecido em todo o estado. O que separa o apagão é o giro: esses setores contratam 2,5 vezes mais que os estáveis, e 54% das saídas são pedido de demissão. No estado, quem entra ganha R$ 2.210 e quem sai ganhava R$ 2.301. A empresa perde o experiente e repõe com um mais barato, que também vai embora." |
 | 2:10–2:50 | Contexto e recomendações | "Três ações. Um: reter antes de contratar, com progressão salarial nos primeiros 12 meses nas atividades de maior giro, alimentos e vestuário. Dois: recolocar o Planalto Norte, com requalificação rápida via SENAI e SINE para os setores que seguem contratando. Três: formar para os polos que crescem, com cursos técnicos curtos em soldagem, elétrica e manutenção em Navegantes e no Oeste." |
 | 2:50–3:00 | Visão geral | "O apagão de mão de obra em SC não é falta de vaga, é excesso de giro. O painel mostra, município a município, onde agir primeiro." |
 
@@ -29,6 +29,9 @@ abrir vaga: é segurar gente.**
 | Saldo da indústria (B a F) | +2.645 (transformação +1.008, construção +1.533) | `estado_setor` |
 | Admissões / desligamentos na indústria | 571.139 / 568.494 | `estado_setor` |
 | Saídas a pedido na indústria | 47,7% (alimentos 56,5%, vestuário 55,7%) | `estado_setor`, `estado_divisao` |
+| Correlação do saldo com renda e escolaridade | 0,01 (salário relativo) e −0,03 (anos de estudo), Spearman, 364 células | `micro_divisao` |
+| Medianas por grupo: admissões por 10 mil hab. | apagão 34,8; expansão 29,3; retração 17,8; estável 14,0 | `micro_divisao` |
+| Medianas por grupo: saídas a pedido | apagão 54%; expansão 50%; retração 44%; estável 47% | `micro_divisao` |
 | Salário mediano, admissão x desligamento | R$ 2.210 x R$ 2.301 | `estado_setor` |
 | Admitidos com superior completo | 4,2% | `estado_setor` |
 | Maior saldo por 10 mil hab. (microrregião) | Itajaí +43,4; Chapecó +41,5 | `micro_setor` |

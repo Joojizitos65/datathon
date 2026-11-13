@@ -3,16 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Raio-X do trabalho industrial em SC</title>
+<title>Raio-X do Mercado de Trabalho de SC · UniSENAI</title>
 <link rel="stylesheet" href="tokens.css">
 <link rel="stylesheet" href="estilo.css">
 </head>
 <body>
 <header class="barra">
   <div class="conteudo">
-    <div class="selo">Raio<span>-X</span></div>
+    <div class="selo">UniSENAI<span>Raio-X do Mercado de Trabalho de SC</span></div>
     <nav class="nav" aria-label="Seções">
       <a href="#panorama">Panorama</a>
+      <a href="#gargalos">Gargalos</a>
       <a href="#territorio">Território</a>
       <a href="#setores">Setores</a>
       <a href="#alertas">Alertas</a>
@@ -23,7 +24,7 @@
 
 <main class="conteudo">
   <div class="abertura">
-    <div class="sobretitulo">Indústria de Santa Catarina · Novo CAGED</div>
+    <div class="sobretitulo">Datathon CDIA 2026 · Indústria de Santa Catarina</div>
     <h1 id="manchete"></h1>
     <p class="lead" id="lead"></p>
   </div>
@@ -51,6 +52,25 @@
           <p class="apoio">Admissões menos desligamentos.</p>
           <div class="grafico" id="g-saldo"></div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="gargalos" aria-labelledby="t-gargalos">
+    <h2 id="t-gargalos">Gargalos: apagão ou expansão?</h2>
+    <p class="subtitulo">Cada ponto é um setor industrial em uma microrregião. A posição mostra quanto ele contrata e quanto disso vira vaga nova.</p>
+    <div class="grade duas">
+      <div class="cartao">
+        <h3>Quem contrata muito e cresce, e quem contrata muito e não sai do lugar</h3>
+        <p class="apoio" id="quad-apoio"></p>
+        <ul class="legenda" id="leg-quad"></ul>
+        <div class="grafico" id="g-quad"></div>
+      </div>
+      <div class="cartao">
+        <h3>Como renda e escolaridade explicam</h3>
+        <p class="apoio">Mediana de cada grupo do gráfico ao lado.</p>
+        <p class="achado" id="achado"></p>
+        <div class="rolagem" id="t-quad"></div>
       </div>
     </div>
   </section>
