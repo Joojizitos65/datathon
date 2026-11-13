@@ -136,3 +136,15 @@ região). A regra não foi alterada: é uma decisão de método da equipe.
    `contexto.json`) antes de citá-lo no pitch.
 6. Ajustar e ensaiar o roteiro do pitch de 3 minutos em `PITCH.md`.
 7. Publicar o repositório (o CSV do CAGED não vai ao Git: tem 413 MB e o limite do GitHub é 100 MB).
+
+## Publicação na Vercel
+
+A Vercel publica só a pasta `web/` (painel e slides), como site estático. `vercel.json` desliga a
+detecção de framework e `.vercelignore` esconde os arquivos Python da raiz; sem isso o build falha
+com `PYTHON_ENTRYPOINT_NOT_FOUND`. Depois de publicar:
+
+- painel: `https://<projeto>.vercel.app/`
+- slides do pitch: `https://<projeto>.vercel.app/slides` (setas, espaço ou clique avançam)
+
+O QR code da capa e do último slide aponta sozinho para o endereço em que o deck está publicado.
+Para gerar um PDF dos slides, abra `/slides` e use Imprimir → Salvar como PDF.
