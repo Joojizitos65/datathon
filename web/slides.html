@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pitch · Raio-X do Mercado de Trabalho de SC</title>
+<link rel="stylesheet" href="tokens.css">
+<style>
+  /* Deck 16:9 no padrão UniSENAI. Setas, espaço ou clique avançam. Imprimir gera um PDF, um slide por página. */
+  * { box-sizing: border-box; }
+  html { font-size: min(1.25vw, 2.222vh); scroll-snap-type: y mandatory; }
+  body { margin: 0; font-family: var(--font-family-base); color: var(--color-neutral-darkest); background: var(--color-brand-corporate-darkest); }
+  .slide { width: 100vw; height: 100vh; scroll-snap-align: start; display: flex; align-items: center; justify-content: center; background: var(--color-neutral-portal); position: relative; overflow: hidden; }
+  .quadro { width: 80rem; height: 45rem; padding: 4rem 5rem; display: flex; flex-direction: column; justify-content: center; position: relative; }
+  .slide.capa { background: var(--color-brand-corporate-darkest); color: var(--color-neutral-white); }
+  .slide.capa::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 0.5rem; background: var(--color-brand-senai-pure); }
+  .marca { position: absolute; top: 3rem; left: 5rem; font-weight: 700; font-size: 1.5rem; }
+  .marca span { font-weight: 400; font-size: 1rem; margin-left: 0.75rem; color: var(--color-brand-corporate-lighter); }
+  .slide:not(.capa) .marca span { color: var(--color-neutral-dark); }
+  .etapa { color: var(--color-brand-senai-darker); font-weight: 700; font-size: 1.25rem; margin-bottom: 1rem; }
+  h1 { font-size: 3.5rem; line-height: 1.1; font-weight: 700; margin: 0 0 1.25rem; max-width: 22ch; }
+  h2 { font-size: 3rem; line-height: 1.15; font-weight: 700; margin: 0 0 1.5rem; max-width: 26ch; }
+  .sub { font-size: 1.5rem; line-height: 1.4; color: var(--color-neutral-dark); max-width: 44ch; margin: 0; }
+  .capa .sub { color: var(--color-brand-corporate-lighter); }
+  .numero { font-size: 8rem; line-height: 1; font-weight: 700; color: var(--color-brand-corporate-pure); letter-spacing: -0.02em; }
+  .numero.laranja { color: var(--color-brand-senai-pure); }
+  .legenda-n { font-size: 1.5rem; line-height: 1.35; color: var(--color-neutral-dark); margin-top: 0.75rem; max-width: 24ch; }
+  .colunas { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .colunas.tres { grid-template-columns: repeat(3, 1fr); }
+  .cartao { background: var(--color-neutral-white); border-radius: var(--radius-lg); box-shadow: var(--shadow-level-1); padding: 2rem; }
+  .cartao h3 { font-size: 1.5rem; margin: 0 0 1rem; font-weight: 700; }
+  .cartao.azul { border-top: 0.5rem solid var(--color-brand-corporate-pure); }
+  .cartao.laranja { border-top: 0.5rem solid var(--color-brand-senai-pure); }
+  .linha { display: flex; justify-content: space-between; gap: 1rem; font-size: 1.375rem; padding: 0.5rem 0; border-top: 1px solid var(--color-neutral-lightest); }
+  .linha:first-of-type { border-top: 0; }
+  .linha b { font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .passo { font-size: 3rem; font-weight: 700; color: var(--color-brand-senai-pure); line-height: 1; }
+  .cartao p { font-size: 1.25rem; line-height: 1.4; color: var(--color-neutral-dark); margin: 0; }
+  .frase { border-left: 0.5rem solid var(--color-brand-senai-pure); padding-left: 1.5rem; font-size: 2rem; line-height: 1.3; font-weight: 700; margin: 2rem 0 0; max-width: 34ch; }
+  .par { display: grid; grid-template-columns: 11rem 1fr 9rem; align-items: center; gap: 1.25rem; font-size: 1.5rem; margin-top: 1.25rem; }
+  .par i { display: block; height: 2.5rem; border-radius: 0 var(--radius-md) var(--radius-md) 0; }
+  .par b { font-size: 2rem; font-variant-numeric: tabular-nums; }
+  .capa-grade { display: grid; grid-template-columns: 1fr auto; gap: 4rem; align-items: center; }
+  .qr { background: var(--color-neutral-white); color: var(--color-neutral-darkest); border-radius: var(--radius-lg); padding: 1.25rem; width: 17rem; text-align: center; }
+  .qr svg, .qr .vazio { width: 14.5rem; height: 14.5rem; display: block; margin: 0 auto; }
+  .qr .vazio { display: flex; align-items: center; justify-content: center; border: 2px dashed var(--color-neutral-lighter); border-radius: var(--radius-md); font-size: 0.875rem; color: var(--color-neutral-dark); padding: 1rem; }
+  .qr .rotulo { font-weight: 700; font-size: 1.125rem; margin-top: 0.75rem; }
+  .qr .url { font-size: 0.8125rem; color: var(--color-neutral-dark); word-break: break-all; margin-top: 0.25rem; }
+  .rodape { position: absolute; bottom: 2.5rem; left: 5rem; right: 5rem; display: flex; justify-content: space-between; font-size: 0.875rem; color: var(--color-neutral-dark); }
+  .capa .rodape { color: var(--color-brand-corporate-light); }
+  @media print {
+    @page { size: 1280px 720px; margin: 0; }
+    html { font-size: 16px; scroll-snap-type: none; }
+    .slide { width: 1280px; height: 720px; break-after: page; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+
+<section class="slide capa"><div class="quadro">
+  <div class="marca">UniSENAI<span>Datathon CDIA 2026</span></div>
+  <div class="capa-grade">
+    <div>
+      <h1>Raio-X do Mercado de Trabalho de Santa Catarina</h1>
+      <p class="sub">Onde a indústria cresce, onde trava, e por que ela não consegue segurar gente.</p>
+    </div>
+    <div class="qr"><div data-qr></div><div class="rotulo">Abra o painel</div><div class="url" data-url></div></div>
+  </div>
+  <div class="rodape"><span>Fonte: Novo CAGED, set/2025 a ago/2026 · IBGE</span><span>1 / 8</span></div>
+</div></section>
+
+<section class="slide"><div class="quadro">
+  <div class="etapa">A dor</div>
+  <div class="colunas" style="align-items: center">
+    <div><div class="numero laranja">2 min</div><div class="legenda-n">É o intervalo entre um pedido de demissão e o próximo na indústria catarinense.</div></div>
+    <div><h2 style="font-size: 2.5rem">271 mil pedidos de demissão em 12 meses.</h2><p class="sub">Contratou, treinou, perdeu. Antes de este pitch acabar, acontece de novo.</p></div>
+  </div>
+  <div class="rodape"><span>47,7% dos 568.494 desligamentos da indústria foram a pedido do trabalhador</span><span>2 / 8</span></div>
+</div></section>
+
+<section class="slide"><div class="quadro">
+  <div class="etapa">O tamanho</div>
+  <div class="colunas" style="align-items: end">
+    <div><div class="numero">571 mil</div><div class="legenda-n">contratações na indústria em um ano</div></div>
+    <div><div class="numero laranja">2.645</div><div class="legenda-n">vagas a mais no fim do ano</div></div>
+  </div>
+  <p class="frase">216 contratações para ficar com uma.</p>
+  <div class="rodape"><span>3,4 milhões de movimentações analisadas · SC tem a menor desocupação do país (2,1%, IBGE)</span><span>3 / 8</span></div>
+</div></section>
+
+<section class="slide"><div class="quadro">
+  <div class="etapa">Onde está a expansão e onde está o gargalo</div>
+  <h2 style="font-size: 2.5rem; max-width: none">Dois mercados, andando em direções opostas.</h2>
+  <div class="colunas">
+    <div class="cartao azul"><h3>Cresce</h3>
+      <div class="linha"><span>Itajaí</span><b>+4.235</b></div>
+      <div class="linha"><span>Chapecó</span><b>+2.276</b></div>
+      <div class="linha"><span>Alimentos</span><b>+4.739</b></div>
+      <div class="linha"><span>Materiais elétricos</span><b>+2.018</b></div>
+    </div>
+    <div class="cartao laranja"><h3>Encolhe</h3>
+      <div class="linha"><span>Planalto Norte (4 municípios)</span><b>−1.497</b></div>
+      <div class="linha"><span>Vestuário</span><b>−4.571</b></div>
+      <div class="linha"><span>Madeira</span><b>−1.391</b></div>
+      <div class="linha"><span>Móveis</span><b>−1.319</b></div>
+    </div>
+  </div>
+  <div class="rodape"><span>Saldo de vagas na indústria em 12 meses · Planalto Norte: São Bento do Sul, Rio Negrinho, Campo Alegre e Mafra</span><span>4 / 8</span></div>
+</div></section>
+
+<section class="slide"><div class="quadro">
+  <div class="etapa">Como renda e escolaridade explicam</div>
+  <h2>Procuramos a diferença entre quem cresce e quem trava. Não achamos.</h2>
+  <div class="colunas tres">
+    <div class="cartao"><h3>Salário de entrada</h3><p>Entre 98% e 100% da mediana do setor em todos os grupos.</p></div>
+    <div class="cartao"><h3>Escolaridade</h3><p>Cerca de 11 anos de estudo em todos os grupos. Só 4% com superior.</p></div>
+    <div class="cartao laranja"><h3>O que muda: o giro</h3><p>Onde há apagão, a indústria contrata 2,5 vezes mais, e 54% das saídas são a pedido.</p></div>
+  </div>
+  <div class="rodape"><span>348 combinações de microrregião e setor, medianas por cenário</span><span>5 / 8</span></div>
+</div></section>
+
+<section class="slide"><div class="quadro">
+  <div class="etapa">O número que explica</div>
+  <h2 style="max-width: none">Quem entra ganha menos que quem sai.</h2>
+  <div class="par"><span>Quem entra</span><i style="width: 96%; background: var(--color-brand-corporate-pure)"></i><b>R$ 2.210</b></div>
+  <div class="par"><span>Quem saiu</span><i style="width: 100%; background: var(--color-brand-senai-pure)"></i><b>R$ 2.301</b></div>
+  <p class="frase">Não falta gente. Falta motivo para ficar.</p>
+  <div class="rodape"><span>Salário mediano de admissão e de desligamento na indústria de SC</span><span>6 / 8</span></div>
+</div></section>
+
+<section class="slide"><div class="quadro">
+  <div class="etapa">A saída</div>
+  <h2 style="font-size: 2.5rem; max-width: none">Três movimentos. O painel diz onde começar cada um.</h2>
+  <div class="colunas tres">
+    <div class="cartao"><div class="passo">1</div><h3 style="margin-top: 0.75rem">Reter antes de contratar</h3><p>Progressão salarial no primeiro ano, começando por alimentos e vestuário.</p></div>
+    <div class="cartao"><div class="passo">2</div><h3 style="margin-top: 0.75rem">Recolocar o Planalto Norte</h3><p>Requalificação rápida para os setores que seguem contratando.</p></div>
+    <div class="cartao"><div class="passo">3</div><h3 style="margin-top: 0.75rem">Formar onde cresce</h3><p>Cursos curtos de solda, elétrica e manutenção em Itajaí e no Oeste.</p></div>
+  </div>
+  <div class="rodape"><span>Recomendações da equipe a partir dos dados</span><span>7 / 8</span></div>
+</div></section>
+
+<section class="slide capa"><div class="quadro">
+  <div class="marca">UniSENAI<span>Datathon CDIA 2026</span></div>
+  <div class="capa-grade">
+    <div>
+      <h1 style="font-size: 3rem; max-width: 20ch">Vocês não precisam de mais currículos.</h1>
+      <p class="sub" style="color: var(--color-neutral-white); font-size: 1.75rem">Precisam que quem entrou ontem ainda esteja lá no ano que vem.</p>
+    </div>
+    <div class="qr"><div data-qr></div><div class="rotulo">Veja no seu município</div><div class="url" data-url></div></div>
+  </div>
+  <div class="rodape"><span>Raio-X do Mercado de Trabalho de SC</span><span>8 / 8</span></div>
+</div></section>
+
+<script src="vendor/qrcode.js"></script>
+<script>
+(() => {
+  // O QR aponta para o painel no mesmo endereço em que este deck está publicado (ex.: a Vercel).
+  // Aberto do disco, use slides.html?url=https://seu-projeto.vercel.app para definir o destino.
+  const param = new URLSearchParams(location.search).get("url");
+  const publicado = /^https?:$/.test(location.protocol) && !/^(localhost|127\.|0\.0\.0\.0)/.test(location.hostname);
+  const url = param || (publicado ? location.origin + "/" : "");
+  document.querySelectorAll("[data-qr]").forEach((el) => {
+    if (!url) { el.innerHTML = '<div class="vazio">O QR aparece quando o deck é aberto pelo link publicado (ou com ?url=...)</div>'; return; }
+    const qr = qrcode(0, "M"); qr.addData(url); qr.make();
+    el.innerHTML = qr.createSvgTag({ cellSize: 4, margin: 0, scalable: true });
+    el.querySelector("svg").setAttribute("aria-label", "QR code para " + url);
+  });
+  document.querySelectorAll("[data-url]").forEach((el) => { el.textContent = url.replace(/^https?:\/\//, "").replace(/\/$/, ""); });
+
+  const slides = [...document.querySelectorAll(".slide")];
+  const atual = () => Math.round(scrollY / innerHeight);
+  const ir = (i) => slides[Math.max(0, Math.min(slides.length - 1, i))].scrollIntoView();
+  addEventListener("keydown", (e) => {
+    if (["ArrowRight", "ArrowDown", "PageDown", " "].includes(e.key)) { e.preventDefault(); ir(atual() + 1); }
+    if (["ArrowLeft", "ArrowUp", "PageUp"].includes(e.key)) { e.preventDefault(); ir(atual() - 1); }
+    if (e.key === "Home") ir(0); if (e.key === "End") ir(slides.length - 1);
+  });
+  addEventListener("click", (e) => { if (!e.target.closest("a")) ir(atual() + (e.clientX < innerWidth * 0.25 ? -1 : 1)); });
+})();
+</script>
+</body>
+</html>

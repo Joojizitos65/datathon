@@ -1,0 +1,5 @@
+# A Vercel publica só o painel estático em web/. Sem isto ela vê requirements.txt e os .py
+# da raiz, trata o projeto como aplicação Python e falha com PYTHON_ENTRYPOINT_NOT_FOUND.
+/*
+!/web
+!/vercel.json
