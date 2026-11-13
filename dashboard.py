@@ -8,6 +8,7 @@ Lê somente as tabelas agregadas geradas por `pipeline.py` (dados_processados/ag
 from __future__ import annotations
 
 import json
+import textwrap
 
 import numpy as np
 import pandas as pd
@@ -145,19 +146,22 @@ ms = micro_setor[micro_setor["setor"] == setor].copy()
 # Visão geral
 # =============================================================================
 with aba_geral:
-    c1, c2, c3, c4, c5 = st.columns(5)
-    c1.metric("Saldo líquido (12 meses)", fmt(est["saldo"], sinal=True),
-              help="Admissões menos desligamentos no período.")
-    c2.metric("Saldo por 10 mil habitantes", fmt(est["saldo_por_10mil"], 1, sinal=True),
-              help="Saldo dividido pela população estimada de 2026 do estado.")
-    c3.metric("Salário mediano de admissão", f"R$ {fmt(est['sal_mediana_adm'], 0)}",
-              help="Só registros com salário válido (ver aba Metodologia).")
-    c4.metric("Desligamentos por admissão", fmt(est["razao_desl_adm"], 2),
-              help="Acima de 1 indica mais saídas que entradas.")
+    # Rótulos curtos e um número por cartão: textos longos são cortados com "…" pelo Streamlit.
+    c1, c2, c3, c4, c5, c6 = st.columns(6)
+    c1.metric("Saldo (12 meses)", fmt(est["saldo"], sinal=True),
+              help="Saldo líquido: admissões menos desligamentos no período.")
+    c2.metric("Saldo / 10 mil hab.", fmt(est["saldo_por_10mil"], 1, sinal=True),
+              help="Saldo dividido pela população estimada de 2026 do estado, por 10 mil habitantes.")
+    c3.metric("Salário de admissão", f"R$ {fmt(est['sal_mediana_adm'], 0)}",
+              help="Mediana. Só registros com salário válido (ver aba Metodologia).")
+    c4.metric("Deslig. / admissão", fmt(est["razao_desl_adm"], 2),
+              help="Desligamentos por admissão. Acima de 1 indica mais saídas que entradas.")
     n_apagao = int((ms["cenario"] == "Sinal de apagão").sum())
     n_exp = int((ms["cenario"] == "Expansão acelerada").sum())
-    c5.metric("Microrregiões em alerta", f"{n_apagao} apagão | {n_exp} expansão",
-              help="Classificação relativa entre as microrregiões (ver aba Metodologia).")
+    c5.metric("Sinal de apagão", f"{n_apagao}",
+              help="Microrregiões classificadas como sinal de apagão (ver aba Metodologia).")
+    c6.metric("Em expansão", f"{n_exp}",
+              help="Microrregiões classificadas como expansão acelerada (ver aba Metodologia).")
 
     esquerda, direita = st.columns([3, 2])
     with esquerda:
@@ -578,7 +582,13 @@ with aba_perfil:
                      color_discrete_map={"Admitidos": "#1565c0", "Desligados": "#90a4ae"},
                      labels={coluna: "", "pct": "% do grupo", "grupo": ""}, title=titulo)
         fig.update_yaxes(tickformat=".0%")
-        fig.update_layout(height=360, legend_orientation="h", margin=dict(l=0, r=0, t=40, b=0))
+        # Rótulos longos (escolaridade) quebrados em linhas e legenda no topo: inclinados,
+        # eles invadiam a legenda e eram cortados na borda do gráfico.
+        categorias = list(g.index)
+        fig.update_xaxes(tickangle=0, tickmode="array", tickvals=categorias,
+                         ticktext=["<br>".join(textwrap.wrap(str(c), 14)) for c in categorias])
+        fig.update_layout(height=380, margin=dict(l=0, r=0, t=60, b=0),
+                          legend=dict(orientation="h", y=1.02, yanchor="bottom", x=1, xanchor="right"))
         return fig
 
     p1, p2 = st.columns(2)

@@ -26,6 +26,10 @@ localidades do IBGE e guarda o resultado em `dados_externos/`; depois disso não
 | `dashboard.py` | Painel Streamlit (8 abas, mapa, barras, dispersão, mapa de calor) |
 | `contexto.py` | Carrega `fontes_datathon/contexto.json` e calcula os números das recomendações e dos casos por município |
 | `perfil_caged.py` | Perfil exploratório somente leitura dos dados brutos |
+| `PITCH.md` | Roteiro do pitch de 3 minutos, com os números de apoio e os cuidados |
+| `web/` | Painel próprio (HTML, CSS e JS puros), que vai substituir o Streamlit. Abra `web/index.html` |
+| `exportar_web.py` | Gera `web/dados.js` a partir das tabelas agregadas |
+| `DESIGN_SYSTEM.md` | Sistema de design do painel novo: auditoria, tokens, componentes e o que falta migrar |
 
 Saídas: `dados_processados/agregados/` (tabelas pequenas, versionadas) e `dados_processados/caged_limpo.parquet`
 (base completa limpa, ignorada pelo Git).
@@ -63,8 +67,14 @@ python cbo.py exportar        # gera llm/lotes/lote_01..03.md (354 CBOs = 95% da
 python pipeline.py            # importa as respostas; CBOs fora delas ficam com a regra
 ```
 
-Rótulos fora da lista são rejeitados com aviso. **Ainda nenhuma resposta de LLM foi importada**: hoje todas as
-2.206 CBOs usam a regra por grupo da CBO.
+Rótulos fora da lista são rejeitados com aviso.
+
+As respostas dos três lotes já estão em `llm/respostas/` (354 CBOs, 95% das movimentações industriais; 99
+delas diferem da regra, o que muda a macrofamília de 12,9% das movimentações). As principais diferenças:
+operadores de máquina têxtil, de usinagem, de madeira e de gráfica saem de "Ofícios" para "Operação de
+processos e máquinas"; almoxarifes, conferentes e estoquistas saem de "Administrativo" para "Logística";
+vendedores e caixas vão para "Comercial". **As tabelas em `dados_processados/agregados/` ainda refletem a
+regra antiga**: é preciso rodar `python pipeline.py` com o CAGED completo para aplicar a classificação nova.
 
 ## Mapa sem depender de internet
 
@@ -101,18 +111,28 @@ esse arquivo sem tocar no código.
 - Sem estoque de empregos (RAIS), não há taxa de rotatividade real. Usamos movimentos por habitante.
 - Quase todas as admissões vêm com tipo "ignorado" (97), então não dá para separar primeiro emprego de reemprego.
 - Os limiares dos cenários são uma convenção inicial e precisam de calibração e leitura crítica pela equipe.
-- O dashboard foi testado por execução automatizada (sem erros em vários filtros), mas **não foi aberto em
-  navegador**: o aspecto visual e a renderização do mapa precisam de uma conferência manual.
+- O dashboard foi aberto em navegador automatizado (Chromium, 1440 px) e as 8 abas foram conferidas por
+  captura de tela com o setor padrão (Indústria). Os demais setores e larguras de tela menores (projetor,
+  notebook) ainda precisam de uma conferência manual.
+
+## Decisão pendente: rótulo de São Bento do Sul
+
+`pipeline.classificar` testa "Sinal de apagão" antes de "Retração". São Bento do Sul atende às duas regras
+(contrata muito por habitante e tem saída voluntária alta, mas também tem o pior saldo por habitante do
+estado, −74,6) e por isso aparece como o único apagão da indústria. O contexto (móveis, tarifaço) é de
+retração. Sugestão: dar precedência a "Retração" quando o saldo está no quartil inferior, o que deixaria a
+indústria sem nenhuma microrregião em apagão e reforçaria a leitura do pitch (o apagão é de giro, não de
+região). A regra não foi alterada: é uma decisão de método da equipe.
 
 ## Próximos passos sugeridos
 
 1. Confirmar o tratamento de exclusões com a organização.
-2. Rodar a etapa de IA e comparar as macrofamílias com a regra base.
+2. Rodar `python pipeline.py` com o CAGED completo para aplicar as macrofamílias de `llm/respostas/` e
+   comparar com a regra base.
 3. Calibrar os limiares em `config.py` e validar os cenários com conhecimento do parque industrial de SC.
 4. Rodar `python pipeline.py` com o CAGED completo para gerar `municipio_subclasse.parquet` e
    `estado_escolaridade.parquet` e ver a aba "Contexto e recomendações" com os números preenchidos.
 5. Investigar o salto de Navegantes em material elétrico automotivo (caso "a investigar" em
    `contexto.json`) antes de citá-lo no pitch.
-6. Escrever o roteiro do pitch de 3 minutos a partir das abas "Visão geral", "Ocupações" e
-   "Contexto e recomendações".
+6. Ajustar e ensaiar o roteiro do pitch de 3 minutos em `PITCH.md`.
 7. Publicar o repositório (o CSV do CAGED não vai ao Git: tem 413 MB e o limite do GitHub é 100 MB).

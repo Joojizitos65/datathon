@@ -1,0 +1,83 @@
+/* Tokens do painel no padrão visual UniSENAI (Portal da Indústria, escala nacional).
+   Os tokens --color-*, --font-*, --radius-* e --shadow-* são os oficiais; os nomes curtos
+   abaixo são apelidos de função usados por estilo.css. Nenhum valor fora da lista oficial. */
+:root {
+  color-scheme: light;
+
+  /* Marca SENAI */
+  --color-brand-senai-pure: #E84910;
+  --color-brand-senai-darker: #9F2D0B;
+  --color-brand-senai-darkest: #680C07;
+  --color-brand-senai-medium: #F2814D;
+  --color-brand-senai-light: #FFA882;
+  --color-brand-senai-lighter: #FDEBD3;
+  --color-brand-senai-lightest: #FFFAF2;
+  /* Institucional */
+  --color-brand-corporate-pure: #164194;
+  --color-brand-corporate-dark: #1A3C6F;
+  --color-brand-corporate-darker: #1C3156;
+  --color-brand-corporate-darkest: #070B1B;
+  --color-brand-corporate-medium: #5876AC;
+  --color-brand-corporate-light: #9BACC3;
+  --color-brand-corporate-lighter: #CAD9EB;
+  --color-brand-corporate-lightest: #E4ECF5;
+  /* Neutros, foco e feedback */
+  --color-neutral-darkest: #262626;
+  --color-neutral-dark: #646464;
+  --color-neutral-lighter: #DFDFDF;
+  --color-neutral-lightest: #F2F2F2;
+  --color-neutral-portal: #F8F8F8;
+  --color-neutral-white: #FFFFFF;
+  --color-highlight-pure: #F673AD;
+
+  --font-family-base: Inter, system-ui, "Segoe UI", Roboto, Arial, sans-serif;
+  --radius-sm: 4px; --radius-md: 8px; --radius-lg: 16px; --radius-pill: 500px;
+  --shadow-level-1: 0 0.25rem 1rem rgba(0, 0, 0, 0.08);
+
+  /* --- Apelidos de função ------------------------------------------------ */
+  --papel: var(--color-neutral-portal);
+  --cartao: var(--color-neutral-white);
+  --tinta: var(--color-neutral-darkest);
+  --tinta-2: var(--color-neutral-dark);
+  --tinta-3: var(--color-neutral-dark);
+  --fio: var(--color-neutral-lightest);
+  --eixo: var(--color-neutral-lighter);
+  --borda: var(--color-neutral-lighter);
+  --capa: var(--color-brand-corporate-darkest);
+  --marca: var(--color-brand-corporate-pure);          /* links e destaque de interface */
+  --marca-suave: var(--color-brand-corporate-lightest);
+  --acento: var(--color-brand-senai-pure);             /* barra de 4px e área gráfica */
+  --acento-texto: var(--color-brand-senai-darker);     /* laranja legível em texto */
+  --foco: var(--color-highlight-pure);
+
+  /* Cenários: azul = expansão e laranja = apagão, como no slide do desafio */
+  --cen-expansao: var(--color-brand-corporate-pure);
+  --cen-apagao: var(--color-brand-senai-pure);
+  --cen-retracao: var(--color-brand-senai-darkest);
+  --cen-estavel: var(--color-brand-corporate-light);
+  --cen-insuficiente: var(--color-neutral-lighter);
+
+  --serie-admissoes: var(--color-brand-corporate-pure);
+  --serie-desligamentos: var(--color-brand-senai-pure);
+
+  /* Polaridade do saldo: azul = positivo, laranja = negativo, cinza = perto de zero */
+  --pos: var(--color-brand-corporate-pure);
+  --neg: var(--color-brand-senai-pure);
+  --div-1: var(--color-brand-senai-pure); --div-2: var(--color-brand-senai-medium); --div-3: var(--color-brand-senai-light);
+  --div-4: var(--color-neutral-lightest);
+  --div-5: var(--color-brand-corporate-lighter); --div-6: var(--color-brand-corporate-medium); --div-7: var(--color-brand-corporate-pure);
+  /* Magnitude: escala institucional, do claro ao escuro */
+  --seq-1: var(--color-brand-corporate-lightest); --seq-2: var(--color-brand-corporate-lighter); --seq-3: var(--color-brand-corporate-light);
+  --seq-4: var(--color-brand-corporate-medium); --seq-5: var(--color-brand-corporate-pure);
+  --sem-dado: var(--color-neutral-lightest);
+
+  --fonte: var(--font-family-base);
+  --fonte-titulo: var(--font-family-base);
+  --t-nota: 12px; --t-corpo: 14px; --t-lead: 16px; --t-h2: 24px; --t-numero: 32px; --t-h1: 40px;
+
+  --e1: 4px; --e2: 8px; --e3: 16px; --e4: 16px; --e5: 24px; --e6: 32px; --e7: 48px; --e8: 64px;
+  --raio: var(--radius-lg); --raio-p: var(--radius-md);
+  --sombra: var(--shadow-level-1);
+  --rapido: 120ms ease-out;
+  --largura: 1216px;
+}
