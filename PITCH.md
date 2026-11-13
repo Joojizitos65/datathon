@@ -3,6 +3,8 @@
 Rascunho para a equipe ajustar. Cerca de 400 palavras faladas, o que dá 3 minutos em ritmo
 normal. Todos os números vêm de `dados_processados/agregados/` (indústria = seções B a F,
 competências 2025-09 a 2026-08). A coluna "Tela" indica a seção do painel novo (`web/index.html`) a mostrar.
+A primeira tela do painel (Visão geral) responde às três partes da pergunta de uma vez: regiões, setores e os motivos.
+Dá para fazer o pitch inteiro nela; as outras seções ficam como apoio para as perguntas da banca.
 
 ## Mensagem central
 

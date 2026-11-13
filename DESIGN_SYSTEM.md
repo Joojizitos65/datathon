@@ -84,6 +84,8 @@ controles e dica, 4 px em amostras. Sombra level-1. Largura de conteúdo de 1216
 | Indicador | `.cartao.kpi` | Um número com rótulo e nota. No máximo 6 por linha | – |
 | Legenda | `.legenda` | Obrigatória com 2 ou mais séries | – |
 | Achado | `.achado` | Uma frase de conclusão com barra laranja de 4 px à esquerda | – |
+| Pergunta | `.pergunta` | Rótulo laranja acima do título do cartão, com a parte da pergunta que ele responde | – |
+| Fato | `.fato`, `.par` | Um motivo com título, frase e até duas medidas em barra | – |
 | Etiqueta de cenário | `.etiqueta` | Cenário em tabela: ponto colorido + nome | – |
 | Seletor | `.seletor` | Trocar indicador (2 a 4 opções) | padrão, hover, selecionado (`aria-pressed`), foco |
 | Dica | `.dica` | Detalhe ao passar o mouse sobre qualquer marca | visível, oculta |
@@ -114,7 +116,7 @@ Gráficos (funções em `web/app.js`):
 
 | Aba do Streamlit | Situação no painel novo |
 |---|---|
-| Visão geral | Migrada (Panorama e Alertas) |
+| Visão geral | Migrada. A primeira tela responde à pergunta do desafio sem rolagem em 1920×1080 e 1440×900: quais regiões, quais setores e como renda e escolaridade explicam |
 | Território | Migrada (mapa com 3 indicadores) |
 | Setores (CNAE) | Migrado o saldo por divisão no estado; falta o recorte por microrregião |
 | Renda e escolaridade | Migrada como "Gargalos": quadrantes de contratação x saldo e medianas de renda e escolaridade por grupo |

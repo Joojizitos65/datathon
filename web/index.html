@@ -12,7 +12,8 @@
   <div class="conteudo">
     <div class="selo">UniSENAI<span>Raio-X do Mercado de Trabalho de SC</span></div>
     <nav class="nav" aria-label="Seções">
-      <a href="#panorama">Panorama</a>
+      <a href="#visao">Visão geral</a>
+      <a href="#panorama">Regiões</a>
       <a href="#gargalos">Gargalos</a>
       <a href="#territorio">Território</a>
       <a href="#setores">Setores</a>
@@ -23,17 +24,40 @@
 </header>
 
 <main class="conteudo">
-  <div class="abertura">
-    <div class="sobretitulo">Datathon CDIA 2026 · Indústria de Santa Catarina</div>
-    <h1 id="manchete"></h1>
-    <p class="lead" id="lead"></p>
-  </div>
+  <section id="visao" class="visao" aria-labelledby="manchete">
+    <div class="abertura">
+      <div class="sobretitulo">Quais regiões e setores industriais de SC enfrentam apagão de mão de obra ou expansão acelerada, e como renda e escolaridade explicam?</div>
+      <h1 id="manchete"></h1>
+      <p class="lead" id="lead"></p>
+    </div>
+    <div class="grade iguais">
+      <div class="cartao">
+        <div class="pergunta">1 · Quais regiões?</div>
+        <h3 id="r-regioes"></h3>
+        <p class="apoio">Saldo de vagas por 10 mil habitantes: as 5 microrregiões que mais crescem e as 5 que mais encolhem.</p>
+        <ul class="legenda" id="leg-top-regioes"></ul>
+        <div class="grafico" id="g-top-regioes"></div>
+      </div>
+      <div class="cartao">
+        <div class="pergunta">2 · Quais setores?</div>
+        <h3 id="r-setores"></h3>
+        <p class="apoio">Saldo de vagas em 12 meses: as 5 divisões da CNAE que mais abriram e as 5 que mais fecharam.</p>
+        <ul class="legenda" id="leg-top-setores"></ul>
+        <div class="grafico" id="g-top-setores"></div>
+      </div>
+    </div>
+    <div class="cartao porque">
+      <div class="pergunta">3 · Como renda e escolaridade explicam?</div>
+      <h3>O gargalo é segurar gente, não abrir vaga</h3>
+      <div class="fatos" id="fatos"></div>
+    </div>
+  </section>
 
   <section id="panorama" aria-labelledby="t-panorama">
-    <h2 id="t-panorama">Panorama</h2>
-    <p class="subtitulo">Indústria (seções B a F da CNAE), soma dos 12 meses.</p>
-    <div class="grade kpis" id="kpis"></div>
-    <div class="grade duas" style="margin-top: var(--e4)">
+    <h2 id="t-panorama">Regiões e evolução</h2>
+    <p class="subtitulo">Todas as 20 microrregiões e o fluxo mês a mês. Indústria (seções B a F da CNAE).</p>
+    <div class="grade kpis" id="kpis" style="margin-bottom: var(--e4)"></div>
+    <div class="grade duas">
       <div class="cartao">
         <h3>Onde a indústria cresce e onde encolhe</h3>
         <p class="apoio">Saldo de vagas por 10 mil habitantes, por microrregião. A cor indica o cenário.</p>
